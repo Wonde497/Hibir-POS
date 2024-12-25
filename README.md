@@ -1,6 +1,6 @@
 # Hi Team! 👋
 
-Welcome to the **Nib Bank Geidea POS** project! 🎉 We’re building an awesome Point of Sale app for **Nib International Bank** to streamline their card payment services and make everything run smoothly for merchants. 🚀
+Welcome to the **Hibret Bank Geidea POS** project! 🎉 We’re building an awesome Point of Sale app for **Hibret Bank** to streamline their card payment services and make everything run smoothly for merchants. 🚀
 
 ## What is this? 🤔
 
@@ -27,7 +27,7 @@ Make sure you have the following:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/Amlakie-T/Nib-Bank-Geidea-POS.git
+   git clone https://github.com/Amlakie-T/Hibret-Bank-Geidea-POS.git
 
 ## Developers/Contributors 🛠
 A huge thanks to all the amazing contributors making this project a success:
