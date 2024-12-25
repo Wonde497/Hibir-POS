@@ -72,70 +72,70 @@ class SplashActivity : AppCompatActivity() {
           //injectMKSKey()
          if (isKernelConfigured) {
 
-                if(isAdminLoggedIn){
-                        if(isTIDRegistered){
-                            if(isMIDRegistered){
-                                if(isMerchantNameRegistered){
-                                    if(isMerchantAddressRegistered){
-                                        if(sharedPreferences.getBoolean("MERCHANT MODE",false)){
-                                            if(sharedPreferences.getString("Currency","")=="ETB"||sharedPreferences.getString("Currency","")=="USD"||sharedPreferences.getString("Currency","")=="EURO"){
-                                                if(sharedPreferences.getBoolean("4G Data",false) || sharedPreferences.getBoolean("WiFi",false)){
-                                                    val intent = Intent(this@SplashActivity, MainMenuActivity::class.java)
-                                                    startActivity(intent)
-                                                    finish()
-                                                }else{
-                                                    val intent = Intent(this@SplashActivity, RegisterCommunicationMode::class.java)
-                                                    startActivity(intent)
-                                                    finish()
-                                                }
-
-                                            }else{
-                                                val intent = Intent(this@SplashActivity, RegisterCurrency::class.java)
-                                                startActivity(intent)
-                                                finish()
-                                            }
-
-                                        }else{
-                                            val intent = Intent(this@SplashActivity, RegisterTerminalMode::class.java)
-                                            startActivity(intent)
-                                            finish()
-                                        }
-
-
-                                    }else{
-                                        val intent = Intent(this@SplashActivity, RegisterMerchantAddress::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    }
-
-                                }else{
-                                    val intent = Intent(this@SplashActivity, RegisterMerchantName::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                }
-
-                                  }else{
-                               val intent = Intent(this@SplashActivity, RegisterMID::class.java)
-                               startActivity(intent)
-                               finish()
-                                    }
-
-                                   }else{
-                                       val intent = Intent(this@SplashActivity, RegisterTID::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                           }
-
-
-
-                              }else{
-                                  val intent = Intent(this@SplashActivity, RegisterAdmin::class.java)
-                              startActivity(intent)
-                              finish()
-
-                }
-//             val intent=Intent(this,MainMenuActivity::class.java)
-//             startActivity(intent)
+//                if(isAdminLoggedIn){
+//                        if(isTIDRegistered){
+//                            if(isMIDRegistered){
+//                                if(isMerchantNameRegistered){
+//                                    if(isMerchantAddressRegistered){
+//                                        if(sharedPreferences.getBoolean("MERCHANT MODE",false)){
+//                                            if(sharedPreferences.getString("Currency","")=="ETB"||sharedPreferences.getString("Currency","")=="USD"||sharedPreferences.getString("Currency","")=="EURO"){
+//                                                if(sharedPreferences.getBoolean("4G Data",false) || sharedPreferences.getBoolean("WiFi",false)){
+//                                                    val intent = Intent(this@SplashActivity, MainMenuActivity::class.java)
+//                                                    startActivity(intent)
+//                                                    finish()
+//                                                }else{
+//                                                    val intent = Intent(this@SplashActivity, RegisterCommunicationMode::class.java)
+//                                                    startActivity(intent)
+//                                                    finish()
+//                                                }
+//
+//                                            }else{
+//                                                val intent = Intent(this@SplashActivity, RegisterCurrency::class.java)
+//                                                startActivity(intent)
+//                                                finish()
+//                                            }
+//
+//                                        }else{
+//                                            val intent = Intent(this@SplashActivity, RegisterTerminalMode::class.java)
+//                                            startActivity(intent)
+//                                            finish()
+//                                        }
+//
+//
+//                                    }else{
+//                                        val intent = Intent(this@SplashActivity, RegisterMerchantAddress::class.java)
+//                                        startActivity(intent)
+//                                        finish()
+//                                    }
+//
+//                                }else{
+//                                    val intent = Intent(this@SplashActivity, RegisterMerchantName::class.java)
+//                                    startActivity(intent)
+//                                    finish()
+//                                }
+//
+//                                  }else{
+//                               val intent = Intent(this@SplashActivity, RegisterMID::class.java)
+//                               startActivity(intent)
+//                               finish()
+//                                    }
+//
+//                                   }else{
+//                                       val intent = Intent(this@SplashActivity, RegisterTID::class.java)
+//                                        startActivity(intent)
+//                                        finish()
+//                                           }
+//
+//
+//
+//                              }else{
+//                                  val intent = Intent(this@SplashActivity, RegisterAdmin::class.java)
+//                              startActivity(intent)
+//                              finish()
+//
+//                }
+           val intent=Intent(this,MainMenuActivity::class.java)
+            startActivity(intent)
         } else {
                 val intent=Intent(this,KernelConfigActivity::class.java)
                 startActivity(intent)

@@ -14,13 +14,17 @@
     <color name="secondary_text_light">@android:color/secondary_text_light</color>
     <color name="blue">#2343F4</color>
     <color name="red">#E60303</color>
-    <color name="ahadu_red1">#703F19</color>
+    <color name="ahadu_red1">#451466</color>
     <color name="ahadu_red2">#703F19</color>
+    <color name="hibret_bank1">#00b0b0</color>
+    <color name="hibret_bank2">#451466</color>
+    <color name="hibret_bank3">#451466</color>
     <color name="green">#20C327</color>
     <color name="yellow">#FFE609</color>
 
+
     <color name="colorDivider">#ffe6ebf3</color>
-    <color name="nib_brown1">#703F19</color>
+    <color name="nib_brown1">#451466</color>
     <color name="nib_brown2">#935724</color>
     <color name="nib_brown3">#F9F6F3</color>
     #F9F6F3

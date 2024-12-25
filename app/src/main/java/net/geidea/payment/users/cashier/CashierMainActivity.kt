@@ -100,7 +100,7 @@ class CashierMainActivity : AppCompatActivity() {
         val username = sharedPreferences.getString("username", "") ?: ""
         val userType = sharedPreferences.getString("userType", "") ?: ""
 
-        val uName = "NIB Test Cashier"
+        val uName = "Hibr Cashier"
         val uType = "Cashier"
 
         val Int = R.drawable.nib_account_box_50

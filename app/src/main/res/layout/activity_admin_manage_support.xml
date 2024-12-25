@@ -265,6 +265,7 @@
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/cashier_nav_menu"
             android:background="@drawable/nib_bg2"
-            app:itemTextColor="@color/ahadu_red1" />
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

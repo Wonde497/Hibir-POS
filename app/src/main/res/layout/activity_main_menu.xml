@@ -59,7 +59,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/nib_transaction64px"
+                            android:src="@drawable/hb_transaction"
                             android:background="@color/white"
                             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -102,7 +102,7 @@
                             android:layout_width="60dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/nib_login64px"
+                            android:src="@drawable/hb_login1"
                             android:background="@color/white"
                             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -142,7 +142,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/nib_sale"
+                            android:src="@drawable/hb_sale"
                             android:background="@color/white"
                             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -182,7 +182,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/nib_clerk"
+                            android:src="@drawable/hb_cashier"
                             android:background="@color/white"
                             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -222,7 +222,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/nib_help"
+                            android:src="@drawable/hb_help"
                             android:background="@color/white"
                             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -253,7 +253,8 @@
             android:background="@drawable/nib_bg2"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/nav_menu"
-            app:itemTextColor="@color/ahadu_red1" />
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

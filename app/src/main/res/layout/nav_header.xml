@@ -6,7 +6,7 @@
     android:layout_height="170dp"
     android:gravity="bottom"
     android:padding="16dp"
-    android:background="@color/nib_yellow"
+    android:background="@color/hibret_bank3"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <ImageView
         android:id="@+id/nav_image"
@@ -17,16 +17,16 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NIB Bank POS "
+        android:text="Hibret Bank POS "
         android:textSize="18dp"
         android:textStyle="bold"
-        android:textColor="@color/nib_brown1" />
+        android:textColor="@color/white" />
     <TextView
         android:id="@+id/userrole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Powered by SSC"
-        android:textColor="@color/nib_brown1"
+        android:textColor="@color/white"
         android:textSize="13dp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>

@@ -349,7 +349,8 @@
             android:background="@drawable/nib_bg2"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/supervisor_nav_menu"
-            app:itemTextColor="@color/ahadu_red1" />
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/white" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

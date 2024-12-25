@@ -39,13 +39,13 @@ class MainMenuActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: Editor
     private val imageResIds = listOf(
-        R.drawable.nib_logo,
-        R.drawable.nib_card,
-        R.drawable.nib_platinum_card1,
-        R.drawable.nib_ussd,
-        R.drawable.nib_support,
-        R.drawable.nib_25th,
-        R.drawable.nib_slogan
+        R.drawable.hibret_main,
+        R.drawable.hibret_card,
+        R.drawable.hiret_open,
+        R.drawable.hibrhaq,
+        R.drawable.hibret_mobile_bank,
+        R.drawable.hibret_main,
+        R.drawable.hibret_mobile_bank
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/nib_bg2"
+        android:background="@color/white"
         >
 
         <ImageButton
@@ -14,8 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_gravity="center"
-            android:background="@color/nib_yellow"
-            android:src="@drawable/nib_line_64px" />
+            android:background="@color/white"
+            android:src="@drawable/hibret_minus" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

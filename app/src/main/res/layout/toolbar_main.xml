@@ -22,7 +22,7 @@
                 android:id="@+id/nav_icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/nav_drawer" />
+                android:src="@drawable/hibret_navigation" />
 
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -30,12 +30,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="NIB POS"
+                android:text="Hibret POS"
                 android:textAllCaps="false"
-                android:textColor="@color/nib_brown1"
+                android:textColor="@color/hibret_bank2"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="NIB POS" />
+                tools:text="Hibret POS" />
 
         </LinearLayout>
 
@@ -46,7 +46,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/nib_logo" />
+            android:src="@drawable/hb_logo1" />
 
     </RelativeLayout>
 </layout>

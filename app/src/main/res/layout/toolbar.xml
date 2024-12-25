@@ -53,7 +53,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/nib_logo" />
+            android:src="@drawable/hb_logo1" />
 
 
     </RelativeLayout>

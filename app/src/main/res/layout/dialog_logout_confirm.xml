@@ -9,13 +9,13 @@
     app:cardElevation="70dp"
     app:cardCornerRadius="16dp"
     android:layout_gravity="center"
-    android:background="@drawable/nib_bg2">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/nib_bg2"
+        android:background="@color/white"
         android:padding="16dp">
 
         <!-- Title of the Dialog -->
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Are you sure you want to log out?"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:textStyle="bold|italic"
             android:textAlignment="center"
             android:textColor="@color/nib_brown1"
             android:layout_marginTop="16dp"
@@ -53,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Cancel"
+            android:textStyle="bold"
             android:textColor="@android:color/white"
             app:layout_constraintTop_toBottomOf="@id/logoutDialogMessage"
             app:layout_constraintStart_toStartOf="parent"
