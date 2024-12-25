@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="viewModel"
+            type="net.geidea.payment.transaction.viewmodel.CardReadViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/cashier_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".CashierMainActivity">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/cashier_toolbar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:id="@+id/constraintLayout">
+
+                <!-- Key Download CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_key_download"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cashier_terminal_info"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_key_download_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/key_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Key Download"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Terminal Info CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_terminal_info"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cashier_key_download"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_terminal_info_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terminal Info"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Summary Report CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_summary_report"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/cashier_key_download"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cashier_reprint"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_summary_report_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/report2_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Summary Report"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Reprint CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_reprint"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/cashier_terminal_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cashier_summary_report"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_reprint_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_print"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reprint"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Settlement CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_settlement"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/cashier_summary_report"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cashier_change_password"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_settlement_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/settlement_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Settlement"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Change Password CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cashier_change_password"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/cashier_reprint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cashier_settlement"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/cashier_change_password_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/reset_password"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change Password"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/cashier_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/nib_bg2"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/cashier_nav_menu"
+            app:itemTextColor="@color/ahadu_red1" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>
+
+
+

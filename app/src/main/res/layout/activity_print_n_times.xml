@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <RelativeLayout
+            android:id="@+id/layout_edit_n_times"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_card"
+            android:padding="14dp">
+
+            <TextView
+                android:id="@+id/edit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="95dp"
+                android:layout_marginRight="60dp"
+                android:layout_toLeftOf="@+id/print_times_count"
+                android:text="Enter Number To Print N Times"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/print_times_count"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/print_counters"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/layout_edit_n_times"
+            android:text=""
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stopPrint"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/print_counters"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:background="@android:color/holo_green_dark"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/stop_print"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <net.geidea.utils.keypad.AmountEntryKeyBoardLayout
+            android:id="@+id/keyboard_layout_n_times_print"
+            android:layout_width="match_parent"
+            android:layout_height="418dp"
+            android:layout_below="@+id/print_counters"
+            android:layout_marginTop="115dp"
+            android:background="@color/background_color"
+            app:keyboard_type="amount_entry"
+            app:show_keyboard="true" />
+
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/admin_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".AdminMainActivity">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/admin_toolbar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:id="@+id/constraintLayout">
+
+                <!-- Manage Transaction CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_manage_transaction"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/admin_manage_support"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_manage_transaction_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/manage_transaction_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Manage Transaction"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Manage Support CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_manage_support"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/admin_manage_transaction"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_manage_support_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/manage_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Manage Support"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Receive Key CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_receive_key"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/admin_manage_transaction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/admin_config_terminal"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_receive_key_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/key_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Receive Key"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Config Terminal CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_config_terminal"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/admin_manage_support"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/admin_receive_key"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_config_terminal_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Config Terminal"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Terminal Info CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_terminal_info"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/admin_receive_key"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/admin_setting"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_terminal_info_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terminal Info"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Setting CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/admin_setting"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/admin_config_terminal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/admin_terminal_info"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/admin_setting_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/settings_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Settings"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/admin_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/nib_bg2"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/cashier_nav_menu"
+            app:itemTextColor="@color/ahadu_red1" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

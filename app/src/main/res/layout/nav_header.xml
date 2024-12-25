@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:background="@color/nib_yellow"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <ImageView
+        android:id="@+id/nav_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/nib_pos_terminal64px"/>
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NIB Bank POS "
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/nib_brown1" />
+    <TextView
+        android:id="@+id/userrole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powered by SSC"
+        android:textColor="@color/nib_brown1"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+</LinearLayout>

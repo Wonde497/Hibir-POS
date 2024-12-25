@@ -1,0 +1,118 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nib_bg2"
+    tools:context=".transaction.ManualCardEntry">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <TextView
+                android:id="@+id/exDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Enter Expiry Date/Month/Year"
+                android:textColor="@color/nib_brown1"
+                android:textSize="19dp"
+                android:layout_marginBottom="30dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/exDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintVertical_bias="0.5"/>
+
+            <EditText
+                android:id="@+id/exDate"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/editxtbg"
+                android:drawableLeft="@drawable/baseline_date_range_24"
+                android:elevation="5dp"
+                android:hint="Enter Expiry Date"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/exMonth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.733"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/exDateTitle"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/exMonth"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/editxtbg"
+                android:drawableLeft="@drawable/baseline_date_range_24"
+                android:elevation="5dp"
+
+                android:hint="Enter Expiry Month"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/exYear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/exYear"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/editxtbg"
+                android:drawableLeft="@drawable/baseline_date_range_24"
+                android:elevation="5dp"
+                android:padding="15dp"
+                android:hint="Enter Expiry Year"
+                android:inputType="number"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/buttonExDateconfirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/exMonth"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/buttonExDateconfirm"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/btn_rounded_bg"
+                app:layout_constraintTop_toBottomOf="@+id/exYear"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintVertical_bias="0.5"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

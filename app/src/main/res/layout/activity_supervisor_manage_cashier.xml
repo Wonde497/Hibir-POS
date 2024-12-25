@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/supervisor_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/supervisor_toolbar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:id="@+id/constraintLayout">
+
+                <!-- Manage Cashier -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_add_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_add_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/add_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- View Cashier -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_view_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_add_cashier"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_view_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/view_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Block Cashier -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_block_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_add_cashier"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_block_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/block_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Block Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Enable Cashier -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_enable_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_view_cashier"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_block_cashier"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_enable_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/enable_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enable Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Change Cashier PIN -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_change_cashier_pin"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_block_cashier"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/supervisor_enable_cashier"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_change_cashier_pin_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/reset_password"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change Cashier PIN"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+                <!-- Delete Supervisor -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/delete_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_enable_cashier"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_change_cashier_pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/delete_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/delete_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delete Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <!-- Navigation Drawer -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/supervisor_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/nib_bg2"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/supervisor_nav_menu"
+            app:itemTextColor="@color/ahadu_red1" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

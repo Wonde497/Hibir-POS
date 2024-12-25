@@ -1,0 +1,72 @@
+2024-10-03 09:51:50.290  4368-4368  MainActivity            net.geidea.payment                   D  updateKeyMKSN clicked
+2024-10-03 09:51:50.291  4368-4368  MainActivity            net.geidea.payment                   D  key data...C1D0F8FB4958670DBA40AB1F3752EF0D
+2024-10-03 09:51:50.348  4368-4368  MainActivity            net.geidea.payment                   D  injectMKSK: updateKeyMKSK PED_TMK succeed
+2024-10-03 09:51:50.348  4368-4368  MainActivity            net.geidea.payment                   D  updateKeyMKSN clicked
+2024-10-03 09:51:50.348  4368-4368  MainActivity            net.geidea.payment                   D  key data...952FB7A4E173E9735E899C60029B181C
+2024-10-03 09:51:50.383  4368-4368  MainActivity            net.geidea.payment                   D  injectMKSK: updateKeyMKSK PED_TDK succeed
+2024-10-03 09:51:50.383  4368-4368  MainActivity            net.geidea.payment                   D  updateKeyMKSN clicked
+2024-10-03 09:51:50.383  4368-4368  MainActivity            net.geidea.payment                   D  key data...952FB7A4E173E9735E899C60029B181C
+2024-10-03 09:51:50.419  4368-4368  MainActivity            net.geidea.payment                   D  injectMKSK: updateKeyMKSK PED_TPK succeed
+2024-10-03 09:51:50.419  4368-4368  MainActivity            net.geidea.payment                   D  updateKeyMKSN clicked
+2024-10-03 09:51:50.419  4368-4368  MainActivity            net.geidea.payment                   D  key data...952FB7A4E173E9735E899C60029B181C
+2024-10-03 09:51:50.456  4368-4368  MainActivity            net.geidea.payment                   D  injectMKSK: updateKeyMKSK PED_TAK succeed
+2024-10-03 09:51:55.921  4368-4412  SessionLifecycleClient  net.geidea.payment                   D  Sending lifecycle 2 to service
+2024-10-03 09:51:55.922  4368-4421  SessionLifecycleService net.geidea.payment                   D  Activity backgrounding at 1620812
+2024-10-03 09:51:56.186  4368-4445  System.out              net.geidea.payment                   I  [socket]:check permission begin!
+2024-10-03 09:51:56.293  4368-4412  SessionLifecycleClient  net.geidea.payment                   D  Sending lifecycle 1 to service
+2024-10-03 09:51:56.294  4368-4368  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 4, Parent = null, this = DecorView@2c027e6[]
+2024-10-03 09:51:56.294  4368-4421  SessionLifecycleService net.geidea.payment                   D  Activity foregrounding at 1621184.
+2024-10-03 09:51:56.298  4368-4368  ViewRootIm...dActivity] net.geidea.payment                   D  hardware acceleration = true , fakeHwAccelerated = false, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+2024-10-03 09:51:56.307  4368-4368  InputTransport          net.geidea.payment                   I  Create ARC handle: 0x9800d870
+2024-10-03 09:51:56.308  4368-4368  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 0, Parent = android.view.ViewRootImpl@a52c8c3, this = DecorView@2c027e6[CardReadActivity]
+2024-10-03 09:51:56.653  4368-4425  OpenGLRenderer          net.geidea.payment                   I  Davey! duration=708ms; Flags=1, IntendedVsync=1620832569184, Vsync=1621199235858, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=1621201783710, AnimationStart=1621201786556, PerformTraversalsStart=1621202807017, DrawStart=1621511345633, SyncQueued=1621521064787, SyncStart=1621524246710, IssueDrawCommandsStart=1621524604325, SwapBuffers=1621542167633, FrameCompleted=1621543794402, DequeueBufferDuration=0, QueueBufferDuration=885846, GpuCompleted=0, 
+2024-10-03 09:51:57.060  4368-4382  .geidea.paymen          net.geidea.payment                   I  Background concurrent copying GC freed 50705(2184KB) AllocSpace objects, 8(288KB) LOS objects, 48% free, 6432KB/12MB, paused 82us total 134.765ms
+2024-10-03 09:51:57.147  4368-4368  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 4, Parent = android.view.ViewRootImpl@1f09591, this = DecorView@a3b06cc[MainActivity]
+2024-10-03 09:51:59.752  4368-4390  AudioTrack              net.geidea.payment                   D  INSP: type=audio,case=1,set=0x97dec780,stream_type=-1,sample_rate=0,format=0x1,channel_mask=0x1,frame_count=960,flags=0x4,notification_frames=0,session_id=0,transfer_type=1,uid=-1,pid=-1
+2024-10-03 09:51:59.752  4368-4390  AudioTrack              net.geidea.payment                   D  INSP: type=audio,case=1,attributes=1,content_type=0,usage=1,source=0,flags=0x0
+2024-10-03 09:51:59.752  4368-4390  AudioTrack              net.geidea.payment                   D  set(): Building AudioTrack with attributes: usage = 1, content = 0, flags = 0x0, tags = []
+2024-10-03 09:51:59.753  4368-4390  AudioTrack              net.geidea.payment                   D  set(): 0x97dec780, Create AudioTrackThread, tid = 4449
+2024-10-03 09:51:59.770  4368-4390  AudioTrack              net.geidea.payment                   I  createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST successful; frameCount 960 -> 960
+2024-10-03 09:51:59.771  4368-4390  AudioTrack              net.geidea.payment                   D  createTrack_l(29): 0x97dec780, mCblk = 0x83e1b000, mLatency = 62, mAfLatency = 42, frameCount = 960, mSampleRate = 48000, mFlags = 0x4, mReqFrameCount = 960, mNotificationFramesAct = 256
+2024-10-03 09:51:59.772  4368-4390  AudioTrack              net.geidea.payment                   D  setVolume(29): 0x97dec780, left = 1.000000, right = 1.000000
+2024-10-03 09:51:59.776  4368-4416  AudioTrack              net.geidea.payment                   D  start(29): 0x97dec780, prior state:STATE_STOPPED
+2024-10-03 09:51:59.956  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780, prior state:STATE_ACTIVE
+2024-10-03 09:51:59.956  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): called with 7360 frames delivered
+2024-10-03 09:51:59.957  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780 stop done
+2024-10-03 09:52:00.091  4368-4416  AudioTrack              net.geidea.payment                   D  start(29): 0x97dec780, prior state:STATE_STOPPED
+2024-10-03 09:52:00.201  4368-4390  CardReadViewModel       net.geidea.payment                   D  Kernel Type 0
+2024-10-03 09:52:00.244  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780, prior state:STATE_ACTIVE
+2024-10-03 09:52:00.244  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): called with 7360 frames delivered
+2024-10-03 09:52:00.245  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780 stop done
+2024-10-03 09:52:00.402  4368-4409  AudioTrack              net.geidea.payment                   D  start(29): 0x97dec780, prior state:STATE_STOPPED
+2024-10-03 09:52:00.548  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780, prior state:STATE_ACTIVE
+2024-10-03 09:52:00.548  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): called with 7360 frames delivered
+2024-10-03 09:52:00.549  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780 stop done
+2024-10-03 09:52:01.200  4368-4390  CardReadViewModel       net.geidea.payment                   D  CMD_READ_RECORD_FILTER
+2024-10-03 09:52:01.247  4368-4416  AudioTrack              net.geidea.payment                   D  start(29): 0x97dec780, prior state:STATE_STOPPED
+2024-10-03 09:52:01.347  4368-4390  CardReadViewModel       net.geidea.payment                   D  onRequestInputPin
+2024-10-03 09:52:01.396  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780, prior state:STATE_ACTIVE
+2024-10-03 09:52:01.396  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): called with 7360 frames delivered
+2024-10-03 09:52:01.397  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780 stop done
+2024-10-03 09:52:01.649  4368-4368  ViewRootIm...dActivity] net.geidea.payment                   D  hardware acceleration = true , fakeHwAccelerated = false, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+2024-10-03 09:52:01.661  4368-4368  InputTransport          net.geidea.payment                   I  Create ARC handle: 0x9800dac0
+2024-10-03 09:52:01.662  4368-4368  POIHsmManage            net.geidea.payment                   D  registerListener listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@f0ee8fd
+2024-10-03 09:52:01.791  4368-4368  POIHsmManage            net.geidea.payment                   D  onInfo listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@f0ee8fd, msg.arg1= 1, msg.arg2=0
+2024-10-03 09:52:01.791  4368-4368  POIHsmManage            net.geidea.payment                   D  onInfo listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@f0ee8fd, msg.arg1= 2, msg.arg2=0
+2024-10-03 09:52:01.792  4368-4368  POIHsmManage            net.geidea.payment                   D  onError listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@f0ee8fd, msg.arg1= 131, msg.arg2=65235
+2024-10-03 09:52:01.793  4368-4416  AudioTrack              net.geidea.payment                   D  start(29): 0x97dec780, prior state:STATE_STOPPED
+2024-10-03 09:52:01.837  4368-4368  Choreographer           net.geidea.payment                   W  Frame time is 0.038984  now = 1626727669556  timestampNanos = 1626727708540 ms in the future!  Check that graphics HAL is generating vsync timestamps using the correct timebase.
+2024-10-03 09:52:01.940  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780, prior state:STATE_ACTIVE
+2024-10-03 09:52:01.940  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): called with 7360 frames delivered
+2024-10-03 09:52:01.941  4368-4449  AudioTrack              net.geidea.payment                   D  stop(29): 0x97dec780 stop done
+2024-10-03 09:52:03.827  4368-4368  View                    net.geidea.payment                   D  [Warning] assignParent to null: this = DecorView@e15f986[CardReadActivity]
+2024-10-03 09:52:03.831  4368-4416  CardReadViewModel       net.geidea.payment                   D  onTransactionResult -12
+2024-10-03 09:52:03.860  4368-4368  InputTransport          net.geidea.payment                   I  Destroy ARC handle: 0x9800dac0
+2024-10-03 09:52:03.861  4368-4368  POIHsmManage            net.geidea.payment                   D  unregisterListener listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@f0ee8fd
+2024-10-03 09:52:08.720  4368-4406  TRuntime.C...ortBackend net.geidea.payment                   I  Making request to: https://firebaselogging-pa.googleapis.com/v1/firelog/legacy/batchlog
+2024-10-03 09:52:08.725  4368-4406  System.out              net.geidea.payment                   I  [okhttp]:check permission begin!
+2024-10-03 09:52:08.726  4368-4406  System.out              net.geidea.payment                   I  [okhttp]:not MMS!
+2024-10-03 09:52:08.726  4368-4406  System.out              net.geidea.payment                   I  [okhttp]:not Email!
+2024-10-03 09:52:08.749  4368-4406  System.out              net.geidea.payment                   I  [OkHttp] sendRequest>>
+2024-10-03 09:52:08.751  4368-4406  System.out              net.geidea.payment                   I  [OkHttp] sendRequest<<
+2024-10-03 09:52:10.781  4368-4406  TRuntime.C...ortBackend net.geidea.payment                   I  Status Code: 200

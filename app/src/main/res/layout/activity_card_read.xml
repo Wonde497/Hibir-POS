@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="net.geidea.payment.transaction.viewmodel.CardReadViewModel" />
+    </data>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background_color">
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        android:keepScreenOn="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_view"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+             />
+
+
+        <RelativeLayout
+            android:id="@+id/card_read_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_amount_in_english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="Total Amount"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layout_amount_eng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_amount_in_english"
+                android:layout_marginTop="16dp"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAR"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                     />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/amount_in_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    tools:text="1,500.00" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/layout_amount_eng"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_bottom_sheet_dialogs"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="0dp">
+
+                <View
+                    android:layout_width="50dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#D9D9D9" />
+
+                <RelativeLayout
+                    android:id="@+id/card_read_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginRight="@dimen/dimen_20dp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar_view">
+
+                    <RelativeLayout
+                        android:id="@+id/swipe_insert_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/led_light"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_prompt_read_card_english"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="36dp"
+                            android:fontFamily="sans-serif-black"
+                            android:gravity="center"
+                            android:text="@string/prompt_present_card_or_device"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <RelativeLayout
+                            android:id="@+id/layout_tap_card_anim"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="40dp">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/ic_terminal" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/iv_tap_card"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:paddingLeft="120dp"
+                                android:paddingBottom="100dp"
+                                android:src="@drawable/ic_tap_card" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/waveCardAgainLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.cardReadErrorMsg}"
+                            android:textColor="@color/secondary_text_light"
+                            android:textSize="@dimen/card_screen_text_size"
+                            android:textStyle="bold"
+                            tools:text="@string/wave_card_again" />
+
+
+                    </LinearLayout>
+
+                    <net.geidea.payment.customviews.LedLightView
+                        android:id="@+id/led_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:layout_marginHorizontal="40dp"
+                        android:background="@color/white"
+                        android:gravity="center" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+
+                    <include
+                        android:id="@+id/layout_transaction_status"
+                        layout="@layout/layout_transaction_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"/>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+</layout>

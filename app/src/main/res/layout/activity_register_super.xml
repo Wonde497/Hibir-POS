@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ahadu_red1"
+    tools:context=".users.admin.RegisterSupport">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/supportCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="451dp">
+
+            <TextView
+                android:id="@+id/tvRegisterSuper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register Suervisor"
+                android:textSize="@dimen/card_screen_text_size"
+                app:layout_constraintBottom_toTopOf="@id/etUsername"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/editxtbg"
+                android:elevation="5dp"
+                android:hint="Enter username"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/etPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRegisterSuper"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editxtbg"
+                android:elevation="5dp"
+                android:hint="Enter password"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/etConfirmPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etUsername"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/editxtbg"
+                android:elevation="5dp"
+                android:hint="Confirm password"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/btnRegister"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etPassword"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/ahadu_red1"
+                android:text="Register"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LoggedIn User : Admin"
+        app:layout_constraintBottom_toTopOf="@+id/supportCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="@dimen/card_screen_text_size"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

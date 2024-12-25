@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:animateLayoutChanges="true"
+        android:background="@color/grey_card_background">
+
+
+        <LinearLayout
+            android:id="@+id/layout_nav_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"
+            android:gravity="center_vertical"
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/nav_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/nav_drawer" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="  Support Menu"
+                android:textAllCaps="false"
+                android:textColor="@color/nib_brown1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="  Support Menu" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mada_log"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/nib_logo" />
+
+    </RelativeLayout>
+</layout>

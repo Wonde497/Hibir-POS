@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]" date="1729583750581" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 10/22/2024 10:55 AM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/8.7/executionHistory/executionHistory.lock" />
+    <option name="AFTER_PATH" value=".gradle/8.7/executionHistory/executionHistory.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/executionHistory.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/buildOutputCleanup.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/8.7/checksums/checksums.lock" />
+    <option name="AFTER_PATH" value=".gradle/8.7/checksums/checksums.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/checksums.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/8.7/fileHashes/fileHashes.lock" />
+    <option name="AFTER_PATH" value=".gradle/8.7/fileHashes/fileHashes.lock" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/fileHashes.lock" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value=".gradle/8.7/fileHashes/fileHashes.bin" />
+    <option name="AFTER_PATH" value=".gradle/8.7/fileHashes/fileHashes.bin" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_22_2024_10_55_AM_[Changes]/fileHashes.bin" />
+  </binary>
+</changelist>

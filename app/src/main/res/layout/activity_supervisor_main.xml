@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/supervisor_drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".SupervisorMainActivity">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/supervisor_toolbar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:id="@+id/constraintLayout">
+
+                <!-- Manage Cashier CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_manage_cashier"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/supervisor_config_terminal"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_manage_cashier_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/manage_user"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Manage Cashier"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Config Terminal CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_config_terminal"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_manage_cashier"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_config_terminal_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Config Terminal"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Terminal Info CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_terminal_info"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_manage_cashier"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/supervisor_settings"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_terminal_info_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_print"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terminal Info"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Settings CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_config_terminal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_terminal_info"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_settings_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/settings_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Settings"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Summary Report CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_summary_report"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_terminal_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/supervisor_reprint"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_summary_report_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/report2_32px"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Summary Report"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Reprint CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_reprint"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_terminal_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_summary_report"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_reprint_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/pos_print"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reprint"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Manual Card CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_manual_card_entery"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_summary_report"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/supervisor_reprint"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_manual_card_entery_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_credit_card_24"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Manual Card"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Help CardView -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_help"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@id/supervisor_summary_report"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/supervisor_manual_card_entery"
+                    app:layout_constraintWidth_percent="0.45"
+                    app:layout_constraintHeight_percent="0.2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:id="@+id/supervisor_help_icon"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_help_center_32"
+                            android:background="@color/ahadu_red1"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Help"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <!-- Navigation Drawer -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/supervisor_navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@drawable/nib_bg2"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/supervisor_nav_menu"
+            app:itemTextColor="@color/ahadu_red1" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

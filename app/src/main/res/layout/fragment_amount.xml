@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/background_color">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <RelativeLayout
+            android:id="@+id/layout_amount"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_card"
+            android:padding="14dp">
+
+            <TextView
+                android:id="@+id/currency_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/amount"
+                android:text="SAR"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="0.00"
+                android:textColor="@color/black"
+                android:textSize="44sp"
+                tools:text="1,500.00" />
+        </RelativeLayout>
+
+
+        <net.geidea.utils.keypad.AmountEntryKeyBoardLayout
+            android:id="@+id/keyboard_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout_amount"
+            android:background="@color/background_color"
+            app:keyboard_type="amount_entry"
+            app:show_keyboard="true" />
+
+
+    </RelativeLayout>
+    </ScrollView>
+</layout>

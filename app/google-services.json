@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400536037922",
+    "project_id": "skeleton-app-d8738",
+    "storage_bucket": "skeleton-app-d8738.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400536037922:android:9b217251affaf99eea387b",
+        "android_client_info": {
+          "package_name": "net.geidea.payment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk91YVPfHYHwmbVKlzRQF8x8ixVfKL8E4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

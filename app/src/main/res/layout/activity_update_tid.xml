@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ahadu_red1"
+    tools:context=".users.support.UpdateTID">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LoggedIn User : Support"
+        android:textColor="@color/nib_brown1"
+        android:textStyle="bold"
+        android:textSize="@dimen/card_screen_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="15dp"
+
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="451dp">
+
+            <TextView
+                android:id="@+id/tvUpdateTID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Terminal ID"
+                android:textColor="@color/nib_brown1"
+                android:textSize="@dimen/card_screen_text_size"
+                app:layout_constraintBottom_toTopOf="@id/tvCurrentTID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tvCurrentTID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_tid"
+                android:textStyle="bold"
+                android:textColor="@color/nib_brown1"
+                app:layout_constraintBottom_toTopOf="@id/etTID"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvUpdateTID"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/etTID"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/editxtbg"
+                android:elevation="5dp"
+                android:maxLength="8"
+                android:hint="Enter TID"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@id/linear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrentTID"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etTID">
+
+                <Button
+                    android:id="@+id/btnSkip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/ahadu_red1"
+                    android:text="Skip"
+                    android:textSize="20sp"
+
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/ahadu_red1"
+                    android:text="Update"
+                    android:textSize="20sp"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

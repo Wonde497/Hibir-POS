@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_color">#F2F4F7</color>
+    <color name="primary">#FF6600</color>
+    <color name="grey_card_background">#FFFFFF</color>
+    <color name="grey_card_backgrounds">#FFFFFF</color>
+    <color name="gray_btn_bg_color">#D0D0D0</color>
+    <color name="green_btn_bg_color">#09af00</color>
+    <color name="white_round_background">#F1F1F1</color>
+    <color name="colorPrimary_20">#33008577</color>
+    <color name="primary_text_light">@android:color/primary_text_light</color>
+    <color name="secondary_text_light">@android:color/secondary_text_light</color>
+    <color name="blue">#2343F4</color>
+    <color name="red">#E60303</color>
+    <color name="ahadu_red1">#703F19</color>
+    <color name="ahadu_red2">#703F19</color>
+    <color name="green">#20C327</color>
+    <color name="yellow">#FFE609</color>
+
+    <color name="colorDivider">#ffe6ebf3</color>
+    <color name="nib_brown1">#703F19</color>
+    <color name="nib_brown2">#935724</color>
+    <color name="nib_brown3">#F9F6F3</color>
+    #F9F6F3
+    <color name="nib_yellow">#FEB914</color>
+</resources>

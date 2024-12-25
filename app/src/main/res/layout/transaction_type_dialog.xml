@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".TransactionMainActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:id="@+id/constraintLayout">
+
+            <!-- Sale CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_sale"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/transaction_reversal"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_sale_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sale"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Reversal CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_reversal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/transaction_sale"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_reversal_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reversal"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Balance Inquiry CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_balance_inq"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toBottomOf="@id/transaction_sale"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/transaction_purchase_cash_back"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_balance_inq_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balance Inq"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Purchase Cash Back CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_purchase_cash_back"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toBottomOf="@id/transaction_reversal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/transaction_balance_inq"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_purchase_cash_back_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Purchase Cash Back"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Pre Auth CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_pre_auth"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toBottomOf="@id/transaction_balance_inq"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/transaction_pre_auth_completion"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_pre_auth_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pre Auth"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Pre Auth Completion CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_pre_auth_completion"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toBottomOf="@id/transaction_balance_inq"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/transaction_pre_auth"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_pre_auth_completion_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pre Auth Completion"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Phone Auth CardView -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transaction_phone_auth"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:cardElevation="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="@color/ahadu_red1"
+                app:layout_constraintTop_toBottomOf="@id/transaction_pre_auth_completion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.45"
+                app:layout_constraintHeight_percent="0.15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/transaction_phone_auth_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center"
+                        android:background="@color/ahadu_red1"
+                        android:src="@drawable/sale1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Auth"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:name=".GeideaApplication"
+        android:allowBackup="false"
+        android:icon="@drawable/nib_logo3"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/nib_logo3"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Payment"
+        tools:replace="android:icon,android:roundIcon"
+        tools:targetApi="31">
+        <activity
+            android:name=".AmountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.ExpiryDate"
+            android:exported="false" />
+        <activity
+            android:name=".ReversalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.UpdateMerchantID"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.UpdateTID"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.CommunicationConfig"
+            android:exported="false" />
+        <activity
+            android:name=".usbcomm.USBCommunicationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <uses-library
+            android:name="com.pos.sdk"
+            android:required="false" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".transaction.view.CardReadActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".kernelconfig.view.KernelConfigActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".kernelconfig.view.KernelConfigActivity2"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterTID"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterCommunicationMode"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterMerchantAddress"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterMerchantName"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterMID"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterTerminalMode"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterCurrency"
+            android:exported="false" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".help.HelpMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".login.LoginMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PrintNTimesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.ReversalMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.AdminMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.AdminManageTransaction"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.AdminManageSupportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.RegisterSupport"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.AddSupportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.ViewSupport"
+            android:exported="false" />
+        <activity
+            android:name=".users.admin.DeleteSupport"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.SupportMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.SupportManageSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.RegisterSuper"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.AddSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.ViewSupervisor"
+            android:exported="false" />
+        <activity
+            android:name=".users.support.DeleteSupervisor"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.SupervisorMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.SupervisorManageCashierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.AddCashierActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.ViewCashier"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.DeleteCashier"
+            android:exported="false" />
+        <activity
+            android:name=".users.cashier.CashierMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".users.supervisor.SupervisorLogin"
+            android:exported="false" />
+        <activity
+            android:name=".customviews.PrintTest2"
+            android:exported="false" />
+        <activity
+            android:name=".sign.SignatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transaction.ManualCardEntry"
+            android:exported="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background Color -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#703F19"/>
+            <corners android:radius="2dp"/>
+
+        </shape>
+    </item>
+
+    <!-- Vector Drawable -->
+    <item>
+        <vector android:height="26dp" android:viewportHeight="24" android:viewportWidth="24"
+            android:width="30dp" xmlns:android="http://schemas.android.com/apk/res/android"
+            android:tint="#FEB914">
+            <path android:fillColor="@android:color/white" android:pathData="M2,15.5v2h20v-2L2,15.5zM2,10.5v2h20v-2L2,10.5zM2,5.5v2h20v-2L2,5.5z"/>
+        </vector>
+    </item>
+
+</layer-list>

@@ -1,0 +1,74 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nib_bg2"
+    tools:context=".transaction.ManualCardEntry">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+            <TextView
+                android:id="@+id/manualCardEntryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_card_number"
+                android:textColor="@color/nib_brown1"
+                android:textSize="@dimen/card_screen_text_size"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/editTextPAN"/>
+
+            <EditText
+                android:id="@+id/editTextPAN"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/editxtbg"
+                android:drawableLeft="@drawable/nib_credit_card_24"
+                android:elevation="5dp"
+                android:padding="15dp"
+                android:hint="@string/enter_card_number"
+                android:maxLength="19"
+                android:inputType="number"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/buttonPANconfirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/buttonPANconfirm"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_rounded_bg"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPAN"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintVertical_bias="0.5"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

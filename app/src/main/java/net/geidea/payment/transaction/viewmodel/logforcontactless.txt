@@ -1,0 +1,40 @@
+2024-10-03 09:55:20.042  4557-4600  SessionLifecycleClient  net.geidea.payment                   D  Sending lifecycle 2 to service
+2024-10-03 09:55:20.059  4557-4612  SessionLifecycleService net.geidea.payment                   D  Activity backgrounding at 1824947
+2024-10-03 09:55:20.405  4557-4557  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 4, Parent = null, this = DecorView@cef8810[]
+2024-10-03 09:55:20.406  4557-4600  SessionLifecycleClient  net.geidea.payment                   D  Sending lifecycle 1 to service
+2024-10-03 09:55:20.410  4557-4612  SessionLifecycleService net.geidea.payment                   D  Activity foregrounding at 1825297.
+2024-10-03 09:55:20.411  4557-4557  ViewRootIm...dActivity] net.geidea.payment                   D  hardware acceleration = true , fakeHwAccelerated = false, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+2024-10-03 09:55:20.418  4557-4557  InputTransport          net.geidea.payment                   I  Create ARC handle: 0xa8244860
+2024-10-03 09:55:20.418  4557-4557  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 0, Parent = android.view.ViewRootImpl@41b1b2f, this = DecorView@cef8810[CardReadActivity]
+2024-10-03 09:55:20.520  4557-4633  System.out              net.geidea.payment                   I  [socket]:check permission begin!
+2024-10-03 09:55:20.814  4557-4606  OpenGLRenderer          net.geidea.payment                   I  Davey! duration=759ms; Flags=1, IntendedVsync=1824942172004, Vsync=1825308838678, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=1825310890645, AnimationStart=1825310895491, PerformTraversalsStart=1825311811491, DrawStart=1825671539183, SyncQueued=1825681652645, SyncStart=1825685165260, IssueDrawCommandsStart=1825685530106, SwapBuffers=1825703557953, FrameCompleted=1825705120106, DequeueBufferDuration=0, QueueBufferDuration=845000, GpuCompleted=0, 
+2024-10-03 09:55:21.324  4557-4557  PhoneWindow             net.geidea.payment                   V  DecorView setVisiblity: visibility = 4, Parent = android.view.ViewRootImpl@280cf6, this = DecorView@4fc3d15[MainActivity]
+2024-10-03 09:55:21.740  4557-4579  CardReadViewModel       net.geidea.payment                   D  Kernel Type 1
+2024-10-03 09:55:21.964  4557-4579  CardReadViewModel       net.geidea.payment                   D  CMD_CARD_READ_SUCCESS
+2024-10-03 09:55:21.973  4557-4579  CardReadViewModel       net.geidea.payment                   D  CMD_READ_RECORD_FILTER
+2024-10-03 09:55:21.986  4557-4557  AudioTrack              net.geidea.payment                   D  INSP: type=audio,case=1,set=0x9a0e6400,stream_type=-1,sample_rate=0,format=0x1,channel_mask=0x1,frame_count=960,flags=0x4,notification_frames=0,session_id=0,transfer_type=1,uid=-1,pid=-1
+2024-10-03 09:55:21.986  4557-4557  AudioTrack              net.geidea.payment                   D  INSP: type=audio,case=1,attributes=1,content_type=0,usage=1,source=0,flags=0x0
+2024-10-03 09:55:21.986  4557-4557  AudioTrack              net.geidea.payment                   D  set(): Building AudioTrack with attributes: usage = 1, content = 0, flags = 0x0, tags = []
+2024-10-03 09:55:21.986  4557-4557  AudioTrack              net.geidea.payment                   D  set(): 0x9a0e6400, Create AudioTrackThread, tid = 4636
+2024-10-03 09:55:21.997  4557-4557  AudioTrack              net.geidea.payment                   I  createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST successful; frameCount 960 -> 960
+2024-10-03 09:55:21.998  4557-4557  AudioTrack              net.geidea.payment                   D  createTrack_l(31): 0x9a0e6400, mCblk = 0x844bd000, mLatency = 62, mAfLatency = 42, frameCount = 960, mSampleRate = 48000, mFlags = 0x4, mReqFrameCount = 960, mNotificationFramesAct = 256
+2024-10-03 09:55:21.999  4557-4557  AudioTrack              net.geidea.payment                   D  setVolume(31): 0x9a0e6400, left = 1.000000, right = 1.000000
+2024-10-03 09:55:22.002  4557-4614  AudioTrack              net.geidea.payment                   D  start(31): 0x9a0e6400, prior state:STATE_STOPPED
+2024-10-03 09:55:22.030  4557-4579  CardReadViewModel       net.geidea.payment                   D  onRequestInputPin
+2024-10-03 09:55:22.176  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): 0x9a0e6400, prior state:STATE_ACTIVE
+2024-10-03 09:55:22.176  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): called with 7616 frames delivered
+2024-10-03 09:55:22.176  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): 0x9a0e6400 stop done
+2024-10-03 09:55:22.338  4557-4557  ViewRootIm...dActivity] net.geidea.payment                   D  hardware acceleration = true , fakeHwAccelerated = false, sRendererDisabled = false, forceHwAccelerated = false, sSystemRendererDisabled = false
+2024-10-03 09:55:22.352  4557-4557  InputTransport          net.geidea.payment                   I  Create ARC handle: 0x87280020
+2024-10-03 09:55:22.353  4557-4557  POIHsmManage            net.geidea.payment                   D  registerListener listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@87b428d
+2024-10-03 09:55:22.492  4557-4557  POIHsmManage            net.geidea.payment                   D  onInfo listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@87b428d, msg.arg1= 1, msg.arg2=0
+2024-10-03 09:55:22.504  4557-4557  POIHsmManage            net.geidea.payment                   D  onInfo listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@87b428d, msg.arg1= 2, msg.arg2=0
+2024-10-03 09:55:22.505  4557-4557  POIHsmManage            net.geidea.payment                   D  onError listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@87b428d, msg.arg1= 131, msg.arg2=65235
+2024-10-03 09:55:22.506  4557-4621  AudioTrack              net.geidea.payment                   D  start(31): 0x9a0e6400, prior state:STATE_STOPPED
+2024-10-03 09:55:22.651  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): 0x9a0e6400, prior state:STATE_ACTIVE
+2024-10-03 09:55:22.651  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): called with 7360 frames delivered
+2024-10-03 09:55:22.651  4557-4636  AudioTrack              net.geidea.payment                   D  stop(31): 0x9a0e6400 stop done
+2024-10-03 09:55:24.529  4557-4621  CardReadViewModel       net.geidea.payment                   D  onTransactionResult -12
+2024-10-03 09:55:24.542  4557-4557  View                    net.geidea.payment                   D  [Warning] assignParent to null: this = DecorView@1fc92f1[CardReadActivity]
+2024-10-03 09:55:24.573  4557-4557  InputTransport          net.geidea.payment                   I  Destroy ARC handle: 0x87280020
+2024-10-03 09:55:24.574  4557-4557  POIHsmManage            net.geidea.payment                   D  unregisterListener listener= net.geidea.payment.customviews.PasswordDialog$PinEventListener@87b428d

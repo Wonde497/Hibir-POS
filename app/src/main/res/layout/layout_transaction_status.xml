@@ -1,0 +1,87 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/transaction_status_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/approved128px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/transaction_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/transaction_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            tools:text="Approved"
+            app:layout_constraintTop_toBottomOf="@+id/transaction_status_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tvApprovalCode" />
+
+        <TextView
+            android:id="@+id/tvApprovalCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/card_screen_text_size"
+            android:text="Approval Code:"
+            app:layout_constraintTop_toBottomOf="@+id/transaction_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvApprovalCode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/start_new_transaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="New Transaction"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_rounded_bg"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+            <Button
+                android:id="@+id/print_receipt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Print Receipt"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/btn_rounded_bg"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/start_new_transaction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

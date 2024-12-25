@@ -1,0 +1,9 @@
+package net.geidea.payment.utils
+
+
+var DUKPT_INDEX = 1
+var DUKPT_IPEK = "0123456789ABCDEF0123456789ABCDEF"
+var DUKPT_KSN = "FFFF9080102495000001"
+
+
+

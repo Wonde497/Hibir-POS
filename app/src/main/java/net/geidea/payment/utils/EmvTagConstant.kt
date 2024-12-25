@@ -1,0 +1,45 @@
+package net.geidea.payment.utils
+
+
+val PAN_NUMBER = "5A"
+val TRACK2 = "57"
+val PAN_SEQ_NO = "5F34"
+val TERMINAL_AID = "9F06"
+val CARD_AID = "4F"
+val DEDICATED_FILE = "84"
+val AIP = "82"
+val ATC = "9F36"
+val AC = "9F26"
+val CID = "9F27"
+val CVM_R = "9F34"
+val IFD_SN = "9F1E"
+val IAD = "9F10"
+val TERM_CAP = "9F33"
+val TERM_TYPE = "9F35"
+val TVR = "95"
+val TRXN_AMT = "9F02"
+val OTHER_AMT = "9F03"
+val TERM_COUNTRY_CODE = "9F1A"
+val TRXN_CURRENCY_CODE = "5F2A"
+val TRXN_DATE = "9A"
+val TRXN_TYPE = "9C"
+val APP_LABLE = "50"
+val APP_PREF_NAME = "9F12"
+val AUTH_RSP_CODE = "8A"
+val UP_NUMBER = "9F37"
+val UNKNOWN = "9F5B"
+val FORM_FACTOR_INDICATOR = "9F6E"
+
+//BELOW TAGS NEEDS IN VISA CTLS CARD PACKING
+val CTQ = "9F6C"
+val TTQ = "9F66"
+val TSI = "9B"
+val EXP_DATE = "5F24"
+val FPAN = "9F25"
+val PAR = "9F24"//FOR GENERAL TOKENIZATION TRXN
+val PAR9F19 = "9F19"//FOR APPLE PAY TOKENIZATION TRXN
+val PINBLOCK = "99"
+val CVM_PERFORMED_DC_TAG = "DC"
+
+
+
