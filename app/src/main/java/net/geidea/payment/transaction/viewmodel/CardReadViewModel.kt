@@ -2,6 +2,8 @@ package net.geidea.payment.transaction.viewmodel
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -74,6 +76,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
     private val dbhandler=DBHandler(context)
 
     private val sharedPreferences=context.getSharedPreferences("SHARED_DATA",Context.MODE_PRIVATE)
+    private  var editor=sharedPreferences.edit()
     private val emvCoreListener = POIEmvCoreListener()
     private lateinit var showProgressDialog: DialogLogoutConfirm
    private lateinit var showProgressDialog2:SweetAlertDialog
@@ -297,37 +300,95 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
         val onlineRequest=Runnable{
             transData.assignValue2Fields()
             val packet=transData.packRequestFields()
-            Log.d(tag,"packet ")
+            val timeoutData = transData.packFields4TimeoutReversal()
+            val timeoutDataHex = timeoutData.let { HexUtil.toHexString(it) }
+            //Log.d(tag, "packed data to be saved in case there is timeout...:${timeoutDataHex}")
+
 
             val com= Comm("${dbhandler.getIPAndPortNumber()?.first}","${dbhandler.getIPAndPortNumber()?.second}".toInt())
             if(!com.connect()){
 
                 Log.d(tag,"Connection failed")
-                //common.dismissdialog()
+
                // common.showAlert("Connection failed")
             }else{
 
-                com.send(packet)
-                Log.d(tag, "message sent...:")
+                val timeoutFlag=sharedPreferences.getInt("TimeoutFlag",0)
+                if(timeoutFlag==1){
+                    val savedTimeoutData=sharedPreferences.getString("TimeoutData","")
+                    val savedTimeoutDataHex=savedTimeoutData?.let { HexUtil.hexStr2Byte(it) }
+                    if (savedTimeoutDataHex != null) {
+                        com.send(savedTimeoutDataHex)
+                        Log.d(tag, "timeout data sent ...:${savedTimeoutData}")
 
-                var response=com.receive(1024,30)
-                Log.d(tag, "Received response:$response")
-                Log.d(tag, "Received response:"+ response?.let { HexUtil.toHexString(it) })
+                    }
+
+                    val timeoutResponse=com.receive(1024,30)
+                    Log.d(tag, "timeout response...:"+timeoutResponse?.let { HexUtil.toHexString(it) })
+                    editor.putInt("TimeoutFlag", 0)
+                    editor.putString("TimeoutData","")
+                    editor.commit()
+                    if(timeoutResponse!=null){
+                        com.send(packet)
+                        Log.d(tag, "message sent...:")
+
+                        val response1 = com.receive(1024, 30)
+                        Log.d(tag, "Received response:$response1")
+                        Log.d(tag, "Received response:" + response1?.let { HexUtil.toHexString(it) })
+
+                        if (response1 == null) {
+                            editor.putInt("TimeoutFlag", 1)
+                            editor.putString("TimeoutData", timeoutDataHex)
+                            editor.commit()
+                            Log.d(tag, "timeout data saved:${timeoutDataHex}" )
+
+                            CardReadActivity.cardread.showProgressDialog.dismiss()
+                            responcestatus.postValue("Null")
+
+                            Log.d(tag, "Response Null")
+
+                        } else {
+                            editor.putInt("TimeoutFlag", 0)
+                            editor.commit()
+
+                            response1?.let { HexUtil.toHexString(it) }
+                                ?.let { transData.unpackResponseFields(it) }
+                            emvCoreManager.onSetOnlineResponse(processOnlineResult(TransData.ResponseFields.Field39))
+
+                        }
+                    }
 
 
-                if(response==null){
-                    CardReadActivity.cardread.showProgressDialog.dismiss()
-                    responcestatus.postValue("Null")
+                }else
+                {
 
+                    com.send(packet)
+                    Log.d(tag, "message sent...:")
 
-                    Log.d(tag,"Response Null")
+                     val response = com.receive(1024, 30)
+                    Log.d(tag, "Received response:$response")
+                    Log.d(tag, "Received response:" + response?.let { HexUtil.toHexString(it) })
 
-                }else{
+                    if (response == null) {
+                        editor.putInt("TimeoutFlag", 1)
+                        editor.putString("TimeoutData", timeoutDataHex)
+                        editor.commit()
+                        Log.d(tag, "timeout data saved:${timeoutDataHex}" )
 
-                    response?.let { HexUtil.toHexString(it) }
-                        ?.let { transData.unpackResponseFields(it) }
-                    emvCoreManager.onSetOnlineResponse(processOnlineResult(TransData.ResponseFields.Field39))
+                        CardReadActivity.cardread.showProgressDialog.dismiss()
+                        responcestatus.postValue("Null")
 
+                        Log.d(tag, "Response Null")
+
+                    } else {
+                        editor.putInt("TimeoutFlag", 0)
+                        editor.commit()
+
+                        response?.let { HexUtil.toHexString(it) }
+                            ?.let { transData.unpackResponseFields(it) }
+                        emvCoreManager.onSetOnlineResponse(processOnlineResult(TransData.ResponseFields.Field39))
+
+                    }
                 }
 
 

@@ -10,7 +10,8 @@ package net.geidea.payment
         const val preauthcomp = "preauthcomp"
         const val refund = "refund"
         const val purchasecashback = "purchasecashback"
-             const val manualCardEntry="manualCardEntry"
+             const val manualPurchase="manualPurchase"
+             const val manualReversal="manualReversal"
         const val cashadvance = "cashadvance"
         const val keydownload = "Key Download"
 

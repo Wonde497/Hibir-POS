@@ -25,6 +25,7 @@ import net.geidea.payment.AmountActivity
 import net.geidea.payment.BuildConfig
 import net.geidea.payment.DBHandler
 import net.geidea.payment.R
+import net.geidea.payment.Txntype
 import net.geidea.payment.com.Comm
 import net.geidea.payment.databinding.ActivityExpiryDateBinding
 import net.geidea.payment.print.PrintStatus
@@ -170,7 +171,7 @@ class ExpiryDate : AppCompatActivity() {
                 showProgressDialog.show()
                 handler = Handler()
                 handler.postDelayed({
-                    Thread(doManualTransaction).start()
+                    Thread(doManualPurchase).start()
                 }, 2000)
 
             }
@@ -181,7 +182,7 @@ class ExpiryDate : AppCompatActivity() {
     }
 
 
-    private val doManualTransaction = Runnable {
+    private val doManualPurchase = Runnable {
         dbHandler = DBHandler(this)
         //transData.assignValue2Fields()
         val packet = transData.packRequestFields()
@@ -210,7 +211,7 @@ class ExpiryDate : AppCompatActivity() {
                     }
                     if (TransData.ResponseFields.Field39 == "00") {
                         transData.transactionStatus = true
-                        val txntype="purchase"
+                        val txntype=Txntype.manualPurchase
                         txntype?.let {
                             dbHandler.registerTxnData(
                                 it,
@@ -269,6 +270,7 @@ class ExpiryDate : AppCompatActivity() {
         binding.layoutTransactionStatus.root.visible()
         BuzzerUtils.playForTransactionDeclined()
         binding.layoutTransactionStatus.transactionStatus.text = getString(R.string.declined)
+        binding.layoutTransactionStatus.tvApprovalCode.text="Response Code :${TransData.ResponseFields.Field38}"
         binding.layoutTransactionStatus.transactionStatusImage.setImageResource(R.drawable.ic_tranx_declined)
 
 
