@@ -25,6 +25,7 @@ import net.geidea.payment.R
 import net.geidea.payment.Txntype
 import net.geidea.payment.com.Comm
 import net.geidea.payment.customdialog.DialogLogoutConfirm
+import net.geidea.payment.users.UserLogoutConfirmDialog
 import net.geidea.payment.databinding.ActivityCashierMainBinding
 import net.geidea.payment.databinding.NavHeaderBinding
 import net.geidea.payment.help.HelpMainActivity
@@ -103,7 +104,7 @@ class CashierMainActivity : AppCompatActivity() {
         val uName = "Hibr Cashier"
         val uType = "Cashier"
 
-        val Int = R.drawable.nib_account_box_50
+        val Int = R.drawable.hb_baseline_account_circle_32
         // Update the navigation header
         updateNavHeader("Username:  "+uName + "", "User Role: "+ uType+"", Int)
     }
@@ -134,7 +135,7 @@ class CashierMainActivity : AppCompatActivity() {
                 }
                 R.id.nav_logout -> {
                     Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
-                    val exitDialog = DialogLogoutConfirm(
+                    val exitDialog = UserLogoutConfirmDialog(
                         this,
                         title = "Logout",
                         message = "Are you sure you want to logout?",

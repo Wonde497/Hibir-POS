@@ -206,10 +206,10 @@ class MainMenuActivity : AppCompatActivity() {
                 val currentItem = binding.viewPager.currentItem
                 val nextItem = if (currentItem + 1 < imageResIds.size) currentItem + 1 else 0
                 binding.viewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 2000) // Adjust the delay as needed
+                handler.postDelayed(this, 3000) // Adjust the delay as needed
             }
         }
-        handler.postDelayed(runnable, 2000)
+        handler.postDelayed(runnable, 3000)
     }
 
 

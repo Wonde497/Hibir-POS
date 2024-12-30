@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/settings_backup_restore/baseline_settings_backup_restore_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/account_circle/baseline_account_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="703f19" />
-                            <entry key="outputName" value="baseline_settings_backup_restore_24" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="hb_baseline_account_circle_32" />
                             <entry key="sourceFile" value="C:\Users\drrak\AndroidStudioProjects\Nib-Bank-Geidea-POS-Latest" />
                           </map>
                         </option>

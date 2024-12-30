@@ -36,7 +36,7 @@
             android:id="@+id/deleteDialogMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Are you sure you want to delete this user?\n\n\tThis Action can not be undone!"
+            android:text="Are you sure you want to delete this user?\n\n\tThis action can not be undone!"
             android:textSize="16sp"
             android:textAlignment="center"
             android:textColor="@color/nib_brown1"

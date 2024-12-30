@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="10dp"
     android:elevation="10dp"
     app:cardElevation="70dp"
     app:cardCornerRadius="16dp"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toStartOf="@id/logoutButton"
             app:layout_constraintWidth_percent="0.4"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/btn_rounded_bg" />
 
@@ -78,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.4"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/red_btn_rounded_bg" />
 

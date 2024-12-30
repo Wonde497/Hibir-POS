@@ -35,7 +35,17 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_check_expiry_date.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_communication_config.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_esign.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
         </config>
@@ -46,6 +56,16 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_help_main.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_kernel_config.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_loading.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
         </config>
@@ -70,7 +90,62 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_admin.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_communication_mode.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_currency.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_merchant_address.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_merchant_name.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_mid.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_super.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_support.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_terminal_mode.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_tid.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_reversal.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
         </config>
@@ -110,6 +185,11 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_usb_communication.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/admin_toolbar.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
@@ -126,6 +206,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_logout_confirm.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_logout_confirm2.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
         </config>
@@ -150,6 +235,36 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_delete_user.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_enable_user.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_password_change.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_reversal.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_view_user.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/help_item.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_view_pager_image.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
@@ -165,7 +280,17 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/layout_transaction_status_2.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/supervisor_login.xml">
         <config>
           <theme>@style/Theme.Payment</theme>
         </config>
@@ -195,74 +320,54 @@
           <theme>@style/Theme.Payment</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/view_led_light.xml">
+        <config>
+          <theme>@style/Theme.Payment</theme>
+        </config>
+      </layout>
     </layouts>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d5854ba-836b-4755-bd41-40d324b92220" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_cashier.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_help.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_login1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_login2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_logo1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_sale.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_transaction.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_bank_logo_icon.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_card.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_main.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_minus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_mobile_bank.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_navigation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibrhaq.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hiret_open.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nib_bg2_backup.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+    <list default="true" id="5d5854ba-836b-4755-bd41-40d324b92220" name="Changes" comment="Hibret Bank Theme added">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hb_baseline_account_circle_32.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hibret_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_logout_confirm2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/MainMenuActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/MainMenuActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/SplashActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/UserLogoutConfirmDialog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/UserLogoutConfirmDialog.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nib_account_24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nib_account_24.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nib_bg2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nib_bg2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/nib_password_24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/nib_password_24.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_manage_support.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_manage_support.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cashier_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cashier_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_help_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_help_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_manage_cashier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_manage_cashier.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_manage_supervisor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_manage_supervisor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/admin_toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/admin_toolbar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/cashier_toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/cashier_toolbar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_communication_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_communication_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_esign.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_esign.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_communication_mode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_communication_mode.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_currency.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_currency.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_mid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_mid.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_super.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_super.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_support.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_support.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_terminal_mode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register_terminal_mode.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_reversal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_reversal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_update_tid.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_update_tid.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/confirm_delete_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/confirm_delete_dialog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_logout_confirm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_logout_confirm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_transactions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_transactions.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/supervisor_toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/supervisor_toolbar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/support_toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/support_toolbar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/toolbar_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toolbar_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_block_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_block_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delete_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delete_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_enable_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_enable_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_password_change.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_password_change.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reversal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reversal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_user.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +377,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\SSC\.android\avd\Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=P01A624071700014)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -316,6 +421,14 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -325,12 +438,12 @@
     &quot;assignee&quot;: &quot;Wonde497&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Amlakie-T/Hibret_Bank_Geidea_POS.git",
-    "accountId": "ba79446d-0cf9-4030-a8ad-c0aef449f412"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Amlakie-T/Hibret_Bank_Geidea_POS.git&quot;,
+    &quot;accountId&quot;: &quot;ba79446d-0cf9-4030-a8ad-c0aef449f412&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
@@ -345,26 +458,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.Nib-Bank-Geidea-POS.Payment.app.executor": "Run",
-    "Android App.app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SSC/StudioProjects/Hibret_Bank_Geidea_POS/app/src/main/res/drawable",
-    "project.structure.last.edited": "SDK Location",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.Nib-Bank-Geidea-POS.Payment.app.executor&quot;: &quot;Run&quot;,
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSC/StudioProjects/Hibret_Bank_Geidea_POS/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK Location&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="PsdUISettings">
     <option name="MODULES_LIST_MINIMIZE" value="true" />
   </component>
@@ -598,7 +711,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730527083468</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Hibret Bank Theme added">
+      <option name="closed" value="true" />
+      <created>1735130270089</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1735130270089</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -619,7 +740,8 @@
     <MESSAGE value="check code1" />
     <MESSAGE value="check code1...." />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="Hibret Bank Theme added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hibret Bank Theme added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Select Communication Mode"
         android:textSize="25sp"
-        android:textColor="@color/nib_brown1"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
