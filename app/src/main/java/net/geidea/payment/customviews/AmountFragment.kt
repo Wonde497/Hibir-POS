@@ -66,7 +66,7 @@ class AmountFragment : Fragment() {
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
 
-                }else if(txntype==Txntype.manualCardEntry){
+                }else if(txntype==Txntype.manualPurchase){
 
                      val intent=Intent(requireContext(),ManualCardEntry::class.java)
                     val transData=TransData(requireContext())

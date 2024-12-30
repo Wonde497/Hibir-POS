@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import net.geidea.payment.AmountActivity
 import net.geidea.payment.MainMenuActivity
+import net.geidea.payment.ManualSaleReversal
 import net.geidea.payment.R
 import net.geidea.payment.Txntype
 import net.geidea.payment.customdialog.DialogLogoutConfirm
@@ -144,11 +145,11 @@ class SupervisorMainActivity : AppCompatActivity() {
             // Handle Reprint click
         }
         binding.supervisorManualCardEntery.setOnClickListener {
-            editor.putString("TXN_TYPE",Txntype.manualCardEntry)
-            editor.putString("transaction",Txntype.manualCardEntry)
+            editor.putString("TXN_TYPE",Txntype.manualPurchase)
+            editor.putString("transaction",Txntype.manualPurchase)
             editor.commit()
-
-            startActivity(Intent(this, AmountActivity::class.java))
+            startActivity(Intent(this, ManualSaleReversal::class.java))
+            //startActivity(Intent(this, AmountActivity::class.java))
             finish()
         }
     }

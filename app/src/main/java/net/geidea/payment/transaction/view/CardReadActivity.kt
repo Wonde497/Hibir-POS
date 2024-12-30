@@ -226,6 +226,7 @@ class CardReadActivity : AppCompatActivity() {
                         BuzzerUtils.playForTransactionDeclined()
                         binding.layoutTransactionStatus.transactionStatus.text =
                             getString(R.string.declined)
+                        binding.layoutTransactionStatus.tvApprovalCode.text="Response Code :${TransData.ResponseFields.Field39}"
                         binding.layoutTransactionStatus.transactionStatusImage.setImageResource(R.drawable.ic_tranx_declined)
                     }
                 }

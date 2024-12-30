@@ -134,7 +134,7 @@ class TransData(private val context:Context) {
          //txnMenuType=sharedPreferences.getString("TXN_MENU_TYPE","")
         //Log.d(TAG,"txnMenuType${txnMenuType}")
 
-        if(!txnType.equals(Txntype.keydownload) && !txnType.equals(Txntype.settlement) && !txnType.equals(Txntype.reversal)) {
+        if(!txnType.equals(Txntype.keydownload) && !txnType.equals(Txntype.settlement) && !txnType.equals(Txntype.reversal)&&!txnType.equals(Txntype.manualReversal)) {
             Log.d(TAG, "txntype2:" + txnType)
 
             RequestFields.Field11 = stan
@@ -170,17 +170,28 @@ class TransData(private val context:Context) {
             if(entryMode.equals(EntryMode.CONTACTLESS)){
                 RequestFields.Field22="0070"
             }
+        }else if(txnType.equals(Txntype.manualReversal)){
+            RequestFields. Header="30606020153535"
+            RequestFields.MTI="0200"
+            RequestFields.Field03="000000"
+            RequestFields.primaryBitmap="703C05800EC00014"
+            RequestFields.Field22="0010"
+            RequestFields.Field24="0001"
+            RequestFields.Field25="00"
+
+
+
         }
 
 
-
-        RequestFields.Field02=pan
-
-        // RequestFields.Field07= SimpleDateFormat("MMddhhmmss", Locale.getDefault()).format(Date())
+if(!txnType.equals(Txntype.manualReversal)) {
+    RequestFields.Field02 = pan
+}
+        // RequestFields.FielFd07= SimpleDateFormat("MMddhhmmss", Locale.getDefault()).format(Date())
         Log.d(TAG, "trantype:" + txnType)
 
         // RequestFields.Field12=SimpleDateFormat("yyMMddhhmmss", Locale.getDefault()).format( Date())
-        if(!txnType.equals(Txntype.keydownload ) && !txnType.equals(Txntype.manualCardEntry ) && !txnType.equals(Txntype.settlement) ){
+        if(!txnType.equals(Txntype.keydownload ) && !txnType.equals(Txntype.manualPurchase )&& !txnType.equals(Txntype.manualReversal )  && !txnType.equals(Txntype.settlement) ){
                 RequestFields.Field14 = cardExpiryDate.substring(0, 4)//+"01"
             }
         Log.d(TAG,"Field14:"+RequestFields.Field14)
@@ -198,6 +209,493 @@ class TransData(private val context:Context) {
         Log.d(TAG,"merchantID:"+RequestFields.Field42)
         //RequestFields.Field52
         Log.d(TAG,"Field52:"+RequestFields.Field52)
+
+    }
+
+
+    fun packFields4TimeoutReversal():ByteArray {
+
+        var j = 0
+        var i = 0
+        var fieldLength=0
+        //   listOfByteArrays="".toByteArray()
+        var listOfByteArraysHeader = mutableListOf<ByteArray>()
+        var listOfByteArraysMTI = mutableListOf<ByteArray>()
+        var listOfByteArraysBMP = mutableListOf<ByteArray>()
+        var lengthOfHeader=0
+        var lengthOfMTI=0
+
+        var lengthOfBitmap = 0
+
+        var charArrayHeader="".toCharArray()
+        var charArrayMTI="".toCharArray()
+        var charArrayBmp="".toCharArray()
+        val listOfByteArrayslenF02 = mutableListOf<ByteArray>()
+        var lengthOfFlen02=0
+        var charArraylenF02="".toCharArray()
+
+        var listOfByteArraysF02 = mutableListOf<ByteArray>()
+        var lengthOfF02=0
+        var charArrayF02="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF03 = mutableListOf<ByteArray>()
+        var lengthOfF03=0
+        var charArrayF03="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF04 = mutableListOf<ByteArray>()
+        var lengthOfF04=0
+        var charArrayF04="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF11 = mutableListOf<ByteArray>()
+        var lengthOfF11=0
+        var charArrayF11="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF14 = mutableListOf<ByteArray>()
+        var lengthOfF14=0
+        var charArrayF14="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF22 = mutableListOf<ByteArray>()
+        var lengthOfF22=0
+        var charArrayF22="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF24 = mutableListOf<ByteArray>()
+        var lengthOfF24=0
+        var charArrayF24="".toCharArray()
+        //---------------------------------------------------------------
+        var listOfByteArraysF25 = mutableListOf<ByteArray>()
+        var lengthOfF25=0
+        var charArrayF25="".toCharArray()
+        //---------------------------------------------------------------
+
+        var listOfByteArraysF62 = mutableListOf<ByteArray>()
+        var lengthOfF62=0
+        var charArrayF62="".toCharArray()
+
+        //---------------------------------------------------------------
+
+        RequestFields.Header="30606020153535"
+
+        fieldLength = RequestFields.Header.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Header}")
+
+        val  header= Array(fieldLength) { "" }
+        charArrayHeader = RequestFields.Header.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            header[j] = "${charArrayHeader[i]}${charArrayHeader[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end header/
+
+        RequestFields.MTI="0400"
+        fieldLength = RequestFields.MTI.length / 2
+        Log.d("TransData", "mti.........: ${RequestFields.MTI}")
+
+        val  mti= Array(fieldLength) { "" }
+
+        charArrayMTI = RequestFields.MTI.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            mti[j] = "${charArrayMTI[i]}${charArrayMTI[i + 1]}"
+            j++
+        }
+
+
+        //--------------------------------------------------------------- end mti/
+        RequestFields.primaryBitmap="7024058020C00204"
+        val bitmaplength = RequestFields.primaryBitmap.length / 2
+        Log.d("TransData", "bitmaptry.........: ${RequestFields.primaryBitmap}")
+
+        val primarybitmap = Array(bitmaplength) { "" }
+        charArrayBmp = RequestFields.primaryBitmap.toCharArray()
+
+        j=0
+        for (i in 0 until bitmaplength * 2 step 2) {
+            primarybitmap[j] = "${charArrayBmp[i]}${charArrayBmp[i + 1]}"
+            j++
+        }
+        //--------------------------------------------------------------- end of bmp/
+
+
+
+
+        //---------------------------------------------------------------
+        val Fld02lenint=RequestFields.Field02.length
+        if(RequestFields.Field02.length % 2 !=0) {
+            fieldLength = (Fld02lenint+1).toString().length / 2
+        }
+        else {
+            fieldLength = Fld02lenint.toString().length / 2
+        }
+        Log.d("TransData", "mti.........: " + Fld02lenint)
+
+        val  Fld02lenstr= Array(fieldLength) { "" }
+
+        charArraylenF02 = Fld02lenint.toString().toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            Fld02lenstr[j] = "${charArraylenF02[i]}${charArraylenF02[i + 1]}"
+            j++
+        }
+
+
+
+
+
+        fieldLength = RequestFields.Field02.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field02}")
+
+        val  fld02= Array(fieldLength) { "" }
+        charArrayF02 = RequestFields.Field02.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld02[j] = "${charArrayF02[i]}${charArrayF02[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field02/
+
+        fieldLength = RequestFields.Field03.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field03}")
+
+        val  fld03= Array(fieldLength) { "" }
+        charArrayF03 = RequestFields.Field03.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld03[j] = "${charArrayF03[i]}${charArrayF03[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field03/
+
+        fieldLength = RequestFields.Field04.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field04}")
+
+        val  fld04= Array(fieldLength) { "" }
+        charArrayF04 = RequestFields.Field04.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld04[j] = "${charArrayF04[i]}${charArrayF04[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field04/
+
+
+
+        fieldLength = RequestFields.Field11.length / 2
+        Log.d("TransData", "headertryF11.........: ${RequestFields.Field11}")
+
+        val  fld11= Array(fieldLength) { "" }
+        charArrayF11 = RequestFields.Field11.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld11[j] = "${charArrayF11[i]}${charArrayF11[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end of field11/
+
+
+        fieldLength = RequestFields.Field14.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field14}")
+
+        val  fld14= Array(fieldLength) { "" }
+        charArrayF14 = RequestFields.Field14.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld14[j] = "${charArrayF14[i]}${charArrayF14[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field14/
+        RequestFields.Field22="0010"
+        fieldLength = RequestFields.Field22.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field22}")
+
+        val  fld22= Array(fieldLength) { "" }
+        charArrayF22 = RequestFields.Field22.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld22[j] = "${charArrayF22[i]}${charArrayF22[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field22/
+
+        RequestFields.Field24="0001"
+        fieldLength = RequestFields.Field24.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field24}")
+
+        val  fld24= Array(fieldLength) { "" }
+        charArrayF24 = RequestFields.Field24.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld24[j] = "${charArrayF24[i]}${charArrayF24[i + 1]}"
+            j++
+        }
+
+        //--------------------------------------------------------------- end field24/
+        RequestFields.Field25="00"
+        fieldLength = RequestFields.Field25.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field25}")
+
+        val  fld25= Array(fieldLength) { "" }
+        charArrayF25 = RequestFields.Field25.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld25[j] = "${charArrayF25[i]}${charArrayF25[i + 1]}"
+            j++
+        }
+        //---------------------------------------------------------------end field25/
+
+
+        fieldLength = RequestFields.Field62.length / 2
+        Log.d("TransData", "headertry.........: ${RequestFields.Field62}")
+
+        val  fld62= Array(fieldLength) { "" }
+        charArrayF62 = RequestFields.Field62.toCharArray()
+
+        j=0
+        for (i in 0 until fieldLength * 2 step 2) {
+            fld62[j] = "${charArrayF62[i]}${charArrayF62[i + 1]}"
+            j++
+        }
+
+
+        //--------------------------------------------------------------- end of field 62/
+
+
+
+
+
+        /// ----------------------length of fields-------------------------------//
+        for (r in header.indices) {
+            listOfByteArraysHeader.add(HexUtil.hexStr2Byte(header[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysHeader")
+
+
+        for (byteArray1 in listOfByteArraysHeader) {
+            lengthOfHeader += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in mti.indices) {
+            listOfByteArraysMTI.add(HexUtil.hexStr2Byte(mti[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysMTI")
+
+
+        for (byteArray1 in listOfByteArraysMTI) {
+            lengthOfMTI += byteArray1.size
+        }
+        //val listOfByteArrays1 = mutableListOf<ByteArray>()
+        for (r in primarybitmap.indices) {
+            listOfByteArraysBMP.add(HexUtil.hexStr2Byte(primarybitmap[r]))
+        }
+        Log.d(TAG, "list of byte arrays1: $listOfByteArraysBMP")
+        //---------------------------------------------------------------
+        lengthOfBitmap = 0
+        for (byteArray1 in listOfByteArraysBMP) {
+            lengthOfBitmap += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in Fld02lenstr.indices) {
+            listOfByteArrayslenF02.add(HexUtil.hexStr2Byte(Fld02lenstr[r]))
+        }
+        Log.d(TAG, "list of byte arrayslengf02: $listOfByteArrayslenF02")
+
+
+        for (byteArray1 in listOfByteArrayslenF02) {
+            lengthOfFlen02 += byteArray1.size
+        }
+        Log.d(TAG,"lenf02"+lengthOfFlen02)
+        for (r in fld02.indices) {
+            listOfByteArraysF02.add(HexUtil.hexStr2Byte(fld02[r]))
+        }
+        Log.d(TAG, "list of byte arraysF02: $listOfByteArraysF02")
+
+
+        for (byteArray1 in listOfByteArraysF02) {
+            lengthOfF02 += byteArray1.size
+        }
+        Log.d(TAG,"lenf02"+lengthOfF02)
+
+
+        //---------------------------------------------------------------
+        for (r in fld03.indices) {
+            listOfByteArraysF03.add(HexUtil.hexStr2Byte(fld03[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF03")
+
+
+        for (byteArray1 in listOfByteArraysF03) {
+            lengthOfF03 += byteArray1.size
+        }
+
+        //---------------------------------------------------------------
+        for (r in fld04.indices) {
+            listOfByteArraysF04.add(HexUtil.hexStr2Byte(fld04[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF04")
+
+
+        for (byteArray1 in listOfByteArraysF04) {
+            lengthOfF04 += byteArray1.size
+        }
+
+        //---------------------------------------------------------------
+        for (r in fld11.indices) {
+            listOfByteArraysF11.add(HexUtil.hexStr2Byte(fld11[r]))
+        }
+        Log.d(TAG, "list of byte arraysf1111: $listOfByteArraysF11")
+
+
+        for (byteArray1 in listOfByteArraysF11) {
+            lengthOfF11 += byteArray1.size
+        }
+        //---------------------------------------------------------------
+
+        for (r in fld14.indices) {
+            listOfByteArraysF14.add(HexUtil.hexStr2Byte(fld14[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF14")
+
+
+        for (byteArray1 in listOfByteArraysF14) {
+            lengthOfF14 += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in fld22.indices) {
+            listOfByteArraysF22.add(HexUtil.hexStr2Byte(fld22[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF22")
+
+
+        for (byteArray1 in listOfByteArraysF22) {
+            lengthOfF22 += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in fld24.indices) {
+            listOfByteArraysF24.add(HexUtil.hexStr2Byte(fld24[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF24")
+
+
+        for (byteArray1 in listOfByteArraysF24) {
+            lengthOfF24 += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in fld25.indices) {
+            listOfByteArraysF25.add(HexUtil.hexStr2Byte(fld25[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF25")
+
+
+        for (byteArray1 in listOfByteArraysF25) {
+            lengthOfF25 += byteArray1.size
+        }
+        //---------------------------------------------------------------
+        for (r in fld62.indices) {
+            listOfByteArraysF62.add(HexUtil.hexStr2Byte(fld62[r]))
+        }
+        Log.d(TAG, "list of byte arrays: $listOfByteArraysF62")
+
+
+        for (byteArray1 in listOfByteArraysF62) {
+            lengthOfF62 += byteArray1.size
+        }
+        //-------------------------------------------------------------------
+        val field11 = HexUtil.hexStr2Byte(HexUtil.asc2Hex(RequestFields.Field11))
+        val field41 = HexUtil.hexStr2Byte(HexUtil.asc2Hex(RequestFields.Field41))
+        val field42 = HexUtil.hexStr2Byte(HexUtil.asc2Hex(RequestFields.Field42))
+         var buffer:ByteBuffer
+
+          buffer=ByteBuffer.allocate(
+            lengthOfHeader+
+                    lengthOfMTI+
+                    lengthOfBitmap+
+                    lengthOfFlen02+
+                    lengthOfF02+
+                    lengthOfF03 +
+                    lengthOfF04 +
+                    lengthOfF11 +
+
+                    lengthOfF14 +
+                    lengthOfF22 +
+                    lengthOfF24 +
+                    lengthOfF25+
+                    field41.size +
+                    field42.size+
+                    lengthOfF62+field11.size)
+        buffer.apply {
+            for (byteArray1 in listOfByteArraysHeader) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysMTI) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysBMP) {
+                put(byteArray1)
+            }
+
+            //for loop to put the bit map in buffer
+
+
+            for (byteArray1 in listOfByteArrayslenF02) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF02) {
+                put(byteArray1)
+            }
+
+            for (byteArray1 in listOfByteArraysF03) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF04) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF11) {
+                put(byteArray1)
+            }
+
+            for (byteArray1 in listOfByteArraysF14) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF22) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF24) {
+                put(byteArray1)
+            }
+            for (byteArray1 in listOfByteArraysF25) {
+                put(byteArray1)
+            }
+            put(field41)
+            put(field42)
+            for (byteArray in listOfByteArraysF62) {
+                put(byteArray)
+            }
+            put(field11)
+        }
+
+
+        val result:ByteArray=buffer.array()
+
+
+        return result
 
     }
     fun packRequestFields():ByteArray {
@@ -923,7 +1421,7 @@ class TransData(private val context:Context) {
         var  buffer: ByteBuffer? =null
         var  bufferForManual: ByteBuffer? =null
 
-        if(txnType.equals(Txntype.manualCardEntry)){
+        if(txnType.equals(Txntype.manualPurchase)){
             Log.d(TAG,"txnmenutype:${txnType}")
             buffer=ByteBuffer.allocate(
                 lengthOfHeader+
@@ -1188,6 +1686,99 @@ class TransData(private val context:Context) {
             }
             put(field11)
         }
+        }else if(txnType.equals(Txntype.manualReversal)){
+
+            buffer = ByteBuffer.allocate(
+                lengthOfHeader+
+                        lengthOfMTI+
+                        lengthOfBitmap+
+                        lengthOfFlen02+
+                        lengthOfF02+
+                        lengthOfF03 +
+                        lengthOfF04 +
+                        lengthOfF11 +
+                        lengthOfF12 +
+                        lengthOfF13 +
+                        lengthOfF14 +
+                        lengthOfF22 +
+                        lengthOfF24 +
+                        lengthOfF25+
+                        field37.size +
+                        field38.size +
+                        field39.size +
+                        field41.size +
+                        field42.size+
+                        lengthOfF60+field04.size+
+                        lengthOfF62+field11.size)
+            buffer.apply {
+                for (byteArray1 in listOfByteArraysHeader) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysMTI) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysBMP) {
+                    put(byteArray1)
+                }
+
+                //for loop to put the bit map in buffer
+
+
+                for (byteArray1 in listOfByteArrayslenF02) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF02) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArraysF03) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF04) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF11) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF12) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF13) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF14) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF22) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF24) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF25) {
+                    put(byteArray1)
+                }
+
+
+                put(field37)
+                put(field38)
+                put(field39)
+
+
+                put(field41)
+                put(field42)
+
+                for (byteArray in listOfByteArraysF60) {
+                    put(byteArray)
+                }
+                put(field04)
+
+
+                for (byteArray in listOfByteArraysF62) {
+                    put(byteArray)
+                }
+                put(field11)
+            }
         } else if(txnType.equals(Txntype.purchase)){
              buffer = ByteBuffer.allocate(
                  lengthOfHeader+
@@ -1383,7 +1974,7 @@ class TransData(private val context:Context) {
             put(field11)
         }
 
-//tetttttttttttttttt
+
         val bufferF55nF62 = byteBufferF55nF62.array()
         lateinit var combinedBuffer: ByteBuffer
         val firstBuffer: ByteArray = buffer?.array() ?: "".toByteArray()
@@ -1401,12 +1992,13 @@ class TransData(private val context:Context) {
 
         }*/
 
-        if(txnType.equals(Txntype.reversal)){
+        if(txnType.equals(Txntype.reversal)||txnType.equals(Txntype.manualReversal)){
             Log.d(TAG, "reversalllllll..:" )
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
             }
+           Log.d("Tag","packeddata"+combinedBuffer)
         }else if(txnType.equals(Txntype.purchase)){
             if(isOnlinePin){
                 combinedBuffer = ByteBuffer.allocate(firstBuffer.size +field52.size+ bufferF55nF62.size)
@@ -1438,7 +2030,7 @@ class TransData(private val context:Context) {
             combinedBuffer.apply {
                 put(firstBuffer)
             }
-        }else if(txnType.equals(Txntype.manualCardEntry)){
+        }else if(txnType.equals(Txntype.manualPurchase)){
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
