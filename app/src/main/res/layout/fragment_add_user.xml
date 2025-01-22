@@ -103,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Add User"
-                android:backgroundTint="@color/ahadu_red1"
+                android:background="@drawable/btn_rounded_bg"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:layout_marginTop="34dp"
