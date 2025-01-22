@@ -61,6 +61,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/tv_key_download"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Key Download"
@@ -217,6 +218,7 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/tvSettlement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Settlement"

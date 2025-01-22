@@ -18,18 +18,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import com.pos.sdk.security.PedKcvInfo
 import dagger.hilt.android.AndroidEntryPoint
 import net.geidea.payment.customdialog.DialogLogoutConfirm
 import net.geidea.payment.databinding.ActivityMainMenuBinding
 import net.geidea.payment.help.HelpMainActivity
-import net.geidea.payment.kernelconfig.view.KernelConfigActivity
 import net.geidea.payment.kernelconfig.view.KernelConfigActivity2
 import net.geidea.payment.login.LoginMainActivity
-import net.geidea.payment.report.Report
 import net.geidea.payment.users.cashier.CashierMainActivity
-import net.geidea.payment.users.supervisor.SupervisorManageCashierActivity
-import net.geidea.payment.utils.commonMethods
 
 @AndroidEntryPoint
 class MainMenuActivity : AppCompatActivity() {
@@ -120,7 +115,9 @@ class MainMenuActivity : AppCompatActivity() {
                         logoutBtn = "Exit"
                     ) {
                         // Perform your exit app action here
-                        finish() // Close the app
+                        //finish() // Close the app
+                        finishAndRemoveTask()
+
                     }
                     exitDialog.show()
                 }
@@ -221,6 +218,8 @@ class MainMenuActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.dialog_transactions)
             val saleBtn=dialog.findViewById <ImageButton>(R.id.transaction_sale_icon)
             val reversalBtn=dialog.findViewById<ImageButton>(R.id.transaction_reversal_icon)
+            val refundBtn=dialog.findViewById<ImageButton>(R.id.transaction_refund_icon)
+
             val closeDialogBtn=dialog.findViewById <ImageButton>(R.id.closeDialog)
             saleBtn.setOnClickListener {
                 editor.putString("TXN_TYPE",Txntype.purchase)
@@ -233,6 +232,21 @@ class MainMenuActivity : AppCompatActivity() {
                 editor.commit()
                 startActivity(Intent(this,ReversalActivity::class.java))
 
+
+            }
+            refundBtn.setOnClickListener{
+
+                val dbHandler=DBHandler(this)
+
+                val txnDataList:List<Map<String,String>> = dbHandler.getTxnData()
+                if(txnDataList.isNotEmpty()){
+                   Toast.makeText(this,"Settle first",Toast.LENGTH_SHORT).show()
+                }else {
+                    editor.putString("TXN_TYPE",Txntype.refund)
+                    editor.commit()
+
+                    startActivity(Intent(this, RefundActivity::class.java))
+                }
 
             }
             closeDialogBtn.setOnClickListener{

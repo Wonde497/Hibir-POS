@@ -1,12 +1,15 @@
 package net.geidea.payment.users.supervisor
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.DBHandler
+import net.geidea.payment.Txntype
 import net.geidea.payment.users.admin.AdminMainActivity
 import net.geidea.payment.users.cashier.CashierMainActivity
 import net.geidea.payment.users.support.SupportMainActivity
@@ -20,12 +23,15 @@ class SupervisorLogin : AppCompatActivity() {
 
     private lateinit var binding: SupervisorLoginBinding
     private var dbHandler= DBHandler(this)
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor:SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = SupervisorLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+        editor=sharedPreferences.edit()
         // Populate user types in Spinner
 
         // Handle login button click
@@ -51,8 +57,12 @@ class SupervisorLogin : AppCompatActivity() {
             //go to input pin
            /* val showpin  = commonMethods(this)
             showpin.showPinPad()*/
-            var intent=Intent(this, CardReadActivity::class.java)
-            startActivity(intent)
+            if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.refund)){
+            CardReadActivity.startTransaction(this, intent.getLongExtra("amount", 0L))
+            }else {
+                val intent = Intent(this, CardReadActivity::class.java)
+                startActivity(intent)
+            }
         } else {
             Toast.makeText(this, "Invalid credentials or user type", Toast.LENGTH_SHORT).show()
         }

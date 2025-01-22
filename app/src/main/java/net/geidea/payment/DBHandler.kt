@@ -25,6 +25,8 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         private const val TABLE_MERCHANT_NAME ="merchantName"
         private const val TABLE_MERCHANT_ADDRESS ="merchantAddress"
         private const val TABLE_TXN_DATA ="txn_data_table"
+        private const val TABLE_REFUND ="table_refund"
+
         private const val TABLE_COM_CONFIG ="comConfigTable"
         private const val TABLE_TIMEOUT_REVERSAL ="timeoutReversal"
          const val  TXN_TYPE ="txntype"
@@ -109,7 +111,6 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
                     "$COLUMN_FIELD02 TEXT,"+
                     "$COLUMN_FIELD03 TEXT,"+
                     "$COLUMN_FIELD04 TEXT,"+
-
                     "$COLUMN_FIELD11 TEXT,"+
                     "$COLUMN_FIELD12 TEXT,"+
                     "$COLUMN_FIELD13 TEXT,"+
@@ -126,6 +127,34 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
                     "$COLUMN_FIELD49 TEXT,"+
                     "$COLUMN_FIELD52 TEXT,"+
                     "$COLUMN_FIELD60 TEXT)"
+        private const val CREATE_REFUND_TABLE =
+                                 "CREATE TABLE $TABLE_REFUND (" +
+                                         "$COLUMN_ID INTEGER PRIMARY KEY," +
+                                       "$TXN_TYPE TEXT,"+
+                                       "$COLUMN_MTI TEXT,"+
+                                       "$COLUMN_BITMAP TEXT,"+
+                                       "$COLUMN_FIELD02 TEXT,"+
+                                       "$COLUMN_FIELD03 TEXT,"+
+                                       "$COLUMN_FIELD04 TEXT,"+
+                                       "$COLUMN_FIELD11 TEXT,"+
+                                       "$COLUMN_FIELD12 TEXT,"+
+                                       "$COLUMN_FIELD13 TEXT,"+
+                                       "$COLUMN_FIELD14 TEXT,"+
+                                       "$COLUMN_FIELD22 TEXT,"+
+                                       "$COLUMN_FIELD24 TEXT,"+
+                                       "$COLUMN_FIELD25 TEXT,"+
+                                       "$COLUMN_FIELD35 TEXT,"+
+                                        "$COLUMN_FIELD37 TEXT,"+
+                                        "$COLUMN_FIELD38 TEXT,"+
+                                        "$COLUMN_FIELD39 TEXT,"+
+                                        "$COLUMN_FIELD41 TEXT,"+
+                                        "$COLUMN_FIELD42 TEXT,"+
+                                        "$COLUMN_FIELD49 TEXT,"+
+                                        "$COLUMN_FIELD52 TEXT,"+
+                                        "$COLUMN_FIELD60 TEXT)"
+
+
+
         private const val CREATE_COM_CONFIG =
             "CREATE TABLE $TABLE_COM_CONFIG (" +
                     "$COLUMN_ID INTEGER PRIMARY KEY," +
@@ -144,6 +173,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         private const val DELETE_MERCHANT_NAME = "DROP TABLE IF EXISTS $TABLE_MERCHANT_NAME"
         private const val DELETE_MERCHANT_ADDRESS = "DROP TABLE IF EXISTS $TABLE_MERCHANT_ADDRESS"
         private const val DELETE_TXN_DATA = "DROP TABLE IF EXISTS $TABLE_TXN_DATA"
+        private const val DELETE_TABLE_REFUND="DROP TABLE IF EXISTS $TABLE_REFUND"
         private const val DELETE_COM_CONFIG = "DROP TABLE IF EXISTS $TABLE_COM_CONFIG"
         private const val DELETE_SUPPORT = "DROP TABLE IF EXISTS $TABLE_SUPPORT"
         private const val DELETE_SUPER = "DROP TABLE IF EXISTS $TABLE_SUPER"
@@ -162,6 +192,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             db.execSQL(CREATE_TXN_DATA)
             db.execSQL(CREATE_COM_CONFIG)
             db.execSQL(CREATE_SUPPORT)
+            db.execSQL(CREATE_REFUND_TABLE)
 
         }
     }
@@ -178,6 +209,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             db.execSQL(DELETE_TXN_DATA)
             db.execSQL(DELETE_COM_CONFIG)
             db.execSQL(DELETE_SUPPORT)
+            db.execSQL(DELETE_TABLE_REFUND)
 
 
         }
@@ -401,6 +433,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
                         field49:String,field52:String,field55:String){
         val db = this.writableDatabase
         val values = ContentValues().apply {
+
             put(TXN_TYPE, txntype)
             put(COLUMN_MTI, mti)
             put(COLUMN_BITMAP,bitmap)
@@ -425,10 +458,49 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
             put(COLUMN_FIELD52, field52)
             put(COLUMN_FIELD60, field55)
         }
+
         db.insert(TABLE_TXN_DATA, null, values)
         db.close()
 
     }
+    fun registerTxnData2(txnType2:String,mti2:String,bitmap2:String,field022:String,
+                        field032:String,field042:String,
+                        field112:String, field122:String,field132:String,field142:String,
+                        field222:String,field242:String,field252:String,
+                        field352:String,field372:String,field382:String,
+                        field392:String, field412:String,field422:String,
+                        field492:String,field522:String,field602:String){
+        val db = this.writableDatabase
+        val values2 = ContentValues().apply {
+            put(TXN_TYPE, txnType2)
+            put(COLUMN_MTI, mti2)
+            put(COLUMN_BITMAP,bitmap2)
+            put(COLUMN_FIELD02, field022)
+            put(COLUMN_FIELD03, field032)
+            put(COLUMN_FIELD04, field042)
+
+            put(COLUMN_FIELD11, field112)
+            put(COLUMN_FIELD12, field122)
+            put(COLUMN_FIELD13, field132)
+            put(COLUMN_FIELD14, field142)
+            put(COLUMN_FIELD22, field222)
+            put(COLUMN_FIELD24, field242)
+            put(COLUMN_FIELD25, field252)
+            put(COLUMN_FIELD35, field352)
+            put(COLUMN_FIELD37, field372)
+            put(COLUMN_FIELD38, field382)
+            put(COLUMN_FIELD39, field392)
+            put(COLUMN_FIELD41, field412)
+            put(COLUMN_FIELD42, field422)
+            put(COLUMN_FIELD49, field492)
+            put(COLUMN_FIELD52, field522)
+            put(COLUMN_FIELD60, field602)
+        }
+        db.insert(TABLE_REFUND, null, values2)
+        db.close()
+
+    }
+
     fun deleteAllTxnData(){
         val db = this.writableDatabase
         db.delete(TABLE_TXN_DATA,null,null)
@@ -488,7 +560,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
     fun getTxnDataByApprovalCode(field38Value: String): List<Map<String, String>> {
         val db = this.readableDatabase
         val cursor = db.query(
-            TABLE_TXN_DATA,
+            TABLE_REFUND,
             arrayOf(
                 TXN_TYPE, COLUMN_MTI, COLUMN_BITMAP, COLUMN_FIELD02, COLUMN_FIELD03,
                 COLUMN_FIELD04, COLUMN_FIELD11, COLUMN_FIELD12, COLUMN_FIELD13,
@@ -533,6 +605,105 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         db.close()
         return txnDataList
     }
+    @SuppressLint("Range")
+    fun getTxnDataByReceiptNo(receiptNo: String): List<Map<String, String>> {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_TXN_DATA,
+            arrayOf(
+                TXN_TYPE, COLUMN_MTI, COLUMN_BITMAP, COLUMN_FIELD02, COLUMN_FIELD03,
+                COLUMN_FIELD04, COLUMN_FIELD11, COLUMN_FIELD12, COLUMN_FIELD13,
+                COLUMN_FIELD14, COLUMN_FIELD22, COLUMN_FIELD24, COLUMN_FIELD25,
+                COLUMN_FIELD35, COLUMN_FIELD37, COLUMN_FIELD38, COLUMN_FIELD39,
+                COLUMN_FIELD41, COLUMN_FIELD42, COLUMN_FIELD49, COLUMN_FIELD52,
+                COLUMN_FIELD60
+            ),
+            "$COLUMN_FIELD11 = ?",
+            arrayOf(receiptNo),
+            null, null, null
+        )
+
+        val txnDataList = mutableListOf<Map<String, String>>()
+        while (cursor.moveToNext()) {
+            val txnData = mutableMapOf<String, String>()
+            txnData[COLUMN_MTI] = cursor.getString(cursor.getColumnIndex(COLUMN_MTI))
+            txnData[COLUMN_BITMAP] = cursor.getString(cursor.getColumnIndex(COLUMN_BITMAP))
+            txnData[COLUMN_FIELD02] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD02))
+            txnData[COLUMN_FIELD03] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD03))
+            txnData[COLUMN_FIELD04] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD04))
+
+            txnData[COLUMN_FIELD11] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD11))
+            txnData[COLUMN_FIELD12] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD12))
+            txnData[COLUMN_FIELD13] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD13))
+            txnData[COLUMN_FIELD14] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD14))
+            txnData[COLUMN_FIELD22] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD22))
+            txnData[COLUMN_FIELD24] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD24))
+            txnData[COLUMN_FIELD25] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD25))
+            txnData[COLUMN_FIELD35] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD35))
+            txnData[COLUMN_FIELD37] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD37))
+            txnData[COLUMN_FIELD38] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD38))
+            txnData[COLUMN_FIELD39] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD39))
+            txnData[COLUMN_FIELD41] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD41))
+            txnData[COLUMN_FIELD42] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD42))
+            txnData[COLUMN_FIELD49] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD49))
+            txnData[COLUMN_FIELD52] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD52))
+            txnData[COLUMN_FIELD60] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD60))
+            txnDataList.add(txnData)
+        }
+        cursor.close()
+        db.close()
+        return txnDataList
+    }    @SuppressLint("Range")
+    fun getTxnData2ByApprovalCode(approvalCode: String): List<Map<String, String>> {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_REFUND,
+            arrayOf(
+                TXN_TYPE, COLUMN_MTI, COLUMN_BITMAP, COLUMN_FIELD02, COLUMN_FIELD03,
+                COLUMN_FIELD04, COLUMN_FIELD11, COLUMN_FIELD12, COLUMN_FIELD13,
+                COLUMN_FIELD14, COLUMN_FIELD22, COLUMN_FIELD24, COLUMN_FIELD25,
+                COLUMN_FIELD35, COLUMN_FIELD37, COLUMN_FIELD38, COLUMN_FIELD39,
+                COLUMN_FIELD41, COLUMN_FIELD42, COLUMN_FIELD49, COLUMN_FIELD52,
+                COLUMN_FIELD60
+            ),
+            "$COLUMN_FIELD38 = ?",
+            arrayOf(approvalCode),
+            null, null, null
+        )
+
+        val txnDataList = mutableListOf<Map<String, String>>()
+        while (cursor.moveToNext()) {
+            val txnData = mutableMapOf<String, String>()
+            txnData[COLUMN_MTI] = cursor.getString(cursor.getColumnIndex(COLUMN_MTI))
+            txnData[COLUMN_BITMAP] = cursor.getString(cursor.getColumnIndex(COLUMN_BITMAP))
+            txnData[COLUMN_FIELD02] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD02))
+            txnData[COLUMN_FIELD03] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD03))
+            txnData[COLUMN_FIELD04] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD04))
+
+            txnData[COLUMN_FIELD11] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD11))
+            txnData[COLUMN_FIELD12] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD12))
+            txnData[COLUMN_FIELD13] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD13))
+            txnData[COLUMN_FIELD14] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD14))
+            txnData[COLUMN_FIELD22] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD22))
+            txnData[COLUMN_FIELD24] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD24))
+            txnData[COLUMN_FIELD25] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD25))
+            txnData[COLUMN_FIELD35] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD35))
+            txnData[COLUMN_FIELD37] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD37))
+            txnData[COLUMN_FIELD38] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD38))
+            txnData[COLUMN_FIELD39] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD39))
+            txnData[COLUMN_FIELD41] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD41))
+            txnData[COLUMN_FIELD42] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD42))
+            txnData[COLUMN_FIELD49] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD49))
+            txnData[COLUMN_FIELD52] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD52))
+            txnData[COLUMN_FIELD60] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD60))
+            txnDataList.add(txnData)
+        }
+        cursor.close()
+        db.close()
+        return txnDataList
+    }
+
+
 
     fun registerIPAndPortNumber(ip:String,portNumber:String) {
         val db = this.writableDatabase

@@ -88,6 +88,9 @@ class CardReadActivity : AppCompatActivity() {
         }else if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.purchase)){
             binding.toolbarView.toolbarTitle.text="Purchase"
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
+        }else if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.refund)){
+            binding.toolbarView.toolbarTitle.text="Refund"
+            binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
         }
         cardReadViewModel.setAmountEnglish(CurrencyConverter.convertWithoutSAR(amount))
         cardReadViewModel.setAmount(amount)
@@ -117,6 +120,7 @@ class CardReadActivity : AppCompatActivity() {
             binding.layoutTransactionStatus.printReceipt.isClickable = false
             observePrintStatus()
             cardReadViewModel.printReceipt()
+            startActivity(Intent(this,MainMenuActivity::class.java))
         }
         binding.layoutTransactionStatus.startNewTransaction.setOnClickListener {
             FirebaseDatabaseSingleton.setLog("onClick - startNewTransaction")
@@ -127,7 +131,13 @@ class CardReadActivity : AppCompatActivity() {
 
     private fun observeTransactionProgress() {
         showProgressDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        showProgressDialog.setTitleText("Please wait...")
+        if(sharedPreferences.getInt("TimeoutFlag",0)==1){
+            showProgressDialog.setTitleText("Processing timeout...")
+
+        }else {
+            showProgressDialog.setTitleText("Please wait...")
+
+            }
         showProgressDialog.setCancelable(false)
 
 
@@ -376,6 +386,60 @@ class CardReadActivity : AppCompatActivity() {
                     }
                 },
             )
+                dialog.showDialog()
+
+            }else if (sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.refund))
+            {
+                dialog = PasswordDialog(
+                    this@CardReadActivity,
+                    "Refund",
+                    cardReadViewModel.isIcSlot,
+                    cardReadViewModel.pinBundle!!,
+                    SESSION_PIN_KEY_INDEX,// tpk Index
+                    TransData.RequestFields.Field04.toLong(),
+                    cardReadViewModel.pinEntryCount,
+                    object : PinPadListener {
+                        override fun pinPadDisplayed() {
+
+                        }
+
+                        override fun onPinTimeout() {
+                            FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                            cardReadViewModel.isPinTimeout = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun onPinQuit() {
+                            FirebaseDatabaseSingleton.setLog("onPinQuit")
+                            cardReadViewModel.isPinQuit = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun pinType(pinType: Int) {
+                            Log.d("tag","Pin type Verified"+ pinType)
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                        }
+
+                        override fun offlinePinVerified() {
+                            Log.d("tag", "offlinePinVerified")
+                            showProgressDialog.show()
+                            FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                        }
+
+                        override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                            //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                            cardReadViewModel.transData.pinBlock = pinBlock
+                            Log.d("tag", "online pin")
+                        }
+
+                        override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                            FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                            FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                            Log.d("tag", "pin retry")
+                        }
+                    },
+                )
                 dialog.showDialog()
 
             }else if(sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.purchase))

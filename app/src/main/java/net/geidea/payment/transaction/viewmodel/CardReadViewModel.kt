@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -316,9 +317,9 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                 val timeoutFlag=sharedPreferences.getInt("TimeoutFlag",0)
                 if(timeoutFlag==1){
                     val savedTimeoutData=sharedPreferences.getString("TimeoutData","")
-                    val savedTimeoutDataHex=savedTimeoutData?.let { HexUtil.hexStr2Byte(it) }
-                    if (savedTimeoutDataHex != null) {
-                        com.send(savedTimeoutDataHex)
+                    val savedTimeoutDataByte=savedTimeoutData?.let { HexUtil.hexStr2Byte(it) }
+                    if (savedTimeoutDataByte != null) {
+                        com.send(savedTimeoutDataByte)
                         Log.d(tag, "timeout data sent ...:${savedTimeoutData}")
 
                     }
@@ -433,6 +434,12 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                         transData.genACResult = "00"
                     }
                 }
+                /*if (tagValueMap.containsKey(TVR)) {
+                    transData.genACResult = tagValueMap[TVR] ?: ""
+                    if (transData.tvr.isEmpty()) {
+                        transData.tvr = "00"
+                    }
+                }*/
 
                 FirebaseDatabaseSingleton.setLog("$transData")
                 // offline case
@@ -685,12 +692,12 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
         ///transData.unpackResponseFields(data)
         val bundle = Bundle()
-        //val tlvBuilder = BerTlvBuilder()
+        val tlvBuilder = BerTlvBuilder()
         var authRespCode1: String? = null
         var authCode: String? = null
         var script: String? = null
-        /*val tlvParser = BerTlvParser()
-        val tlvs: List<BerTlv> = tlvParser.parse(HexUtil.parseHex(data)).list
+        val tlvParser = BerTlvParser()
+        val tlvs: List<BerTlv> = tlvParser.parse(HexUtil.parseHex(TransData.ResponseFields.Field55)).list
         for (tlv in tlvs) {
             when (tlv.tag.berTagHex) {
                 "8A" -> authRespCode1 = tlv.hexValue
@@ -698,94 +705,105 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                 "71", "72" -> tlvBuilder.addBerTlv(tlv)
                 else -> {}
             }
-        }*/
+            Log.d(tag, "authcode:$authCode")
+        }
         val authRespCode=data
         //if (tlvBuilder.build() !== 0) {
-        //script = HexUtil.toHexString(tlvBuilder.buildArray())
+        script = HexUtil.toHexString(tlvBuilder.buildArray())
         // }
 
-        if (authRespCode != null) {
-            when (authRespCode) {
-                "00" -> {
-                    Log.d("TAG","field04444444444 ${TransData.ResponseFields.Field04}")
-                    var txntype = sharedPreferences.getString("TXN_TYPE","")
-                    if (txntype != null) {
-                        dbhandler.registerTxnData(
-                            txntype,
-                            "",
-                            "",
-                            TransData.RequestFields.Field02,
-                            "",
-                            TransData.ResponseFields.Field04,
-                            TransData.ResponseFields.Field11,
-                            TransData.ResponseFields.Field12,
-                            TransData.ResponseFields.Field13,
-                            TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
-                        )
-                    }
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_APPROVE
+        when (authRespCode) {
+            "00" -> {
+                Log.d("TAG","field04444444444 ${TransData.ResponseFields.Field04}")
+                val txntype = sharedPreferences.getString("TXN_TYPE","")
+                if (txntype != null) {
+                    dbhandler.registerTxnData(
+                        txntype,
+                        "",
+                        "",
+                        TransData.RequestFields.Field02,
+                        "",
+                        TransData.ResponseFields.Field04,
+                        TransData.ResponseFields.Field11,
+                        TransData.ResponseFields.Field12,
+                        TransData.ResponseFields.Field13,
+                        TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
                     )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3030")
+                    dbhandler.registerTxnData2(
+                        txntype,
+                        "",
+                        "",
+                        TransData.RequestFields.Field02,
+                        "",
+                        TransData.ResponseFields.Field04,
+                        TransData.ResponseFields.Field11,
+                        TransData.ResponseFields.Field12,
+                        TransData.ResponseFields.Field13,
+                        TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
                     )
                 }
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_APPROVE
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3030")
+                )
+            }
 
-                "01" -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_REFER_TO_CARD_ISSUER
-                    )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3031")
-                    )
-                }
+            "01" -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_REFER_TO_CARD_ISSUER
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3031")
+                )
+            }
 
-                "02" -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_DENIAL
-                    )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3032")
-                    )
-                }
+            "02" -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_DENIAL
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3032")
+                )
+            }
 
 
-                "55" -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_FAIL
-                    )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3535")
-                    )
-                }
-                "91" -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_DENIAL
-                    )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3139")
-                    )
-                }
-                "96" -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
-                        EmvOnlineConstraints.EMV_ONLINE_DENIAL
-                    )
-                    bundle.putByteArray(
-                        EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3936")
-                    )
-                }
+            "55" -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_FAIL
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3535")
+                )
+            }
+            "91" -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_DENIAL
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3931")
+                )
+            }
+            "96" -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
+                    EmvOnlineConstraints.EMV_ONLINE_DENIAL
+                )
+                bundle.putByteArray(
+                    EmvOnlineConstraints.OUT_SPECIAL_AUTH_RESP_CODE, HexUtil.parseHex("3936")
+                )
+            }
 
-                else -> {
-                    bundle.putInt(
-                        EmvOnlineConstraints.OUT_AUTH_RESP_CODE, EmvOnlineConstraints.EMV_ONLINE_FAIL
-                    )
-                }
+            else -> {
+                bundle.putInt(
+                    EmvOnlineConstraints.OUT_AUTH_RESP_CODE, EmvOnlineConstraints.EMV_ONLINE_FAIL
+                )
             }
         }
         if (authCode != null) {
@@ -809,6 +827,9 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
             Log.d(tag, "Tag : ${it.key} Value : ${it.value}")
             if(it.key.equals("57")){
                 TransData.RequestFields.Field35=it.value
+            }
+            if(it.key.equals("95")){
+                transData.tvr=it.value
             }
             if(it.key.equals("99")){
                 transData.isOnlinePin=true
@@ -835,16 +856,16 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
              for(tags in tagListCTLS) {
                  var check: Int = 0
 
-                 Log.d(tag, "check" + check)
+                 Log.d(tag, "check$check")
 
-                     if (tagValueMap[tags].toString().equals("null")) {
-                         if (tags.equals("95")) {
+                     if (tagValueMap[tags].toString() == "null") {
+                         if (tags == "95") {
                              value = "0000000000"
                              check = 1
                          } else if (tags.equals("9F34")) {
                              value = "000000"
                              check = 1
-                         } else if (tags.equals("9F7C")) {
+                         } else if (tags == "9F7C") {
                              value = "00000"
                              check = 1
                          }
@@ -853,13 +874,13 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
                      }
 
-                     Log.d(tag, "value" + value)
+                     Log.d(tag, "value$value")
                      total.append(tags).append(HexUtil.dec2Hex((value.length) / 2)).append(value)
 
 
              }
         }
-            else if (entryMode.equals(EntryMode.DIPPED)){
+            else if (entryMode == EntryMode.DIPPED){
             for(tags in tagList){
                 value= tagValueMap[tags].toString()
                 if(tagValueMap["95"].toString() == "null"){
@@ -952,12 +973,13 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
     private fun setReceiptHeader(
     ) {
         FirebaseDatabaseSingleton.setLog("setReceiptHeader")
-        var bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.nib_logo)
-        printerManager.addPrintLine(BitmapPrintLine(bitmap, PrintLine.CENTER))
+        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.hb_logo1)
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, true)
+        printerManager.addPrintLine(BitmapPrintLine(resizedBitmap, PrintLine.CENTER))
 
         printerManager.addPrintLine(
             TextPrintLine(
-                "NIB Bank", PrintLine.CENTER, 20, false
+                "Hibret Bank", PrintLine.CENTER, 20, false
             )
         )
         printerManager.addPrintLine(
@@ -1098,7 +1120,11 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                 )
             )
         }
-
+        printerManager.addPrintLine(
+            TextPrintLine(
+                "TVR : ${transData.tvr}", PrintLine.LEFT, 16, false
+            )
+        )
         printerManager.addBlankView(1)
         printerManager.addPrintLine(
             TextPrintLine(

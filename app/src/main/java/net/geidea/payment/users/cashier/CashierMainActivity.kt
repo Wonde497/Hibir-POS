@@ -171,8 +171,7 @@ class CashierMainActivity : AppCompatActivity() {
             editor.commit()
             RequestFields.Field11 = transData.fillGapSequence(st.toString(),6)
             Log.d("tag","packet "+TransData.RequestFields.Field11)
-
-            TransData.RequestFields.Field24="0001"
+            RequestFields.Field24="0001"
             /* val intent=Intent(this,LoadingActivity::class.java)
              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
              startActivity(intent)*/
@@ -193,6 +192,68 @@ class CashierMainActivity : AppCompatActivity() {
             // val intent = Intent(this, KeyDownloadActivity::class.java)
             // startActivity(intent)
         }
+        binding.cashierKeyDownloadIcon.setOnClickListener {
+            transData.ClearVariables()
+            Toast.makeText(this, "Key Download", Toast.LENGTH_SHORT).show()
+            editor.putString("TXN_TYPE",Txntype.keydownload)
+            editor.commit()
+
+            TransData.RequestFields.Header="00566020153535"
+            RequestFields.MTI="0800"
+            RequestFields.primaryBitmap="2020010000C00004"
+            RequestFields.Field03="990000"
+            val stan=sharedPreferences.getString("STAN", "1")
+            val st = (stan?.toInt() ?: 1) + 1
+            editor.putString("STAN", st.toString())
+            editor.commit()
+            RequestFields.Field11 = transData.fillGapSequence(st.toString(),6)
+            Log.d("tag","packet "+TransData.RequestFields.Field11)
+            RequestFields.Field24="0001"
+            /* val intent=Intent(this,LoadingActivity::class.java)
+             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+             startActivity(intent)*/
+            //common.showloading()
+
+
+            showProgressDialog.show()
+
+            handler = Handler()
+            handler.postDelayed({
+                Thread(startKeyDownload).start()
+            }, 2000)
+
+        }
+        binding.tvKeyDownload.setOnClickListener {
+            transData.ClearVariables()
+            Toast.makeText(this, "Key Download", Toast.LENGTH_SHORT).show()
+            editor.putString("TXN_TYPE",Txntype.keydownload)
+            editor.commit()
+
+            TransData.RequestFields.Header="00566020153535"
+            RequestFields.MTI="0800"
+            RequestFields.primaryBitmap="2020010000C00004"
+            RequestFields.Field03="990000"
+            val stan=sharedPreferences.getString("STAN", "1")
+            val st = (stan?.toInt() ?: 1) + 1
+            editor.putString("STAN", st.toString())
+            editor.commit()
+            RequestFields.Field11 = transData.fillGapSequence(st.toString(),6)
+            Log.d("tag","packet "+TransData.RequestFields.Field11)
+            RequestFields.Field24="0001"
+            /* val intent=Intent(this,LoadingActivity::class.java)
+             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+             startActivity(intent)*/
+            //common.showloading()
+
+
+            showProgressDialog.show()
+
+            handler = Handler()
+            handler.postDelayed({
+                Thread(startKeyDownload).start()
+            }, 2000)
+
+        }
 
         binding.cashierTerminalInfo.setOnClickListener {
             Toast.makeText(this, "Terminal Info ", Toast.LENGTH_SHORT).show()
@@ -202,7 +263,7 @@ class CashierMainActivity : AppCompatActivity() {
 
         binding.cashierSummaryReport.setOnClickListener {
             Toast.makeText(this, "Summary Report ", Toast.LENGTH_SHORT).show()
-            var  rep = Report(this,this)
+            val rep = Report(this,this)
             //rep.printdetailedReport()
             rep.printsummaryReport()
 
@@ -216,7 +277,7 @@ class CashierMainActivity : AppCompatActivity() {
 
         binding.cashierSettlement.setOnClickListener {
 
-            var txnDataList: List<Map<String, String>> = dbHandler.getTxnData()
+            val txnDataList: List<Map<String, String>> = dbHandler.getTxnData()
 
             if (txnDataList.isNotEmpty()) {
 
@@ -240,10 +301,10 @@ class CashierMainActivity : AppCompatActivity() {
                 RequestFields.Field63 = "0030"
                 val purchaseCount = transData.fillGapSequence(Report.purcount.toString(), 3)
                 val reversalCount = transData.fillGapSequence(Report.revcount.toString(), 3)
-                Log.d("tag", "sale count: ${purchaseCount}")
-                Log.d("tag", "void count: ${reversalCount}")
+                Log.d("tag", "sale count: $purchaseCount")
+                Log.d("tag", "void count: $reversalCount")
                 Log.d("tag", "totalSaleAmount ${Report.purchase.toLong()}")
-                Log.d("tag", "totalReversaleAmount ${Report.reversal.toLong()}")
+                Log.d("tag", "totalReversalAmount ${Report.reversal.toLong()}")
                 RequestFields.Header = "30606000000000"
                 RequestFields.MTI = "0500"
                 RequestFields.primaryBitmap = "2020010000C00016"
@@ -261,14 +322,12 @@ class CashierMainActivity : AppCompatActivity() {
 
 
 
-                RequestFields.endValue4F63 = "${
-                    purchaseCount + transData.fillGapSequence(
-                        Report.purchase.toLong().toString(),
-                        12
-                    ) + reversalCount + transData.fillGapSequence(
-                        Report.reversal.toLong().toString(), 12
-                    )
-                }"
+                RequestFields.endValue4F63 = purchaseCount + transData.fillGapSequence(
+                    Report.purchase.toLong().toString(),
+                    12
+                ) + reversalCount + transData.fillGapSequence(
+                    Report.reversal.toLong().toString(), 12
+                )
                 Log.d("tag", "endvalue of 63: ${TransData.RequestFields.endValue4F63}")
 
                 showProgressDialog.show()
@@ -284,6 +343,146 @@ class CashierMainActivity : AppCompatActivity() {
                     showAlert("No Transaction")
                 }
                 }
+        }
+        binding.cashierSettlementIcon.setOnClickListener {
+
+            val txnDataList: List<Map<String, String>> = dbHandler.getTxnData()
+
+            if (txnDataList.isNotEmpty()) {
+
+                editor.putString("TXN_TYPE", Txntype.settlement)
+                editor.commit()
+                TransData.RequestFields.Header = "30606000000000"
+                RequestFields.MTI = "0500"
+                RequestFields.primaryBitmap = "2020010000C00016"
+                RequestFields.Field03 = "960000"
+                val stann = sharedPreferences.getString("STAN", "1")
+                val stt = (stann?.toInt() ?: 1) + 1
+                editor.putString("STAN", stt.toString())
+                editor.commit()
+                TransData.RequestFields.Field11 = transData.fillGapSequence(stt.toString(), 6)
+                Log.d("tag", "packet11 " + TransData.RequestFields.Field11)
+                RequestFields.Field24 = "0001"
+                RequestFields.Field60 = "0006"
+                RequestFields.Field62 = "00225665722E30312E313330312024243030313230313033"
+                val report = Report(this, this)
+                report.getReport()
+                RequestFields.Field63 = "0030"
+                val purchaseCount = transData.fillGapSequence(Report.purcount.toString(), 3)
+                val reversalCount = transData.fillGapSequence(Report.revcount.toString(), 3)
+                Log.d("tag", "sale count: $purchaseCount")
+                Log.d("tag", "void count: $reversalCount")
+                Log.d("tag", "totalSaleAmount ${Report.purchase.toLong()}")
+                Log.d("tag", "totalReversalAmount ${Report.reversal.toLong()}")
+                RequestFields.Header = "30606000000000"
+                RequestFields.MTI = "0500"
+                RequestFields.primaryBitmap = "2020010000C00016"
+                RequestFields.Field03 = "960000"
+                val stan = sharedPreferences.getString("STAN", "1")
+                val st = (stan?.toInt() ?: 1) + 1
+                editor = sharedPreferences.edit()
+                editor.putString("STAN", st.toString())
+                editor.commit()
+                RequestFields.Field11 = transData.fillGapSequence(st.toString(), 6)
+                Log.d("tag", "packet11 " + RequestFields.Field11)
+                RequestFields.Field24 = "0001"
+                RequestFields.Field60 = "0006"
+                RequestFields.Field62 = "00225665722E30312E313330312024243030313230313033"
+
+
+
+                RequestFields.endValue4F63 = purchaseCount + transData.fillGapSequence(
+                    Report.purchase.toLong().toString(),
+                    12
+                ) + reversalCount + transData.fillGapSequence(
+                    Report.reversal.toLong().toString(), 12
+                )
+                Log.d("tag", "endValue of 63: ${TransData.RequestFields.endValue4F63}")
+
+                showProgressDialog.show()
+                handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    Thread(doSettlement).start()
+                }, 2000)
+
+                Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+
+            }else{
+                runOnUiThread {
+                    showAlert("No Transaction")
+                }
+            }
+
+        }
+        binding.tvSettlement.setOnClickListener {
+
+            val txnDataList: List<Map<String, String>> = dbHandler.getTxnData()
+
+            if (txnDataList.isNotEmpty()) {
+
+                editor.putString("TXN_TYPE", Txntype.settlement)
+                editor.commit()
+                TransData.RequestFields.Header = "30606000000000"
+                RequestFields.MTI = "0500"
+                RequestFields.primaryBitmap = "2020010000C00016"
+                RequestFields.Field03 = "960000"
+                val stann = sharedPreferences.getString("STAN", "1")
+                val stt = (stann?.toInt() ?: 1) + 1
+                editor.putString("STAN", stt.toString())
+                editor.commit()
+                TransData.RequestFields.Field11 = transData.fillGapSequence(stt.toString(), 6)
+                Log.d("tag", "packet11 " + TransData.RequestFields.Field11)
+                RequestFields.Field24 = "0001"
+                RequestFields.Field60 = "0006"
+                RequestFields.Field62 = "00225665722E30312E313330312024243030313230313033"
+                val report = Report(this, this)
+                report.getReport()
+                RequestFields.Field63 = "0030"
+                val purchaseCount = transData.fillGapSequence(Report.purcount.toString(), 3)
+                val reversalCount = transData.fillGapSequence(Report.revcount.toString(), 3)
+                Log.d("tag", "sale count: $purchaseCount")
+                Log.d("tag", "void count: $reversalCount")
+                Log.d("tag", "totalSaleAmount ${Report.purchase.toLong()}")
+                Log.d("tag", "totalReversalAmount ${Report.reversal.toLong()}")
+                RequestFields.Header = "30606000000000"
+                RequestFields.MTI = "0500"
+                RequestFields.primaryBitmap = "2020010000C00016"
+                RequestFields.Field03 = "960000"
+                val stan = sharedPreferences.getString("STAN", "1")
+                val st = (stan?.toInt() ?: 1) + 1
+                editor = sharedPreferences.edit()
+                editor.putString("STAN", st.toString())
+                editor.commit()
+                RequestFields.Field11 = transData.fillGapSequence(st.toString(), 6)
+                Log.d("tag", "packet11 " + RequestFields.Field11)
+                RequestFields.Field24 = "0001"
+                RequestFields.Field60 = "0006"
+                RequestFields.Field62 = "00225665722E30312E313330312024243030313230313033"
+
+
+
+                RequestFields.endValue4F63 = purchaseCount + transData.fillGapSequence(
+                    Report.purchase.toLong().toString(),
+                    12
+                ) + reversalCount + transData.fillGapSequence(
+                    Report.reversal.toLong().toString(), 12
+                )
+                Log.d("tag", "endValue of 63: ${RequestFields.endValue4F63}")
+
+                showProgressDialog.show()
+                handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    Thread(doSettlement).start()
+                }, 2000)
+
+                Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+
+            }else{
+                runOnUiThread {
+                    showAlert("No Transaction")
+                }
+            }
+
         }
             binding.cashierChangePassword.setOnClickListener {
                 Toast.makeText(this, "Change Password ", Toast.LENGTH_SHORT).show()
@@ -303,7 +502,7 @@ class CashierMainActivity : AppCompatActivity() {
         //   headerBinding.navImage.drawable = userimg
         headerBinding.navImage.setImageResource(userImageResId)
     }
-    val startKeyDownload=Runnable{
+    private val startKeyDownload=Runnable{
 
         transData.assignValue2Fields()
         val packet=transData.packRequestFields()
@@ -321,7 +520,7 @@ class CashierMainActivity : AppCompatActivity() {
             com.send(packet)
             Log.d("tag", "message sent...:")
 
-            var response=com.receive(1024,30)
+            val response=com.receive(1024,30)
             Log.d("tag", "Received response:$response")
             Log.d("tag", "key download response:"+ response?.let { HexUtil.toHexString(it) })
 
@@ -339,20 +538,20 @@ class CashierMainActivity : AppCompatActivity() {
 
 
                 val responseHex=HexUtil.toHexString(response)
-                val FIELD62Hex=responseHex.substring(responseHex.length-32)
+                val field62Hex=responseHex.substring(responseHex.length-32)
 
-                val FIELD62=HexUtil.hexToAscii(FIELD62Hex)
-                Log.d("tag","fld62:"+FIELD62)
+                val field62="AB3AF79EB105C5EE"//HexUtil.hexToAscii(field62Hex)
+                Log.d("tag", "fld62:$field62")
                 Log.d("tag","POIHsmManage.PED_TMK:"+POIHsmManage.PED_TMK)
 
                 val result= common.updateKeyMKSK(
                     POIHsmManage.PED_TMK,
                     MASTER_KEY_INDEX,
-                    FIELD62,
+                    field62,
                     POIHsmManage.PED_TPK,
                     SESSION_PIN_KEY_INDEX
                 )
-                Log.d("tag","key download result...:"+result)
+                Log.d("tag", "key download result...:$result")
                 if (result != 0) {
                     runOnUiThread {
                         showAlert("Key Download Failed")
@@ -393,12 +592,12 @@ class CashierMainActivity : AppCompatActivity() {
 
         }
     }
-    val doSettlement=Runnable{
+    private val doSettlement=Runnable{
 
         dbHandler=DBHandler(this)
 
         val report= Report(this,this)
-        Log.d("tag","gghpp[oop${sharedPreferences.getString("TXN_TYPE","")}")
+        Log.d("tag","transaction type:${sharedPreferences.getString("TXN_TYPE","")}")
         transData.assignValue2Fields()
         val packet=transData.packRequestFields()
         Log.d("tag","packet ")

@@ -84,7 +84,7 @@ class ReversalActivity : AppCompatActivity() {
         var txnDataList:List<Map<String,String>>
 
         binding.button.setOnClickListener {
-            txnDataList=dbHandler.getTxnDataByApprovalCode(binding.editText.text.toString())
+            txnDataList=dbHandler.getTxnDataByReceiptNo(binding.editText.text.toString())
             if(txnDataList.isNotEmpty()){
                 for (txnData in txnDataList) {
                     TransData.RequestFields.Field02=txnData[DBHandler.COLUMN_FIELD02].toString()
@@ -113,7 +113,7 @@ class ReversalActivity : AppCompatActivity() {
 
 
         }else{
-                Toast.makeText(this,"NO TXN RECORDED with this approval code!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"NO TXN RECORDED with this receipt no.!",Toast.LENGTH_SHORT).show()
         }
         }
 

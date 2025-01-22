@@ -8,16 +8,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import net.geidea.payment.databinding.FragmentAmountBinding
 import net.geidea.payment.transaction.view.CardReadActivity
 import net.geidea.payment.utils.FirebaseDatabaseSingleton
+import java.text.DecimalFormat
 import net.geidea.payment.utils.FirebaseDatabaseSingleton.getCurrentTime
 import net.geidea.utils.CurrencyConverter
 import net.geidea.payment.Txntype
 import net.geidea.payment.transaction.ManualCardEntry
 import net.geidea.payment.transaction.model.TransData
-//cfgjk
+import net.geidea.payment.users.supervisor.SupervisorLogin
+
 class AmountFragment : Fragment() {
     private lateinit var binding: FragmentAmountBinding
       lateinit var sharedPreferences: SharedPreferences
@@ -32,7 +35,7 @@ class AmountFragment : Fragment() {
         binding = FragmentAmountBinding.inflate(inflater, container, false)
         sharedPreferences = requireActivity().getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
-        txntype= sharedPreferences.getString("transaction","").toString()
+        txntype= sharedPreferences.getString("TXN_TYPE","").toString()
 
         return binding.root
 
@@ -74,9 +77,35 @@ class AmountFragment : Fragment() {
                     startActivity(intent)
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
+                }else if(txntype==Txntype.refund){
+                    val transData=TransData(requireContext())
+                    val readableOldAmount=getReadableAmount(TransData.RequestFields.Field04)
+                    val amt=transData.fillGapSequence(amount.toString(),12)
+                    val amount1=getReadableAmount(amt)
+                    Log.d("MyTag", "amount1$amount1")
+                    Log.d("MyTag", "readableOldAmount$readableOldAmount")
+
+                    if(amount1.toDouble() < readableOldAmount.toDouble()){
+                       val intent =Intent(requireContext(), SupervisorLogin::class.java)
+                        intent.putExtra("amount",amount)
+
+                        TransData.RequestFields.Field04=transData.fillGapSequence(amount.toString(),12)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(requireContext(),"Refund amount must be less than $readableOldAmount ",Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             }
         })
+    }
+    fun getReadableAmount(amount: String?): String {
+        return if (amount.isNullOrEmpty()) {
+            "0.00"
+        } else {
+            val decimalFormat=DecimalFormat("0.00")
+            decimalFormat.format(amount.toDouble() / 100.0)
+        }
     }
 
     override fun onStop() {

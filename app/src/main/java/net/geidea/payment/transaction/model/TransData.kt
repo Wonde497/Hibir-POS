@@ -30,6 +30,7 @@ class TransData(private val context:Context) {
     var pinBlock = ""
     var transactionReqDateTime = ""
     var aid = ""
+    var tvr = ""
     var rrn = ""
     var stan = ""
     var transactionStatus = false
@@ -51,6 +52,7 @@ class TransData(private val context:Context) {
                 "pinBlock='$pinBlock', " +
                 "transactionReqDateTime='$transactionReqDateTime', " +
                 "aid='$aid', " +
+                "tvr='$tvr', " +
                 "rrn='$rrn', " +
                 "stan='$stan', " +
                 "transactionStatus=$transactionStatus, " +
@@ -134,34 +136,38 @@ class TransData(private val context:Context) {
          //txnMenuType=sharedPreferences.getString("TXN_MENU_TYPE","")
         //Log.d(TAG,"txnMenuType${txnMenuType}")
 
-        if(!txnType.equals(Txntype.keydownload) && !txnType.equals(Txntype.settlement) && !txnType.equals(Txntype.reversal)&&!txnType.equals(Txntype.manualReversal)) {
-            Log.d(TAG, "txntype2:" + txnType)
+        if(!txnType.equals(Txntype.refund)&&!txnType.equals(Txntype.keydownload) && !txnType.equals(Txntype.settlement) && !txnType.equals(Txntype.reversal)&&!txnType.equals(Txntype.manualReversal)) {
+            Log.d(TAG, "txntype2:$txnType")
 
             RequestFields.Field11 = stan
-            Log.d(TAG, "stankd:" + RequestFields.Field11)
+            Log.d(TAG, "stan...:" + RequestFields.Field11)
         }
-        //ClearVariables()
-      //  txnType=sharedPreferences.getString("TXN_TYPE","")
-        Log.d(TAG,"txn type"+txnType)
-        Log.d(TAG,"entry mode"+entryMode)
+
+        Log.d(TAG, "txn type$txnType")
+        Log.d(TAG, "entry mode$entryMode")
         if(txnType.equals(Txntype.purchase)){
             if(entryMode.equals(EntryMode.CONTACTLESS)){
-                Log.d(TAG,"txn type"+txnType)
+                Log.d(TAG, "txn type$txnType")
                 RequestFields.Field22="0070"
-            }else  RequestFields.Field22="0051"
+            }else {
+                RequestFields.Field22="0051"
+            }
 
 
             RequestFields. Header="30606020153535"
             RequestFields.MTI="0200"
+            RequestFields.Field03="000000"
             RequestFields.Field25="00"
             RequestFields.Field62="0006"
 
             if(isOnlinePin){
                 RequestFields.primaryBitmap="7024058020C01204"
 
-            }else RequestFields.primaryBitmap="7024058020C00204"
+            }else{
+                RequestFields.primaryBitmap="7024058020C00204"
+            }
 
-            RequestFields.Field03="000000"
+
         } else if(txnType.equals(Txntype.reversal)){
             RequestFields. Header="30606020153535"
             RequestFields.MTI="0200"
@@ -169,6 +175,8 @@ class TransData(private val context:Context) {
             RequestFields.Field03="020000"
             if(entryMode.equals(EntryMode.CONTACTLESS)){
                 RequestFields.Field22="0070"
+            }else {
+                RequestFields.Field22="0051"
             }
         }else if(txnType.equals(Txntype.manualReversal)){
             RequestFields. Header="30606020153535"
@@ -186,7 +194,17 @@ class TransData(private val context:Context) {
 
 if(!txnType.equals(Txntype.manualReversal)) {
     RequestFields.Field02 = pan
-}
+    }
+        if(txnType.equals(Txntype.refund)){
+           RequestFields.Header="30606020153535"
+          RequestFields.MTI="0200"
+            RequestFields.Field03= "200000"
+            if(isOnlinePin){
+                RequestFields.primaryBitmap="703C05802EC01204"
+            } else{
+                RequestFields.primaryBitmap="703C05802EC00204"
+            }
+        }
         // RequestFields.FielFd07= SimpleDateFormat("MMddhhmmss", Locale.getDefault()).format(Date())
         Log.d(TAG, "trantype:" + txnType)
 
@@ -219,9 +237,9 @@ if(!txnType.equals(Txntype.manualReversal)) {
         var i = 0
         var fieldLength=0
         //   listOfByteArrays="".toByteArray()
-        var listOfByteArraysHeader = mutableListOf<ByteArray>()
-        var listOfByteArraysMTI = mutableListOf<ByteArray>()
-        var listOfByteArraysBMP = mutableListOf<ByteArray>()
+        val listOfByteArraysHeader = mutableListOf<ByteArray>()
+        val listOfByteArraysMTI = mutableListOf<ByteArray>()
+        val listOfByteArraysBMP = mutableListOf<ByteArray>()
         var lengthOfHeader=0
         var lengthOfMTI=0
 
@@ -305,7 +323,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
 
         //--------------------------------------------------------------- end mti/
-        RequestFields.primaryBitmap="7024058020C00204"
+        RequestFields.primaryBitmap="7024058000C00004"
         val bitmaplength = RequestFields.primaryBitmap.length / 2
         Log.d("TransData", "bitmaptry.........: ${RequestFields.primaryBitmap}")
 
@@ -1586,106 +1604,108 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
 
         }
-        } else if(txnType.equals(Txntype.reversal)){
+        } else if(txnType.equals(Txntype.reversal)) {
 
             buffer = ByteBuffer.allocate(
-                           lengthOfHeader+
-                                   lengthOfMTI+
-                                           lengthOfBitmap+
-                                           lengthOfFlen02+
-                                           lengthOfF02+
-                                           lengthOfF03 +
-                                           lengthOfF04 +
-                                           lengthOfF11 +
-                                           lengthOfF12 +
-                                           lengthOfF13 +
-                                          lengthOfF14 +
-                                          lengthOfF22 +
-                                          lengthOfF24 +
-                                          lengthOfF25+
-                                          lengthOflenF35+
-                                          lengthOfF35 +
-                                           field37.size +
-                                           field38.size +
-                                           field39.size +
-                                          field41.size +
-                                          field42.size+
-                                          lengthOfF60+field04.size+
-                                           lengthOfF62+field11.size)
-        buffer.apply {
-            for (byteArray1 in listOfByteArraysHeader) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysMTI) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysBMP) {
-                put(byteArray1)
-            }
+                lengthOfHeader +
+                        lengthOfMTI +
+                        lengthOfBitmap +
+                        lengthOfFlen02 +
+                        lengthOfF02 +
+                        lengthOfF03 +
+                        lengthOfF04 +
+                        lengthOfF11 +
+                        lengthOfF12 +
+                        lengthOfF13 +
+                        lengthOfF14 +
+                        lengthOfF22 +
+                        lengthOfF24 +
+                        lengthOfF25 +
+                        lengthOflenF35 +
+                        lengthOfF35 +
+                        field37.size +
+                        field38.size +
+                        field39.size +
+                        field41.size +
+                        field42.size +
+                        lengthOfF60 + field04.size +
+                        lengthOfF62 + field11.size
+            )
+            buffer.apply {
+                for (byteArray1 in listOfByteArraysHeader) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysMTI) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysBMP) {
+                    put(byteArray1)
+                }
 
-            //for loop to put the bit map in buffer
-
-
-            for (byteArray1 in listOfByteArrayslenF02) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF02) {
-                put(byteArray1)
-            }
-
-            for (byteArray1 in listOfByteArraysF03) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF04) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF11) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF12) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF13) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF14) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF22) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF24) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF25) {
-                put(byteArray1)
-            }
-
-            for (byteArray1 in listOfByteArrayslenF35) {
-                put(byteArray1)
-            }
-            for (byteArray1 in listOfByteArraysF35) {
-                put(byteArray1)
-            }
-            put(field37)
-            put(field38)
-            put(field39)
+                //for loop to put the bit map in buffer
 
 
-            put(field41)
-            put(field42)
+                for (byteArray1 in listOfByteArrayslenF02) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF02) {
+                    put(byteArray1)
+                }
 
-            for (byteArray in listOfByteArraysF60) {
-                put(byteArray)
+                for (byteArray1 in listOfByteArraysF03) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF04) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF11) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF12) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF13) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF14) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF22) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF24) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF25) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArrayslenF35) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF35) {
+                    put(byteArray1)
+                }
+                put(field37)
+                put(field38)
+                put(field39)
+
+
+                put(field41)
+                put(field42)
+
+                for (byteArray in listOfByteArraysF60) {
+                    put(byteArray)
+                }
+                put(field04)
+
+
+                for (byteArray in listOfByteArraysF62) {
+                    put(byteArray)
+                }
+                put(field11)
             }
-            put(field04)
 
-
-            for (byteArray in listOfByteArraysF62) {
-                put(byteArray)
-            }
-            put(field11)
-        }
         }else if(txnType.equals(Txntype.manualReversal)){
 
             buffer = ByteBuffer.allocate(
@@ -1856,7 +1876,98 @@ if(!txnType.equals(Txntype.manualReversal)) {
                  put(field42)
 
              }
-         }
+         }else if(txnType.equals(Txntype.refund)) {
+                buffer = ByteBuffer.allocate(
+                    lengthOfHeader+
+                            lengthOfMTI+
+                            lengthOfBitmap +
+                            lengthOfFlen02+
+                            lengthOfF02+
+                            lengthOfF03 +
+                            lengthOfF04 +
+                            lengthOfF11 +
+                            lengthOfF12+
+                            lengthOfF13+
+                            lengthOfF14 +
+                            lengthOfF22 +
+                            lengthOfF24 +
+                            lengthOfF25+
+                            lengthOflenF35+
+                            lengthOfF35 +
+                            field37.size +
+                            field38.size +
+                            field39.size +
+                            field41.size +
+                            field42.size
+
+                )
+
+            buffer?.apply {
+                    for (byteArray1 in listOfByteArraysHeader) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysMTI) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysBMP) {
+                        put(byteArray1)
+                    }
+
+                    //for loop to put the bit map in buffer
+
+
+                    for (byteArray1 in listOfByteArrayslenF02) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF02) {
+                        put(byteArray1)
+                    }
+
+                    for (byteArray1 in listOfByteArraysF03) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF04) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF11) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF12) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF13) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF14) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF22) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF24) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF25) {
+                        put(byteArray1)
+                    }
+
+                    for (byteArray1 in listOfByteArrayslenF35) {
+                        put(byteArray1)
+                    }
+                    for (byteArray1 in listOfByteArraysF35) {
+                        put(byteArray1)
+                    }
+                put(field37)
+                put(field38)
+                put(field39)
+
+
+                    put(field41)
+                    put(field42)
+
+                }
+            }
+
         //**************************************************************
 
          //********************************************************
@@ -1999,7 +2110,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
                 put(firstBuffer)
             }
            Log.d("Tag","packeddata"+combinedBuffer)
-        }else if(txnType.equals(Txntype.purchase)){
+        }else if(txnType.equals(Txntype.purchase)||txnType.equals(Txntype.refund)){
             if(isOnlinePin){
                 combinedBuffer = ByteBuffer.allocate(firstBuffer.size +field52.size+ bufferF55nF62.size)
                 combinedBuffer.apply {
@@ -2209,7 +2320,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
             }
         }
     }
-    fun hex2Binary(hexString: String): String {
+    private fun hex2Binary(hexString: String): String {
         val binary = StringBuilder()
         for (i in hexString.indices) {
             val hexChar = hexString[i]

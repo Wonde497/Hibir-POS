@@ -94,4 +94,8 @@
     <string name="search_by_approval_code">Search By Approval Code</string>
     <string name="enter_approval_code">Enter Approval Code</string>
     <string name="search">Search</string>
+    <string name="search_by_receipt_no">Search By Receipt No</string>
+    <string name="refund">Refund</string>
+    <string name="enter_refund_amount">Enter Refund Amount</string>
+    <string name="confirm">Confirm</string>
 </resources>

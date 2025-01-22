@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter
 import android.text.Editable
 import android.text.TextWatcher
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -78,7 +79,13 @@ class ExpiryDate : AppCompatActivity() {
         showProgressDialog2 = SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
 
         showProgressDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-        showProgressDialog.setTitleText("Please wait...")
+        if(sharedPreferences.getInt("TimeoutFlagM",0)==1){
+            showProgressDialog.setTitleText("Processing timeout...")
+
+        }else{
+
+            showProgressDialog.setTitleText("Please wait...")
+        }
         showProgressDialog.setCancelable(false)
         binding.layoutTransactionStatus.printReceipt.setOnClickListener {
             FirebaseDatabaseSingleton.setLog("onClick - printReceipt")
@@ -145,7 +152,7 @@ class ExpiryDate : AppCompatActivity() {
             editor.putString("STAN", stt.toString())
             editor.commit()
             TransData.RequestFields.Field11 = transData.fillGapSequence(stt.toString(), 6)
-            var expiryDate=binding.edtExDate.text.toString()
+            val expiryDate=binding.edtExDate.text.toString()
             val month=expiryDate.substring(0,2)
             Log.d("TAG","month:${month}")
             val year=expiryDate.substring(2,4)
@@ -185,18 +192,120 @@ class ExpiryDate : AppCompatActivity() {
     private val doManualPurchase = Runnable {
         dbHandler = DBHandler(this)
         //transData.assignValue2Fields()
+
         val packet = transData.packRequestFields()
+
+        val timeoutData=transData.packFields4TimeoutReversal()
+        val timeoutDataHex=timeoutData.let { HexUtil.toHexString(it) }
         Log.d("tag", "packet ")
         val com = Comm("${dbHandler.getIPAndPortNumber()?.first}", "${dbHandler.getIPAndPortNumber()?.second}".toInt())
         if (!com.connect()) {
             Log.d("tag", "Connection failed")
         } else {
+            val timeout = sharedPreferences.getInt("TimeoutFlagM", 0)
+            if (timeout == 1) {
+                val savedTimeoutData=sharedPreferences.getString("TimeoutDataM","")
+                val savedTimeoutByte=savedTimeoutData?.let { HexUtil.hexStr2Byte(it) }
+                if (savedTimeoutByte != null) {
+                    com.send(savedTimeoutByte)
+                    Log.d("tag", "timeout data sentM ...:${savedTimeoutByte}")
+                }
+                val timeoutResponseM=com.receive(1024,30)
+                Log.d("tag", "timeout responseM ...:${timeoutResponseM?.let { HexUtil.toHexString(it) }}")
+                editor.putInt("TimeoutFlagM", 0)
+                editor.putString("TimeoutDataM","")
+                editor.commit()
+                if(timeoutResponseM!=null){
+                    TransData.RequestFields.primaryBitmap="7024058000C00004"
+                    TransData.RequestFields.MTI="0200"
+
+                    com.send(packet)
+                    Log.d("tag", "message sent...")
+                    val response = com.receive(1024, 30)
+                    Log.d("tag", "Received response: $response")
+                    Log.d("tag", "manual txn response: ${response?.let { HexUtil.toHexString(it) }}")
+                    if (response == null) {
+                        editor.putInt("TimeoutFlagM", 1)
+                        editor.putString("TimeoutDataM", timeoutDataHex)
+                        editor.commit()
+                        runOnUiThread {
+                            if (!isFinishing && !isDestroyed) {
+                                showProgressDialog.dismiss()
+                                showAlert("txn failed !")
+                            }
+                        }
+                    } else {
+                        editor.putInt("TimeoutFlagM", 0)
+                        editor.commit()
+                        response?.let { HexUtil.toHexString(it) }
+                            ?.let { transData.unpackResponseFields(it) }
+                        runOnUiThread {
+                            if (!isFinishing && !isDestroyed) {
+                                showProgressDialog.dismiss()
+                            }
+                            if (TransData.ResponseFields.Field39 == "00") {
+                                transData.transactionStatus = true
+                                val txntype = Txntype.manualPurchase
+                                txntype?.let {
+                                    dbHandler.registerTxnData(
+                                        it,
+                                        "",
+                                        "",
+                                        TransData.RequestFields.Field02,
+                                        "",
+                                        TransData.ResponseFields.Field04,
+                                        TransData.ResponseFields.Field11,
+                                        TransData.ResponseFields.Field12,
+                                        TransData.ResponseFields.Field13,
+                                        TransData.RequestFields.Field14,
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        TransData.ResponseFields.Field37,
+                                        TransData.ResponseFields.Field38,
+                                        TransData.ResponseFields.Field39,
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        TransData.RequestFields.Field60
+                                    )
+                                }
+                                runOnUiThread() {
+                                    txnStatusView4Approval()
+
+                                }
+
+                            } else {
+                                runOnUiThread() {
+                                    txnStatusView4Decline()
+                                    //cardReadActivity.listenerForManualTxn()
+
+                                }
+
+
+                            }
+                        }
+                    }
+
+                }
+
+
+
+            } else {
+
+                TransData.RequestFields.primaryBitmap="7024058000C00004"
+                TransData.RequestFields.MTI="0200"
             com.send(packet)
             Log.d("tag", "message sent...")
             val response = com.receive(1024, 30)
             Log.d("tag", "Received response: $response")
             Log.d("tag", "manual txn response: ${response?.let { HexUtil.toHexString(it) }}")
             if (response == null) {
+                editor.putInt("TimeoutFlagM", 1)
+                editor.putString("TimeoutDataM", timeoutDataHex)
+                editor.commit()
                 runOnUiThread {
                     if (!isFinishing && !isDestroyed) {
                         showProgressDialog.dismiss()
@@ -204,14 +313,17 @@ class ExpiryDate : AppCompatActivity() {
                     }
                 }
             } else {
-                response?.let { HexUtil.toHexString(it) }?.let { transData.unpackResponseFields(it) }
+                editor.putInt("TimeoutFlagM", 0)
+                editor.commit()
+                response?.let { HexUtil.toHexString(it) }
+                    ?.let { transData.unpackResponseFields(it) }
                 runOnUiThread {
                     if (!isFinishing && !isDestroyed) {
                         showProgressDialog.dismiss()
                     }
                     if (TransData.ResponseFields.Field39 == "00") {
                         transData.transactionStatus = true
-                        val txntype=Txntype.manualPurchase
+                        val txntype = Txntype.manualPurchase
                         txntype?.let {
                             dbHandler.registerTxnData(
                                 it,
@@ -237,8 +349,34 @@ class ExpiryDate : AppCompatActivity() {
                                 "",
                                 TransData.RequestFields.Field60
                             )
+                            }
+                        txntype?.let{
+                            dbHandler.registerTxnData2(
+                                it,
+                                "",
+                                "",
+                                TransData.RequestFields.Field02,
+                                "",
+                                TransData.ResponseFields.Field04,
+                                TransData.ResponseFields.Field11,
+                                TransData.ResponseFields.Field12,
+                                TransData.ResponseFields.Field13,
+                                TransData.RequestFields.Field14,
+                                "",
+                                "",
+                                "",
+                                "",
+                                TransData.ResponseFields.Field37,
+                                TransData.ResponseFields.Field38,
+                                TransData.ResponseFields.Field39,
+                                "",
+                                "",
+                                "",
+                                "",
+                                TransData.RequestFields.Field60
+                            )
                         }
-                        runOnUiThread(){
+                        runOnUiThread() {
                             txnStatusView4Approval()
 
                         }
@@ -254,6 +392,7 @@ class ExpiryDate : AppCompatActivity() {
                     }
                 }
             }
+        }
         }
     }
     private fun txnStatusView4Approval(){
@@ -344,12 +483,12 @@ class ExpiryDate : AppCompatActivity() {
     private fun setReceiptHeader(
     ) {
         FirebaseDatabaseSingleton.setLog("setReceiptHeader")
-        val bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.nib_logo)
-        printerManager.addPrintLine(BitmapPrintLine(bitmap, PrintLine.CENTER))
-
+        val bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.hb_logo1)
+        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
+        printerManager.addPrintLine(BitmapPrintLine(resizedBitmap, PrintLine.CENTER))
         printerManager.addPrintLine(
             TextPrintLine(
-                "NIB Bank", PrintLine.CENTER, 20, false
+                "Hibret Bank", PrintLine.CENTER, 20, false
             )
         )
         printerManager.addPrintLine(
