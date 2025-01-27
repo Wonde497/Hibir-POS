@@ -69,6 +69,8 @@ import net.geidea.utils.getSTAN
 import net.geidea.utils.maskPan
 import javax.inject.Inject
 
+//end of package
+
 @HiltViewModel
 class CardReadViewModel @Inject constructor(@ApplicationContext val context: Context) :
     ViewModel() {
