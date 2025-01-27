@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.DBHandler
+import net.geidea.payment.MainMenuActivity
 import net.geidea.payment.databinding.ActivityLoginBinding
 import net.geidea.payment.users.admin.AdminMainActivity
 import net.geidea.payment.users.cashier.CashierMainActivity
@@ -33,6 +35,12 @@ class LoginMainActivity : AppCompatActivity() {
 
         // Handle forgot password click
         binding.forgotPassword.setOnClickListener { handleForgotPassword() }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@LoginMainActivity, MainMenuActivity::class.java))
+                finish()
+            }
+        })
     }
 
     private fun setupUserTypeSpinner() {

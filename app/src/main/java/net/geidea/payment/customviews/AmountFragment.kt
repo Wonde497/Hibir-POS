@@ -99,7 +99,7 @@ class AmountFragment : Fragment() {
             }
         })
     }
-    fun getReadableAmount(amount: String?): String {
+    private fun getReadableAmount(amount: String?): String {
         return if (amount.isNullOrEmpty()) {
             "0.00"
         } else {

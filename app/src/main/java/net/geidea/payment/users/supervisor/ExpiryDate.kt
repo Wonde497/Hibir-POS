@@ -244,7 +244,6 @@ class ExpiryDate : AppCompatActivity() {
                                 showProgressDialog.dismiss()
                             }
                             if (TransData.ResponseFields.Field39 == "00") {
-                                transData.transactionStatus = true
                                 val txntype = Txntype.manualPurchase
                                 txntype?.let {
                                     dbHandler.registerTxnData(
@@ -278,6 +277,8 @@ class ExpiryDate : AppCompatActivity() {
                                 }
 
                             } else {
+                                transData.transactionStatus = true
+
                                 runOnUiThread() {
                                     txnStatusView4Decline()
                                     //cardReadActivity.listenerForManualTxn()
@@ -450,7 +451,9 @@ class ExpiryDate : AppCompatActivity() {
         if (state == POIPrinterManager.STATUS_IDLE) {
             setReceiptHeader()
             setAmountBlock()
-            setCvmResult()
+
+                setCvmResult()
+
             setFooter()
             val listener: POIPrinterManager.IPrinterListener =
                 object : POIPrinterManager.IPrinterListener {
@@ -483,9 +486,9 @@ class ExpiryDate : AppCompatActivity() {
     private fun setReceiptHeader(
     ) {
         FirebaseDatabaseSingleton.setLog("setReceiptHeader")
-        val bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.hb_logo1)
-        val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
-        printerManager.addPrintLine(BitmapPrintLine(resizedBitmap, PrintLine.CENTER))
+        val bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.hb_logo2)
+        //val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
+        printerManager.addPrintLine(BitmapPrintLine(bitmap, PrintLine.CENTER))
         printerManager.addPrintLine(
             TextPrintLine(
                 "Hibret Bank", PrintLine.CENTER, 20, false
@@ -499,12 +502,7 @@ class ExpiryDate : AppCompatActivity() {
                 false
             )
         )
-        /*  printerManager.addPrintLine(
-              TextPrintLine(
-                  "1/F, Riyadh Saudi Arabia", PrintLine.CENTER, 16, false
-              )
-          )*/
-        //TID:30102023
+
         printerManager.addPrintLine(
             Printer.printList(
                 " TID :${dbHandler.getTID()}", "", "MID : ${dbHandler.getMID()}", 16, false
@@ -547,15 +545,6 @@ class ExpiryDate : AppCompatActivity() {
             )
         )
 
-        printerManager.addPrintLine(
-            TextPrintLine(
-                "EXPIRY DATE : ${formatExpiryDate(TransData.RequestFields.Field14)}",
-                PrintLine.LEFT,
-                20,
-                true
-            )
-        )
-
 
         printerManager.addPrintLine(
             printList(
@@ -576,11 +565,13 @@ class ExpiryDate : AppCompatActivity() {
 
     private fun setCvmResult() {
         FirebaseDatabaseSingleton.setLog("setCvmResult")
-        printerManager.addPrintLine(
-            TextPrintLine(
-                "PLEASE DEBIT MY ACCOUNT", PrintLine.CENTER, 16, false
+        if (transData.transactionStatus) {
+            printerManager.addPrintLine(
+                TextPrintLine(
+                    "PLEASE DEBIT MY ACCOUNT", PrintLine.CENTER, 16, false
+                )
             )
-        )
+        }
 
 
         printerManager.addPrintLine(
@@ -602,6 +593,532 @@ class ExpiryDate : AppCompatActivity() {
                     "DECLINED", PrintLine.CENTER, 20, true
                 )
             )
+
+            printerManager.addPrintLine(
+                printList(
+                    "Resp Code :", TransData.ResponseFields.Field39, "", 20, true
+                )
+            )
+            val response = TransData.ResponseFields.Field39
+            when (response) {
+                "01" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Refer to card issuer", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "02" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Refer to card issuer,special condition", PrintLine.CENTER, 10, false
+                        )
+                    )
+                }
+
+                "03" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Invalid merchant or service provider", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "04" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Pickup card", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "05" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Do not honor", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "06" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Error", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "07" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Pickup card,special condition(other than lost/stolen card)",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "10" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Partial approval", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "11" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "V.I.P approval", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "12" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Invalid transaction", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "13" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Invalid amount(currency conversion field overflow);or amount exceeds maximum for card program",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "14" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Invalid account number", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "15" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "No such issuer", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "19" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Renter-transaction", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "21" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "No action taken(unable back out prior transaction",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "25" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unable to locate record in file,or account number is missing from the inquiry",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "28" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "File is temporarily unavailable", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "30" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Format error", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "41" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Pickup card(lost card)", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "43" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Pickup card(lost card)", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "51" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Insufficient funds", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "52" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "No checking account", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "53" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "No savings account", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "54" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Expired card", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "55" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Incorrect PIN", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "57" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Transaction not permitted to cardholder", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "58" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Transaction not permitted at terminal", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "59" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Suspected fraud", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "61" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Activity amount limit exceeded", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "62" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Restricted card", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "63" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Security violation", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "65" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Activity count limit exceeded", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "75" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "PIN-entry tries exceeded", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "76" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unable to locate previous message", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "77" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Inconsistent with original message", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "78" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Blocked,first used", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "80" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Visa transactions:credit issuer unavailable.Private label and check acceptance:invalid date",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "81" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "PIN cryptographic error", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "82" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Negative CAM,dCVV,iCVV,or CVV results", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "83" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unable to verify PIN", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "85" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "No reason", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "91" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Issuer unavailable", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "92" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Destination cannot be found for routing", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "93" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Transaction cannot be completed;violation of law",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "96" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "System malfunction", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "B1" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Surcharge amount not permitted on visa cards",
+                            PrintLine.CENTER,
+                            20,
+                            false
+                        )
+                    )
+                }
+
+                "N0" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Force STIP", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "N3" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Cash service not available", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "N4" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Cashback request exceeds issuer limit", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "N7" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Decline for CVV2 failure", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "P2" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Invalid biller information", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "P5" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "PIN Change/Unblock request declined", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "P6" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unsafe PIN", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "Q1" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Card Authentication failed", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "R0" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Stop payment order", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "R1" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Revocation of Authorization order", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "R3" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Revocation of All Authorization order", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "XA" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Forward to issuer", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "XD" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Forward to issuer", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "Z3" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unable to go online", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                "998" -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Incorrect ARPC", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+                else -> {
+                    printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Unable to read error code", PrintLine.CENTER, 20, false
+                        )
+                    )
+                }
+
+            }
         }
     }
 
