@@ -65,8 +65,6 @@ class AdminMainActivity : AppCompatActivity() {
 
         // Update the navigation header
         updateNavHeader("Username:  "+username + "", "User Role: "+ userType+"", Int)
-
-
     }
 
     // Function to handle navigation item clicks
@@ -94,10 +92,11 @@ class AdminMainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
                     val exitDialog = DialogLogoutConfirm(
                         this,
-                        title = "Logout",
-                        message = "Are you sure you want to logout?",
-                        cancelBtn = "Cancel",
-                        logoutBtn = "Logout"
+                        title = getString(R.string.logout_dialog_title),
+                        message = getString(R.string.logout_dialog_message),
+                        cancelBtn = getString(R.string.logout_dialog_cancel),
+                        logoutBtn = getString(R.string.logout_dialog_close)
+
                     ) {
                         startActivity(Intent(this, MainMenuActivity::class.java))
                         finish() // Close the app

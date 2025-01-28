@@ -17,17 +17,17 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hibret Bank POS "
-        android:textSize="18dp"
+        android:text="@string/nav_header_title"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/white" />
     <TextView
         android:id="@+id/userrole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Powered by SSC"
+        android:text="@string/nav_header_min"
         android:textColor="@color/white"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
 </LinearLayout>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/nib_bg2"
     tools:context=".MainActivity">
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <TextView
@@ -22,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="61dp"
             android:gravity="center"
-            android:text="Manage Transactions"
+            android:text="@string/admin_manage_transactions_txt"
             android:textSize="25sp"
             android:textColor="@color/ahadu_red1"
             android:textStyle="bold"
@@ -50,12 +51,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Balance INQ"
+                    android:text="@string/admin_balance_inq_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -63,8 +65,9 @@
                     android:id="@+id/balanceinq"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
+
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -93,12 +96,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Deposit"
+                    android:text="@string/admin_deposit_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -106,7 +110,7 @@
                     android:id="@+id/deposit"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
@@ -136,12 +140,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Manual Card Entry"
+                    android:text="@string/admin_manual_card_entry_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -149,7 +154,7 @@
                     android:id="@+id/manualcardentry"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
@@ -179,12 +184,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Phone authorization"
+                    android:text="@string/admin_phone_authorization_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -192,7 +198,7 @@
                     android:id="@+id/Phone"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
@@ -222,12 +228,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Pre-Auth"
+                    android:text="@string/admin_pre_auth_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -235,7 +242,7 @@
                     android:id="@+id/pre_auth"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
@@ -265,12 +272,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Sale"
+                    android:text="@string/admin_sale_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -278,7 +286,7 @@
                     android:id="@+id/sale"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"
@@ -308,12 +316,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Refund"
+                    android:text="@string/admin_refund_txt"
                     android:textSize="18sp"
                     android:textColor="@color/ahadu_red1"
-                    android:layout_gravity="left|center"
+                    android:layout_gravity="start|center"
                     android:textAlignment="center"
                     android:textStyle="bold"
+                    android:padding="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -321,7 +330,7 @@
                     android:id="@+id/refund"
                     android:layout_width="wrap_content"
                     android:layout_height="52dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     app:showText="false"
                     android:thumb="@drawable/custom_thumb"
                     app:track="@drawable/custom_track"

@@ -10,9 +10,13 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -26,6 +30,7 @@ import net.geidea.payment.help.HelpMainActivity
 import net.geidea.payment.kernelconfig.view.KernelConfigActivity2
 import net.geidea.payment.login.LoginMainActivity
 import net.geidea.payment.users.cashier.CashierMainActivity
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainMenuActivity : AppCompatActivity() {
@@ -65,6 +70,9 @@ class MainMenuActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        // Language Change
+        changeLanguage()
+
         // Set up ItemCLickListener for Navigation View
         navItemCLickListener()
         // Set up OnClickListeners for CardViews
@@ -81,6 +89,92 @@ class MainMenuActivity : AppCompatActivity() {
         })
 
     }
+
+
+    //................Language...............................................
+
+    private fun changeLanguage() {
+        val spinner: Spinner = findViewById(R.id.languageSpinner)
+
+        // Set up the spinner with language options
+        val languages = arrayOf("English", "አማረኛ", "Afaan Oromo", "ትግረኛ")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languages)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        // Set selected language based on current preference
+        val currentLang = getLanguagePreference()
+        val selectedPosition = languages.indexOf(getLanguageDisplayName(currentLang))
+        spinner.setSelection(selectedPosition)
+
+        // Listen for language change
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedLanguage = when (position) {
+                    1 -> "am" // Amharic
+                    2 -> "om" // Afaan Oromo
+                    3 -> "ti" // Tigrinya
+                    else -> "en" // English
+                }
+                // Get current language preference to avoid unnecessary language reload
+                val currentLanguage = getLanguagePreference()
+
+                // If the selected language is different from the current one, update it
+                if (selectedLanguage != currentLanguage) {
+                    // Save the selected language
+                    setLanguagePreference(selectedLanguage)
+
+                    // Apply language change without triggering a loop
+                    val locale = when (selectedLanguage) {
+                        "am" -> Locale("am")
+                        "om" -> Locale("om")
+                        "ti" -> Locale("ti")
+                        else -> Locale("en")
+                    }
+                    Locale.setDefault(locale)
+
+                    val config = resources.configuration
+                    config.setLocale(locale)
+
+                    // Update the configuration to apply the new language
+                    resources.updateConfiguration(config, resources.displayMetrics)
+
+                    // Recreate the activity to reflect the language change
+                    recreate()
+
+                    Toast.makeText(this@MainMenuActivity, "Language changed to ${languages[position]}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                // Handle case where no item is selected, if needed
+            }
+        }
+    }
+
+    private fun getLanguagePreference(): String {
+        val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
+        return sharedPref.getString("language", "en") ?: "en"
+    }
+
+    private fun setLanguagePreference(language: String) {
+        val sharedPref = getSharedPreferences("app_settings", MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("language", language)
+            apply()
+        }
+    }
+
+    private fun getLanguageDisplayName(languageCode: String): String {
+        return when (languageCode) {
+            "am" -> "አማረኛ"
+            "om" -> "Afaan Oromo"
+            "ti" -> "ትግረኛ"
+            else -> "English"
+        }
+    }
+
+
 
     // Function to handle navigation item clicks
     private fun navItemCLickListener() {
@@ -115,10 +209,10 @@ class MainMenuActivity : AppCompatActivity() {
                 R.id.nav_exit -> {
                     val exitDialog = DialogLogoutConfirm(
                         this,
-                        title = "Exit App",
-                        message = "Are you sure you want to close the app?",
-                        cancelBtn = "Cancel",
-                        logoutBtn = "Exit"
+                        title = getString(R.string.exit_app_title),
+                        message = getString(R.string.exit_app_message),
+                        cancelBtn = getString(R.string.exit_app_cancel),
+                        logoutBtn = getString(R.string.exit_app_exit)
                     ) {
                         // Perform your exit app action here
                         //finish() // Close the app
@@ -135,7 +229,7 @@ class MainMenuActivity : AppCompatActivity() {
     }
     private fun setUpCardViewListeners() {
         binding.topCardView.setOnClickListener {
-           showTransactionBottomSheet()
+            showTransactionBottomSheet()
         }
         binding.cardView1.setOnClickListener {
             sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
@@ -147,13 +241,13 @@ class MainMenuActivity : AppCompatActivity() {
             editor.putString("TXN_TYPE",Txntype.purchase)
             editor.putString("transaction",Txntype.purchase)
             editor.commit()
-           // Toast.makeText(this, "CardView 2 clicked", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(this, "CardView 2 clicked", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainMenuActivity, MainActivity::class.java)
             startActivity(intent)
         }
 
         binding.cardView3.setOnClickListener {
-           // Toast.makeText(this, "CardView 3 clicked", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(this, "CardView 3 clicked", Toast.LENGTH_SHORT).show()
             sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
             val intent = Intent(this@MainMenuActivity, CashierMainActivity::class.java)
             startActivity(intent)
@@ -169,7 +263,7 @@ class MainMenuActivity : AppCompatActivity() {
     // Set onClickListeners for ImageButtons
     private fun setUpImageButtonListeners() {
         binding.transactionsImagebtn.setOnClickListener {
-           showTransactionBottomSheet()
+            showTransactionBottomSheet()
         }
 
         binding.mainMenuLogin.setOnClickListener {
@@ -246,7 +340,7 @@ class MainMenuActivity : AppCompatActivity() {
 
                 val txnDataList:List<Map<String,String>> = dbHandler.getTxnData()
                 if(txnDataList.isNotEmpty()){
-                   Toast.makeText(this,"Settle first",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Settle first",Toast.LENGTH_SHORT).show()
                 }else {
                     editor.putString("TXN_TYPE",Txntype.refund)
                     editor.commit()
