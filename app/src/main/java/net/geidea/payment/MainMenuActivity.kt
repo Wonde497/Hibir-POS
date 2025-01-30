@@ -1,13 +1,17 @@
 package net.geidea.payment
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -84,14 +88,19 @@ class MainMenuActivity : AppCompatActivity() {
         setUpImageButtonListeners()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish()
+                exitAppDialog()
             }
         })
+
+        // Check network status
+        if (!isNetworkConnected()) {
+            showNoInternetDialog()
+        }
 
     }
 
 
-    //................Language...............................................
+    //................Language......................................................................
 
     private fun changeLanguage() {
         val spinner: Spinner = findViewById(R.id.languageSpinner)
@@ -124,7 +133,7 @@ class MainMenuActivity : AppCompatActivity() {
                     // Save the selected language
                     setLanguagePreference(selectedLanguage)
 
-                    // Apply language change without triggering a loop
+                    // Apply language change
                     val locale = when (selectedLanguage) {
                         "am" -> Locale("am")
                         "om" -> Locale("om")
@@ -183,10 +192,6 @@ class MainMenuActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
-//                  var  rep = Report(this,this)
-//                    //rep.printdetailedReport()
-//                    rep.printsummaryReport()
-
                 }
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
@@ -367,5 +372,46 @@ class MainMenuActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("DialogError", "Failed to create or show dialog", e)
         }
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+    }
+
+    private fun showNoInternetDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_no_internet_title))
+            .setMessage(getString(R.string.dialog_no_internet_message))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.dialog_connection_settings_button)) { _, _ ->
+                //startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+                startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS))
+            }
+            .setNegativeButton(getString(R.string.dialog_connection_exit_button)) { dialog, _ ->
+                dialog.dismiss()
+                //finish()
+            }
+            .show()
+    }
+
+    private fun exitAppDialog(){
+        val exitDialog = DialogLogoutConfirm(
+            this,
+            title = getString(R.string.exit_app_title),
+            message = getString(R.string.exit_app_message),
+            cancelBtn = getString(R.string.exit_app_cancel),
+            logoutBtn = getString(R.string.exit_app_exit)
+        ) {
+            // Perform your exit app action here
+            //finish() // Close the app
+            finishAndRemoveTask()
+
+        }
+        exitDialog.show()
     }
 }

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="@string/transactions_dialog_title_txt"
-            android:textSize="23dp"
+            android:textSize="23sp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textAlignment="center"
