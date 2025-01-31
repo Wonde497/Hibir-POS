@@ -7,20 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/nib_bg2"
-            android:padding="5dp">
+            android:padding="16dp">
 
             <!-- CardView containing the entire UI -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="10dp"
-                android:layout_marginTop="0dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,8 @@
                         android:scaleType="centerCrop"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="16dp" />
 
                     <!-- Transaction Status Text -->
                     <androidx.appcompat.widget.AppCompatTextView
@@ -56,8 +57,7 @@
                         app:layout_constraintTop_toBottomOf="@id/transaction_status_image"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="-3dp"
-                        />
+                        android:layout_marginTop="8dp" />
 
                     <!-- Approval Code Text -->
                     <TextView
@@ -73,68 +73,64 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="8dp" />
 
-
                     <!-- Receipt View -->
                     <net.geidea.payment.customviews.CustomReceiptView
                         android:id="@+id/receiptView"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="400dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         app:layout_constraintTop_toBottomOf="@id/tvApprovalCode"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="16dp" />
 
                     <!-- Start New Transaction Button -->
                     <Button
                         android:id="@+id/start_new_transaction"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="New\nTransaction"
+                        android:text="New Transaction"
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:backgroundTint="@color/nib_brown1"
                         android:textColor="@android:color/white"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
+                        android:padding="12dp"
                         app:cornerRadius="15dp"
                         app:layout_constraintTop_toBottomOf="@id/receiptView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/print_receipt"
                         android:layout_marginTop="16dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="10dp"
-                        />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp" />
 
                     <!-- Print Receipt Button -->
                     <Button
                         android:id="@+id/print_receipt"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Print\nReceipt"
+                        android:text="Print Receipt"
                         android:textAlignment="center"
                         android:textAllCaps="false"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         android:backgroundTint="@color/nib_brown1"
                         android:textColor="@android:color/white"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
+                        android:padding="12dp"
                         app:cornerRadius="15dp"
                         app:layout_constraintTop_toBottomOf="@id/receiptView"
                         app:layout_constraintStart_toEndOf="@id/start_new_transaction"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginStart="40dp" />
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </layout>

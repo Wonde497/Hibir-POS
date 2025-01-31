@@ -1,5 +1,6 @@
 package net.geidea.payment
 
+
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -29,10 +30,13 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import net.geidea.payment.customdialog.DialogLogoutConfirm
+import net.geidea.payment.customviews.CustomKeyboard
+import net.geidea.payment.customviews.ReceiptPreviewActivity
 import net.geidea.payment.databinding.ActivityMainMenuBinding
 import net.geidea.payment.help.HelpMainActivity
 import net.geidea.payment.kernelconfig.view.KernelConfigActivity2
 import net.geidea.payment.login.LoginMainActivity
+import net.geidea.payment.sign.SignatureActivity
 import net.geidea.payment.users.cashier.CashierMainActivity
 import java.util.Locale
 
@@ -192,9 +196,11 @@ class MainMenuActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, SignatureActivity::class.java))
                 }
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, CustomKeyboard::class.java))
                 }
                 R.id.nav_kernel_config -> {
                     Toast.makeText(this, "Loading Kernel Config", Toast.LENGTH_SHORT).show()

@@ -8,8 +8,6 @@
 
     <!-- Top Text: "Please enter amount ETB" -->
 
-    <!-- Input Field -->
-
     <TextView
         android:id="@+id/topText"
         android:layout_width="0dp"
@@ -17,13 +15,16 @@
         android:layout_marginTop="156dp"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Please enter amount ETB"
+        android:text="Please enter amount"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Input Field -->
 
     <EditText
         android:id="@+id/inputField"
@@ -40,7 +41,9 @@
         app:layout_constraintTop_toBottomOf="@id/topText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"/>
 
     <!-- Custom Keyboard -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +63,7 @@
             android:layout_height="0dp"
             android:text="1"
             android:textSize="24sp"
-            android:background="@drawable/rounded_button_background"
+            android:background="@drawable/button_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_2"

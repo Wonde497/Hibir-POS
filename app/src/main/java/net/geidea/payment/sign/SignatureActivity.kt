@@ -11,6 +11,7 @@ import android.graphics.Bitmap.CompressFormat
 import android.widget.TextView
 import net.geidea.payment.R
 import net.geidea.payment.customviews.PrintTest2
+import net.geidea.payment.customviews.ReceiptPreviewActivity
 import net.geidea.payment.transaction.model.TransData
 import net.geidea.utils.CurrencyConverter
 
@@ -45,7 +46,7 @@ class SignatureActivity : AppCompatActivity() {
                 Toast.makeText(this, "Signed", Toast.LENGTH_SHORT).show()
 
                 // Start the PrintTest2 activity
-                startActivity(Intent(this, PrintTest2::class.java))
+                startActivity(Intent(this, ReceiptPreviewActivity::class.java))
             } else {
                 Toast.makeText(this, "Please provide your signature", Toast.LENGTH_SHORT).show()
             }

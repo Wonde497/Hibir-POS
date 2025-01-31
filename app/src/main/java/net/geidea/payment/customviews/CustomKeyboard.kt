@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class CustomKeyboardActivity : AppCompatActivity() {
+class CustomKeyboard : AppCompatActivity() {
 
     private lateinit var inputField: EditText
 
