@@ -7,16 +7,12 @@ import java.time.format.DateTimeFormatter
 import android.text.Editable
 import android.text.TextWatcher
 import android.content.SharedPreferences
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import com.pos.sdk.printer.POIPrinterManager
 import com.pos.sdk.printer.models.BitmapPrintLine
@@ -26,7 +22,7 @@ import net.geidea.payment.AmountActivity
 import net.geidea.payment.BuildConfig
 import net.geidea.payment.DBHandler
 import net.geidea.payment.R
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.com.Comm
 import net.geidea.payment.databinding.ActivityExpiryDateBinding
 import net.geidea.payment.print.PrintStatus
@@ -45,10 +41,10 @@ import net.geidea.utils.convertDateTime
 import net.geidea.utils.dialog.SweetAlertDialog
 import net.geidea.utils.extension.gone
 import net.geidea.utils.extension.visible
-import net.geidea.utils.formatExpiryDate
 import net.geidea.utils.getCurrentDateTime
 import net.geidea.utils.maskPan
 class ExpiryDate : AppCompatActivity() {
+    private lateinit var txnType:String
     private lateinit var handler:Handler
     private lateinit var binding:ActivityExpiryDateBinding
     private lateinit var cardReadViewModel:CardReadViewModel
@@ -72,6 +68,7 @@ class ExpiryDate : AppCompatActivity() {
         setContentView(binding.root)
         sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
+        txnType=sharedPreferences.getString("TXN_TYPE","").toString()
         transData=TransData(this)
         cardReadViewModel=CardReadViewModel(this)
         cardReadActivity=CardReadActivity()
@@ -135,53 +132,85 @@ class ExpiryDate : AppCompatActivity() {
 
 
         binding.btnOk.setOnClickListener {
-            val transData=TransData(this)
-            transData.ClearVariables()
-            val dbHandler=DBHandler(this)
-            TransData.RequestFields.Header="30606020153535"
-            TransData.RequestFields.MTI="0200"
-            TransData.RequestFields.primaryBitmap="7024058000C00004"
-            TransData.RequestFields.Field02="${intent.getStringExtra("pan")}"
-            Log.d("TAG","pan:${TransData.RequestFields.Field02}")
-            TransData.RequestFields.Field03="000000"
-            TransData.RequestFields.Field04="${intent.getStringExtra("amount")}"
-            Log.d("TAG","fld04:${TransData.RequestFields.Field04}")
+          if(binding.edtExDate.text.isNotEmpty()){
 
-            val stann = sharedPreferences.getString("STAN", "1")
-            val stt = (stann?.toInt() ?: 1) + 1
+            val transData = TransData(this)
+            transData.clearVariables()
+            val dbHandler = DBHandler(this)
+            TransData.RequestFields.Header = "30606020153535"
+              if(txnType==TxnType.M_BALANCE_INQUIRY){
+                  TransData.RequestFields.MTI = "0100"
+                  TransData.RequestFields.primaryBitmap = "6024058000C00004"
+                  TransData.RequestFields.Field03 = "310000"
+
+              }
+              else if(txnType==TxnType.M_PURCHASE){
+                  TransData.RequestFields.MTI = "0200"
+                  TransData.RequestFields.primaryBitmap = "7024058000C00004"
+                  TransData.RequestFields.Field03 = "000000"
+
+              }
+            TransData.RequestFields.Field02 = "${intent.getStringExtra("pan")}"
+            Log.d("TAG", "pan:${TransData.RequestFields.Field02}")
+            TransData.RequestFields.Field04 = "${intent.getStringExtra("amount")}"
+            Log.d("TAG", "fld04:${TransData.RequestFields.Field04}")
+
+            val stan = sharedPreferences.getString("STAN", "1")
+            val stt = (stan?.toInt() ?: 1) + 1
             editor.putString("STAN", stt.toString())
             editor.commit()
             TransData.RequestFields.Field11 = transData.fillGapSequence(stt.toString(), 6)
-            val expiryDate=binding.edtExDate.text.toString()
-            val month=expiryDate.substring(0,2)
-            Log.d("TAG","month:${month}")
-            val year=expiryDate.substring(2,4)
-            Log.d("TAG","year:${year}")
+            val expiryDate = binding.edtExDate.text.toString()
+            val month = expiryDate.substring(0, 2)
+            Log.d("TAG", "month:${month}")
+            val year = expiryDate.substring(2, 4)
+            Log.d("TAG", "year:${year}")
 
-            if(isCardExpired(month.toInt(),year.toInt())){
-                binding.edtExDate.setError("The card has expired !")
-            }else{
-                TransData.RequestFields.Field14=binding.edtExDate.text.toString()
-                TransData.RequestFields.Field22="0010"
-                Log.d("TAG","fld22:${TransData.RequestFields.Field22}")
+            if (isCardExpired(month.toInt(), year.toInt())) {
+                binding.edtExDate.error = "The card has expired !"
+            } else {
+                TransData.RequestFields.Field14 = binding.edtExDate.text.toString()
+                TransData.RequestFields.Field22 = "0010"
+                Log.d("TAG", "fld22:${TransData.RequestFields.Field22}")
 
-                TransData.RequestFields.Field24="0001"
-                Log.d("TAG","fld24:${TransData.RequestFields.Field24}")
+                TransData.RequestFields.Field24 = "0001"
+                Log.d("TAG", "fld24:${TransData.RequestFields.Field24}")
 
-                TransData.RequestFields.Field25="00"
-                Log.d("TAG","pfld25:${TransData.RequestFields.Field25}")
+                TransData.RequestFields.Field25 = "00"
+                Log.d("TAG", "fld25:${TransData.RequestFields.Field25}")
 
-                TransData.RequestFields.Field41="${dbHandler.getTID()}"
-                TransData.RequestFields.Field42="${dbHandler.getMID()}"
-                TransData.RequestFields.Field62="0006"
+                TransData.RequestFields.Field41 = dbHandler.getTID()
+                TransData.RequestFields.Field42 = dbHandler.getMID()
+                TransData.RequestFields.Field62 = "0006"
 
                 showProgressDialog.show()
-                handler = Handler()
-                handler.postDelayed({
-                    Thread(doManualPurchase).start()
-                }, 2000)
+                if (dbHandler.getIPAndPortNumber()?.first == null && dbHandler.getIPAndPortNumber()?.second == null) {
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                            showAlert("Please fill the IP and port!")
+                        }
+                    }
+
+                } else {
+                    handler = Handler()
+                    if(txnType==TxnType.M_BALANCE_INQUIRY){
+                        handler.postDelayed({
+                            Thread(inquiryBalance).start()
+                        }, 2000)
+                    }else if(txnType==TxnType.M_PURCHASE){
+                    handler.postDelayed({
+                        Thread(doManualPurchase).start()
+                    }, 2000)
+
+                    }
+                }
 
             }
+
+        }else{
+              binding.edtExDate.error = "Please fill the expiry date "
+        }
 
 
 
@@ -199,7 +228,16 @@ class ExpiryDate : AppCompatActivity() {
         val timeoutDataHex=timeoutData.let { HexUtil.toHexString(it) }
         Log.d("tag", "packet ")
         val com = Comm("${dbHandler.getIPAndPortNumber()?.first}", "${dbHandler.getIPAndPortNumber()?.second}".toInt())
+
         if (!com.connect()) {
+            runOnUiThread {
+            if (!isFinishing && !isDestroyed) {
+                showProgressDialog.dismiss()
+
+                    showAlert("Connection failed !")
+
+                }
+            }
             Log.d("tag", "Connection failed")
         } else {
             val timeout = sharedPreferences.getInt("TimeoutFlagM", 0)
@@ -244,8 +282,9 @@ class ExpiryDate : AppCompatActivity() {
                                 showProgressDialog.dismiss()
                             }
                             if (TransData.ResponseFields.Field39 == "00") {
-                                val txntype = Txntype.manualPurchase
-                                txntype?.let {
+
+                                transData.transactionStatus = true
+                                txnType?.let {
                                     dbHandler.registerTxnData(
                                         it,
                                         "",
@@ -277,11 +316,10 @@ class ExpiryDate : AppCompatActivity() {
                                 }
 
                             } else {
-                                transData.transactionStatus = true
+
 
                                 runOnUiThread() {
                                     txnStatusView4Decline()
-                                    //cardReadActivity.listenerForManualTxn()
 
                                 }
 
@@ -324,8 +362,8 @@ class ExpiryDate : AppCompatActivity() {
                     }
                     if (TransData.ResponseFields.Field39 == "00") {
                         transData.transactionStatus = true
-                        val txntype = Txntype.manualPurchase
-                        txntype?.let {
+
+                        txnType?.let {
                             dbHandler.registerTxnData(
                                 it,
                                 "",
@@ -351,7 +389,7 @@ class ExpiryDate : AppCompatActivity() {
                                 TransData.RequestFields.Field60
                             )
                             }
-                        txntype?.let{
+                        txnType?.let{
                             dbHandler.registerTxnData2(
                                 it,
                                 "",
@@ -396,6 +434,141 @@ class ExpiryDate : AppCompatActivity() {
         }
         }
     }
+    private val inquiryBalance = Runnable {
+        dbHandler = DBHandler(this)
+        //transData.assignValue2Fields()
+
+        val packet = transData.packRequestFields()
+
+        val timeoutData=transData.packFields4TimeoutReversal()
+        val timeoutDataHex=timeoutData.let { HexUtil.toHexString(it) }
+        Log.d("tag", "packet ")
+        val com = Comm("${dbHandler.getIPAndPortNumber()?.first}", "${dbHandler.getIPAndPortNumber()?.second}".toInt())
+
+        if (!com.connect()) {
+            runOnUiThread {
+                if (!isFinishing && !isDestroyed) {
+                    showProgressDialog.dismiss()
+
+                    showAlert("Connection failed !")
+
+                }
+            }
+            Log.d("tag", "Connection failed")
+        } else {
+            val timeout = sharedPreferences.getInt("TimeoutFlagM", 0)
+            if (timeout == 1) {
+                val savedTimeoutData=sharedPreferences.getString("TimeoutDataM","")
+                val savedTimeoutByte=savedTimeoutData?.let { HexUtil.hexStr2Byte(it) }
+                if (savedTimeoutByte != null) {
+                    com.send(savedTimeoutByte)
+                    Log.d("tag", "timeout data sentM ...:${savedTimeoutByte}")
+                }
+                val timeoutResponseM=com.receive(1024,30)
+                Log.d("tag", "timeout responseM ...:${timeoutResponseM?.let { HexUtil.toHexString(it) }}")
+                editor.putInt("TimeoutFlagM", 0)
+                editor.putString("TimeoutDataM","")
+                editor.commit()
+                if(timeoutResponseM!=null){
+                    TransData.RequestFields.primaryBitmap="6024058000C00004"
+                    TransData.RequestFields.MTI="0100"
+
+                    com.send(packet)
+                    Log.d("tag", "message sent...")
+                    val response = com.receive(1024, 30)
+                    Log.d("tag", "Received response: $response")
+                    Log.d("tag", "manual txn response: ${response?.let { HexUtil.toHexString(it) }}")
+                    if (response == null) {
+                        editor.putInt("TimeoutFlagM", 1)
+                        editor.putString("TimeoutDataM", timeoutDataHex)
+                        editor.commit()
+                        runOnUiThread {
+                            if (!isFinishing && !isDestroyed) {
+                                showProgressDialog.dismiss()
+                                showAlert("txn failed !")
+                            }
+                        }
+                    } else {
+                        editor.putInt("TimeoutFlagM", 0)
+                        editor.commit()
+                        response?.let { HexUtil.toHexString(it) }
+                            ?.let { transData.unpackResponseFields(it) }
+                        runOnUiThread {
+                            if (!isFinishing && !isDestroyed) {
+                                showProgressDialog.dismiss()
+                            }
+                            if (TransData.ResponseFields.Field39 == "00") {
+                                transData.transactionStatus = true
+                                runOnUiThread() {
+                                    txnStatusView4Approval()
+                                }
+
+                            } else {
+
+
+                                runOnUiThread() {
+                                    txnStatusView4Decline()
+
+                                }
+
+
+                            }
+                        }
+                    }
+
+                }
+
+
+
+            } else {
+
+                TransData.RequestFields.primaryBitmap="6024058000C00004"
+                TransData.RequestFields.MTI="0100"
+                com.send(packet)
+                Log.d("tag", "message sent...")
+                val response = com.receive(1024, 30)
+                Log.d("tag", "Received response: $response")
+                Log.d("tag", "manual txn response: ${response?.let { HexUtil.toHexString(it) }}")
+                if (response == null) {
+                    editor.putInt("TimeoutFlagM", 1)
+                    editor.putString("TimeoutDataM", timeoutDataHex)
+                    editor.commit()
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                            showAlert("txn failed !")
+                        }
+                    }
+                } else {
+                    editor.putInt("TimeoutFlagM", 0)
+                    editor.commit()
+                    response?.let { HexUtil.toHexString(it) }
+                        ?.let { transData.unpackResponseFields(it) }
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                        }
+                        if (TransData.ResponseFields.Field39 == "00") {
+                            transData.transactionStatus = true
+                            runOnUiThread() {
+                                txnStatusView4Approval()
+
+                            }
+
+                        } else {
+                            runOnUiThread() {
+                                txnStatusView4Decline()
+                                //cardReadActivity.listenerForManualTxn()
+
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+    }
     private fun txnStatusView4Approval(){
 
         binding.cardView.gone()
@@ -438,6 +611,7 @@ class ExpiryDate : AppCompatActivity() {
         showProgressDialog2.setConfirmClickListener(
             listener = {
                 startActivity(Intent(this, SupervisorMainActivity::class.java))
+                finish()
                 //showProgressDialog2.dismiss() // Close
             }
         )
@@ -534,7 +708,7 @@ class ExpiryDate : AppCompatActivity() {
 
         printerManager.addPrintLine(
             TextPrintLine(
-                "PURCHASE (Manual Card Entry)", PrintLine.LEFT, 20, true
+                txnType, PrintLine.LEFT, 20, true
             )
         )
 
@@ -553,12 +727,28 @@ class ExpiryDate : AppCompatActivity() {
         )
 
         printerManager.addBlankView(1)
+        if (txnType==TxnType.M_BALANCE_INQUIRY){
+            if ( transData.transactionStatus){
+                val amt=TransData.ResponseFields.Field54
+                val amount=amt.substring(8)
+
+            printerManager.addPrintLine(
+                printList(
+                    "BALANCE", sharedPreferences.getString("Currency","").toString(), CurrencyConverter.convertWithoutSAR(amount.toLong()), 20, true
+
+                )
+            )
+            }else{
+                //do nothing
+            }
+        }else{
         printerManager.addPrintLine(
             printList(
                 "AMOUNT", sharedPreferences.getString("Currency","").toString(), CurrencyConverter.convertWithoutSAR(TransData.RequestFields.Field04.toLong()), 20, true
 
             )
         )
+        }
         printerManager.addBlankView(1)
 
     }

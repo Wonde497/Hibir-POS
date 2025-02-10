@@ -7,11 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pos.sdk.printer.POIPrinterManager
 import com.pos.sdk.printer.models.PrintLine
 import com.pos.sdk.printer.models.TextPrintLine
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import net.geidea.payment.BuildConfig
 import net.geidea.payment.DBHandler
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.print.Printer.printList
 import net.geidea.payment.utils.FirebaseDatabaseSingleton
 import net.geidea.payment.utils.commonMethods
@@ -49,7 +46,7 @@ import net.geidea.payment.utils.commonMethods
                  Log.d("","ammmmmmmm2222222 "+amount)
 
                  when (txntype) {
-                     Txntype.purchase -> {
+                     TxnType.PURCHASE -> {
 
                        var  amtem = amount.toFloat()
                          Log.d("","ammmmmmmm111 "+amtem)
@@ -58,31 +55,31 @@ import net.geidea.payment.utils.commonMethods
 
                          purcount = purcount+1
                      }
-                     Txntype.reversal -> {
+                     TxnType.REVERSAL -> {
 
                          var  amtem = amount.toFloat()
                          Log.d("","ammmmmmmm111 "+amtem)
                          reversal = reversal+amtem
                          revcount = revcount+1
 
-                     }Txntype.refund -> {
+                     }TxnType.REFUND -> {
                      var  amtem = amount.toFloat()
                      refund = refund+amtem
                      refucount = refucount
                      }
-                     Txntype.preauth -> {
+                     TxnType.PRE_AUTH -> {
                          var  amtem = amount.toFloat()
                          preauth = preauth+amtem
                          precount = precount+1
-                     }Txntype.preauthcomp -> {
+                     }TxnType.PRE_AUTH_COMPLETION -> {
                      var  amtem = amount.toFloat()
                      preauthcomp = preauthcomp+amtem
                      precompcount = precompcount+1
-                     }Txntype.purchasecashback -> {
+                     }TxnType.PURCHASE_CASHBACK -> {
                      var  amtem = amount.toFloat()
                      purchasecashback = purchasecashback+amtem
                      purcashcount = purcashcount+1
-                     }Txntype.cashadvance -> {
+                     }TxnType.CASH_ADVANCE -> {
                       var  amtem = amount.toFloat()
                      cashadvance = cashadvance+amtem
                      cashadvcount = cashadvcount+1

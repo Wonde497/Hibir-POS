@@ -98,4 +98,8 @@
     <string name="refund">Refund</string>
     <string name="enter_refund_amount">Enter Refund Amount</string>
     <string name="confirm">Confirm</string>
+    <string name="choose_transaction_type">Choose Transaction Type</string>
+    <string name="enable_cashier">Enable Cashier</string>
+    <string name="cashier_disabled">Cashier disabled</string>
+    <string name="pre_auth_completion">Pre Auth Completion</string>
 </resources>

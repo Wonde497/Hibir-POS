@@ -1,10 +1,6 @@
 package net.geidea.payment.transaction.viewmodel
 
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -29,7 +25,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import net.geidea.payment.utils.AC
 import net.geidea.payment.BuildConfig
 import net.geidea.payment.DBHandler
-import net.geidea.payment.MainMenuActivity
 import net.geidea.payment.utils.CARD_AID
 import net.geidea.payment.utils.CID
 import net.geidea.payment.utils.CVM_PERFORMED_DC_TAG
@@ -38,7 +33,7 @@ import net.geidea.payment.utils.PAN_NUMBER
 import net.geidea.payment.print.Printer
 import net.geidea.payment.print.Printer.printList
 import net.geidea.payment.R
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.com.Comm
 import net.geidea.payment.customdialog.DialogLogoutConfirm
 import net.geidea.payment.print.PrintStatus
@@ -62,7 +57,6 @@ import net.geidea.utils.convertDateTime
 import net.geidea.utils.decodeHex
 import net.geidea.utils.dialog.SweetAlertDialog
 import net.geidea.utils.extension.ioCoroutine
-import net.geidea.utils.formatExpiryDate
 import net.geidea.utils.generateRRN
 import net.geidea.utils.getCurrentDateTime
 import net.geidea.utils.getSTAN
@@ -87,6 +81,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
     private val printerManager: POIPrinterManager by lazy { POIPrinterManager(context) }
     var transactionStatus: MutableLiveData<TransactionProcess> = MutableLiveData()
     var responcestatus: MutableLiveData<String> = MutableLiveData()
+    var connectionStatus: MutableLiveData<String> = MutableLiveData()
 
         private set
     val transData = TransData(context)
@@ -296,13 +291,19 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
                 // common.showloading()
                 //sent transaction online here
-                val mainHandler = Handler(Looper.getMainLooper())
-                mainHandler.postDelayed({
-                    Thread(onlineRequest).start()
-                }, 500)
-                FirebaseDatabaseSingleton.setLog("$transData")
+                if (dbhandler.getIPAndPortNumber()?.first==null&&dbhandler.getIPAndPortNumber()?.second==null){
+                    CardReadActivity.cardread.showProgressDialog.dismiss()
+                    connectionStatus.postValue("Please fill the IP and port")
 
-                printTags()
+                }else {
+                    val mainHandler = Handler(Looper.getMainLooper())
+                    mainHandler.postDelayed({
+                        Thread(onlineRequest).start()
+                    }, 500)
+                    FirebaseDatabaseSingleton.setLog("$transData")
+
+                    printTags()
+                }
                 // simulating response here
 
                 //emvCoreManager.onSetOnlineResponse(processOnlineResult(TransData.ResponseFields.Field39))
@@ -311,6 +312,12 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
 
         }
+
+        /**
+         * Created by Wondifraw
+         * Below code is the interface
+         * to send online request
+         */
         val onlineRequest=Runnable{
             transData.assignValue2Fields()
             val packet=transData.packRequestFields()
@@ -320,8 +327,10 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
 
             val com= Comm("${dbhandler.getIPAndPortNumber()?.first}","${dbhandler.getIPAndPortNumber()?.second}".toInt())
-            if(!com.connect()){
 
+            if(!com.connect()){
+                CardReadActivity.cardread.showProgressDialog.dismiss()
+                connectionStatus.postValue("Connection failed")
                 Log.d(tag,"Connection failed")
 
                // common.showAlert("Connection failed")
@@ -730,30 +739,71 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                 Log.d("TAG","field04444444444 ${TransData.ResponseFields.Field04}")
                 val txntype = sharedPreferences.getString("TXN_TYPE","")
                 if (txntype != null) {
-                    dbhandler.registerTxnData(
-                        txntype,
-                        "",
-                        "",
-                        TransData.RequestFields.Field02,
-                        "",
-                        TransData.ResponseFields.Field04,
-                        TransData.ResponseFields.Field11,
-                        TransData.ResponseFields.Field12,
-                        TransData.ResponseFields.Field13,
-                        TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
-                    )
-                    dbhandler.registerTxnData2(
-                        txntype,
-                        "",
-                        "",
-                        TransData.RequestFields.Field02,
-                        "",
-                        TransData.ResponseFields.Field04,
-                        TransData.ResponseFields.Field11,
-                        TransData.ResponseFields.Field12,
-                        TransData.ResponseFields.Field13,
-                        TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
-                    )
+                    if(txntype == TxnType.PRE_AUTH){
+                        dbhandler.registerTxnData2(
+                            txntype,
+                            "",
+                            "",
+                            TransData.RequestFields.Field02,
+                            "",
+                            TransData.ResponseFields.Field04,
+                            TransData.ResponseFields.Field11,
+                            TransData.ResponseFields.Field12,
+                            TransData.ResponseFields.Field13,
+                            TransData.RequestFields.Field14,"","","","",TransData.ResponseFields.Field37,TransData.ResponseFields.Field38,TransData.ResponseFields.Field39,"","","","",TransData.RequestFields.Field60
+                        )
+                    }else if(txntype==TxnType.BALANCE_INQUIRY){
+                        //Balance inquiry response should not be saved
+                    }else {
+                        dbhandler.registerTxnData(
+                            txntype,
+                            "",
+                            "",
+                            TransData.RequestFields.Field02,
+                            "",
+                            TransData.ResponseFields.Field04,
+                            TransData.ResponseFields.Field11,
+                            TransData.ResponseFields.Field12,
+                            TransData.ResponseFields.Field13,
+                            TransData.RequestFields.Field14,
+                            "",
+                            "",
+                            "",
+                            "",
+                            TransData.ResponseFields.Field37,
+                            TransData.ResponseFields.Field38,
+                            TransData.ResponseFields.Field39,
+                            "",
+                            "",
+                            "",
+                            "",
+                            TransData.RequestFields.Field60
+                        )
+                        dbhandler.registerTxnData2(
+                            txntype,
+                            "",
+                            "",
+                            TransData.RequestFields.Field02,
+                            "",
+                            TransData.ResponseFields.Field04,
+                            TransData.ResponseFields.Field11,
+                            TransData.ResponseFields.Field12,
+                            TransData.ResponseFields.Field13,
+                            TransData.RequestFields.Field14,
+                            "",
+                            "",
+                            "",
+                            "",
+                            TransData.ResponseFields.Field37,
+                            TransData.ResponseFields.Field38,
+                            TransData.ResponseFields.Field39,
+                            "",
+                            "",
+                            "",
+                            "",
+                            TransData.RequestFields.Field60
+                        )
+                    }
                 }
                 bundle.putInt(
                     EmvOnlineConstraints.OUT_AUTH_RESP_CODE,
@@ -854,7 +904,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
                 //}
             }
             if(it.key.equals("9F02")){
-                if (!sharedPreferences.getString("TXN_TYPE","").equals(Txntype.reversal)){
+                if (!sharedPreferences.getString("TXN_TYPE","").equals(TxnType.REVERSAL)){
                     TransData.RequestFields.Field04=it.value
 
                 }
@@ -918,7 +968,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
     fun setAmount(amount: Long) {
         FirebaseDatabaseSingleton.setLog("setAmount - $amount")
-        if (!sharedPreferences.getString("TXN_TYPE","").equals(Txntype.reversal)){
+        if (!sharedPreferences.getString("TXN_TYPE","").equals(TxnType.REVERSAL)){
             transData.amount = amount
         }
 
@@ -993,6 +1043,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
 
         printerManager.addPrintLine(
             TextPrintLine(
+                
                 "Hibret Bank", PrintLine.CENTER, 20, false
             )
         )
@@ -1039,6 +1090,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
         FirebaseDatabaseSingleton.setLog("setAmountBlock")
         printerManager.addBlankView(1)
 
+
         printerManager.addPrintLine(
             TextPrintLine(
                 sharedPreferences.getString("TXN_TYPE","")?.uppercase() ?: "", PrintLine.LEFT, 20, true
@@ -1066,12 +1118,27 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
         )
 
         printerManager.addBlankView(1)
+        val txn=sharedPreferences.getString("TXN_TYPE","")
+        if(txn==TxnType.BALANCE_INQUIRY){
+            if (transData.transactionStatus){
+            val amount=TransData.ResponseFields.Field54.substring(8)
+            printerManager.addPrintLine(
+                printList(
+                    "Balance", sharedPreferences.getString("Currency","").toString(), CurrencyConverter.convertWithoutSAR(amount.toLong()), 20, true
+
+                )
+            )
+            }else{
+
+            }
+        }else{
         printerManager.addPrintLine(
             printList(
                 "AMOUNT", sharedPreferences.getString("Currency","").toString(), CurrencyConverter.convertWithoutSAR(TransData.RequestFields.Field04.toLong()), 20, true
 
             )
         )
+        }
         printerManager.addBlankView(1)
 
     }

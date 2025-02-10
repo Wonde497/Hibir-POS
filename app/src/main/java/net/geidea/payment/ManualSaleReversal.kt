@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.databinding.ActivityManualSaleReversalBinding
+import net.geidea.payment.transaction.ManualCardEntry
+
 class ManualSaleReversal : AppCompatActivity() {
     private  lateinit var binding:ActivityManualSaleReversalBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -16,17 +18,22 @@ class ManualSaleReversal : AppCompatActivity() {
         setContentView(binding.root)
         sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
-        binding.manualSale.setOnClickListener{
-            editor.putString("TXN_TYPE",Txntype.manualPurchase)
-            editor.putString("transaction",Txntype.manualPurchase)
+        binding.manualSaleIcon.setOnClickListener{
+            editor.putString("TXN_TYPE",TxnType.M_PURCHASE)
             editor.commit()
             startActivity(Intent(this,AmountActivity::class.java))
             finish()
         }
-        binding.manualReversal.setOnClickListener{
-            editor.putString("TXN_TYPE",Txntype.manualReversal)
+        binding.manualReversalIcon.setOnClickListener{
+            editor.putString("TXN_TYPE",TxnType.M_REVERSAL)
             editor.commit()
             startActivity(Intent(this,ReversalActivity::class.java))
+            finish()
+        }
+        binding.balanceInquiryIcon.setOnClickListener{
+            editor.putString("TXN_TYPE",TxnType.M_BALANCE_INQUIRY)
+            editor.commit()
+            startActivity(Intent(this,ManualCardEntry::class.java))
             finish()
         }
 

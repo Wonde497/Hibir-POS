@@ -13,18 +13,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.common.util.Hex
 import com.pos.sdk.security.POIHsmManage
 import dagger.hilt.android.AndroidEntryPoint
-import net.geidea.payment.ActivityCollector
 import net.geidea.payment.DBHandler
-import net.geidea.payment.LoadingActivity
-import net.geidea.payment.MainActivity
 import net.geidea.payment.MainMenuActivity
 import net.geidea.payment.R
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.com.Comm
-import net.geidea.payment.customdialog.DialogLogoutConfirm
 import net.geidea.payment.users.UserLogoutConfirmDialog
 import net.geidea.payment.databinding.ActivityCashierMainBinding
 import net.geidea.payment.databinding.NavHeaderBinding
@@ -33,11 +28,9 @@ import net.geidea.payment.report.Report
 import net.geidea.payment.tlv.HexUtil
 import net.geidea.payment.transaction.model.TransData
 import net.geidea.payment.transaction.model.TransData.RequestFields
-import net.geidea.payment.transaction.view.CardReadActivity
 import net.geidea.payment.transaction.viewmodel.CardReadViewModel
 import net.geidea.payment.utils.MASTER_KEY_INDEX
 import net.geidea.payment.utils.SESSION_PIN_KEY_INDEX
-import net.geidea.payment.utils.TPK_3DES_DATA
 import net.geidea.payment.utils.commonMethods
 import net.geidea.utils.dialog.SweetAlertDialog
 
@@ -157,9 +150,9 @@ class CashierMainActivity : AppCompatActivity() {
     private fun setUpCardViewListeners() {
 
         binding.cashierKeyDownload.setOnClickListener {
-            transData.ClearVariables()
+            transData.clearVariables()
             Toast.makeText(this, "Key Download", Toast.LENGTH_SHORT).show()
-            editor.putString("TXN_TYPE",Txntype.keydownload)
+            editor.putString("TXN_TYPE",TxnType.KEY_DOWNLOAD)
             editor.commit()
 
             TransData.RequestFields.Header="00566020153535"
@@ -180,12 +173,21 @@ class CashierMainActivity : AppCompatActivity() {
 
 
             showProgressDialog.show()
+            if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                runOnUiThread {
+                    if (!isFinishing && !isDestroyed) {
+                        showProgressDialog.dismiss()
+                        showAlertForConnectionFailure("Please fill the IP and port!")
+                    }
+                }
 
-            handler = Handler()
-            handler.postDelayed({
-                Thread(startKeyDownload).start()
-            }, 2000)
+            }else {
 
+                handler = Handler()
+                handler.postDelayed({
+                    Thread(startKeyDownload).start()
+                }, 2000)
+            }
             //cardReadViewModel.startTransaction()
 
 
@@ -194,9 +196,9 @@ class CashierMainActivity : AppCompatActivity() {
             // startActivity(intent)
         }
         binding.cashierKeyDownloadIcon.setOnClickListener {
-            transData.ClearVariables()
+            transData.clearVariables()
             Toast.makeText(this, "Key Download", Toast.LENGTH_SHORT).show()
-            editor.putString("TXN_TYPE",Txntype.keydownload)
+            editor.putString("TXN_TYPE",TxnType.KEY_DOWNLOAD)
             editor.commit()
 
             TransData.RequestFields.Header="00566020153535"
@@ -217,17 +219,27 @@ class CashierMainActivity : AppCompatActivity() {
 
 
             showProgressDialog.show()
+            if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                runOnUiThread {
+                    if (!isFinishing && !isDestroyed) {
+                        showProgressDialog.dismiss()
+                        showAlertForConnectionFailure("Please fill the IP and port!")
+                    }
+                }
 
-            handler = Handler()
-            handler.postDelayed({
-                Thread(startKeyDownload).start()
-            }, 2000)
+            }else {
+
+                handler = Handler()
+                handler.postDelayed({
+                    Thread(startKeyDownload).start()
+                }, 2000)
+            }
 
         }
         binding.tvKeyDownload.setOnClickListener {
-            transData.ClearVariables()
+            transData.clearVariables()
             Toast.makeText(this, "Key Download", Toast.LENGTH_SHORT).show()
-            editor.putString("TXN_TYPE",Txntype.keydownload)
+            editor.putString("TXN_TYPE",TxnType.KEY_DOWNLOAD)
             editor.commit()
 
             TransData.RequestFields.Header="00566020153535"
@@ -248,11 +260,21 @@ class CashierMainActivity : AppCompatActivity() {
 
 
             showProgressDialog.show()
+            if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                runOnUiThread {
+                    if (!isFinishing && !isDestroyed) {
+                        showProgressDialog.dismiss()
+                        showAlertForConnectionFailure("Please fill the IP and port!")
+                    }
+                }
+
+            }else{
 
             handler = Handler()
             handler.postDelayed({
                 Thread(startKeyDownload).start()
             }, 2000)
+            }
 
         }
 
@@ -282,7 +304,7 @@ class CashierMainActivity : AppCompatActivity() {
 
             if (txnDataList.isNotEmpty()) {
 
-                editor.putString("TXN_TYPE", Txntype.settlement)
+                editor.putString("TXN_TYPE", TxnType.SETTLEMENT)
                 editor.commit()
                 TransData.RequestFields.Header = "30606000000000"
                 RequestFields.MTI = "0500"
@@ -332,12 +354,22 @@ class CashierMainActivity : AppCompatActivity() {
                 Log.d("tag", "endvalue of 63: ${TransData.RequestFields.endValue4F63}")
 
                 showProgressDialog.show()
-                handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    Thread(doSettlement).start()
-                }, 2000)
+                if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                            showAlertForConnectionFailure("Please fill the IP and port!")
+                        }
+                    }
 
-                Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }else {
+                    handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        Thread(doSettlement).start()
+                    }, 2000)
+
+                    Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }
 
                 }else{
                 runOnUiThread {
@@ -351,7 +383,7 @@ class CashierMainActivity : AppCompatActivity() {
 
             if (txnDataList.isNotEmpty()) {
 
-                editor.putString("TXN_TYPE", Txntype.settlement)
+                editor.putString("TXN_TYPE", TxnType.SETTLEMENT)
                 editor.commit()
                 TransData.RequestFields.Header = "30606000000000"
                 RequestFields.MTI = "0500"
@@ -401,12 +433,22 @@ class CashierMainActivity : AppCompatActivity() {
                 Log.d("tag", "endValue of 63: ${TransData.RequestFields.endValue4F63}")
 
                 showProgressDialog.show()
-                handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    Thread(doSettlement).start()
-                }, 2000)
+                if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                            showAlertForConnectionFailure("Please fill the IP and port!")
+                        }
+                    }
 
-                Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }else {
+                    handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        Thread(doSettlement).start()
+                    }, 2000)
+
+                    Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }
 
             }else{
                 runOnUiThread {
@@ -421,7 +463,7 @@ class CashierMainActivity : AppCompatActivity() {
 
             if (txnDataList.isNotEmpty()) {
 
-                editor.putString("TXN_TYPE", Txntype.settlement)
+                editor.putString("TXN_TYPE", TxnType.SETTLEMENT)
                 editor.commit()
                 TransData.RequestFields.Header = "30606000000000"
                 RequestFields.MTI = "0500"
@@ -471,12 +513,23 @@ class CashierMainActivity : AppCompatActivity() {
                 Log.d("tag", "endValue of 63: ${RequestFields.endValue4F63}")
 
                 showProgressDialog.show()
-                handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    Thread(doSettlement).start()
-                }, 2000)
+                if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                    runOnUiThread {
+                        if (!isFinishing && !isDestroyed) {
+                            showProgressDialog.dismiss()
+                            showAlertForConnectionFailure("Please fill the IP and port!")
+                        }
+                    }
 
-                Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }else {
+
+                    handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        Thread(doSettlement).start()
+                    }, 2000)
+
+                    Toast.makeText(this, "Settlement", Toast.LENGTH_SHORT).show()
+                }
 
             }else{
                 runOnUiThread {
@@ -510,7 +563,12 @@ class CashierMainActivity : AppCompatActivity() {
         Log.d("tag","packet ")
 
         val com= Comm("${dbHandler.getIPAndPortNumber()?.first}","${dbHandler.getIPAndPortNumber()?.second}".toInt())
+
         if(!com.connect()){
+            runOnUiThread {
+                showProgressDialog.dismiss()
+                showAlertForConnectionFailure("Connection failed")
+            }
 
             Log.d("tag","Connection failed")
 
@@ -604,8 +662,20 @@ class CashierMainActivity : AppCompatActivity() {
         Log.d("tag","packet ")
 
         val com= Comm("${dbHandler.getIPAndPortNumber()?.first}","${dbHandler.getIPAndPortNumber()?.second}".toInt())
-        if(!com.connect()){
+        if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+            runOnUiThread {
+                if (!isFinishing && !isDestroyed) {
+                    showProgressDialog.dismiss()
+                    showAlertForConnectionFailure("Please fill the IP and port!")
+                }
+            }
 
+        }
+        if(!com.connect()){
+            runOnUiThread {
+                showProgressDialog.dismiss()
+                showAlertForConnectionFailure("Connection failed")
+            }
             Log.d("tag","Connection failed")
 
 
@@ -651,6 +721,20 @@ class CashierMainActivity : AppCompatActivity() {
             listener = SweetAlertDialog.OnSweetClickListener {
                 //startActivity(Intent(this, MainActivity::class.java))
                 showProgressDialog2.dismiss() // Close
+            }
+        )
+
+    }
+    private fun showAlertForConnectionFailure(message:String){
+
+        showProgressDialog2.setTitleText(message)
+        showProgressDialog2.setCancelable(false)
+        showProgressDialog2.show()
+        showProgressDialog2.setConfirmClickListener(
+            listener = SweetAlertDialog.OnSweetClickListener {
+                startActivity(Intent(this@CashierMainActivity,MainMenuActivity::class.java))
+                finish()
+
             }
         )
 

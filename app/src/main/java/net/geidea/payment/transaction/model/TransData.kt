@@ -2,17 +2,12 @@ package net.geidea.payment.transaction.model
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
-import android.icu.text.SimpleDateFormat
 import android.util.Log
 import androidx.annotation.Keep
 import net.geidea.payment.DBHandler
-import net.geidea.payment.Txntype
-import net.geidea.payment.report.Report
+import net.geidea.payment.TxnType
 import net.geidea.payment.tlv.HexUtil
 import java.nio.ByteBuffer
-import java.util.Date
-import java.util.Locale
 
 @Keep
 class TransData(private val context:Context) {
@@ -20,7 +15,7 @@ class TransData(private val context:Context) {
     private lateinit var editor: SharedPreferences.Editor
 
 
-    var txnType=sharedPreferences.getString("TXN_TYPE","")
+    private var txnType=sharedPreferences.getString("TXN_TYPE","")
     var txnMenuType=sharedPreferences.getString("TXN_MENU_TYPE","")
 
     var entryMode:String = ""
@@ -122,6 +117,8 @@ class TransData(private val context:Context) {
             var Field42=""
             var Field49=""
             var Field52=""
+            var Field53=""
+            var Field54=""
             var Field55=""
             var Field62=""
 
@@ -136,7 +133,7 @@ class TransData(private val context:Context) {
          //txnMenuType=sharedPreferences.getString("TXN_MENU_TYPE","")
         //Log.d(TAG,"txnMenuType${txnMenuType}")
 
-        if(!txnType.equals(Txntype.refund)&&!txnType.equals(Txntype.keydownload) && !txnType.equals(Txntype.settlement) && !txnType.equals(Txntype.reversal)&&!txnType.equals(Txntype.manualReversal)) {
+        if(!txnType.equals(TxnType.REFUND)&&!txnType.equals(TxnType.KEY_DOWNLOAD) && !txnType.equals(TxnType.SETTLEMENT) && !txnType.equals(TxnType.REVERSAL)) {
             Log.d(TAG, "txntype2:$txnType")
 
             RequestFields.Field11 = stan
@@ -145,8 +142,8 @@ class TransData(private val context:Context) {
 
         Log.d(TAG, "txn type$txnType")
         Log.d(TAG, "entry mode$entryMode")
-        if(txnType.equals(Txntype.purchase)){
-            if(entryMode.equals(EntryMode.CONTACTLESS)){
+        if(txnType.equals(TxnType.PURCHASE)){
+            if(entryMode == EntryMode.CONTACTLESS.toString()){
                 Log.d(TAG, "txn type$txnType")
                 RequestFields.Field22="0070"
             }else {
@@ -168,17 +165,17 @@ class TransData(private val context:Context) {
             }
 
 
-        } else if(txnType.equals(Txntype.reversal)){
+        } else if(txnType.equals(TxnType.REVERSAL)){
             RequestFields. Header="30606020153535"
             RequestFields.MTI="0200"
             RequestFields.primaryBitmap="703C05802EC00014"
             RequestFields.Field03="020000"
-            if(entryMode.equals(EntryMode.CONTACTLESS)){
+            if(entryMode == EntryMode.CONTACTLESS.toString()){
                 RequestFields.Field22="0070"
             }else {
                 RequestFields.Field22="0051"
             }
-        }else if(txnType.equals(Txntype.manualReversal)){
+        }else if(txnType.equals(TxnType.M_REVERSAL)){
             RequestFields. Header="30606020153535"
             RequestFields.MTI="0200"
             RequestFields.Field03="000000"
@@ -192,10 +189,10 @@ class TransData(private val context:Context) {
         }
 
 
-if(!txnType.equals(Txntype.manualReversal)) {
+if(!txnType.equals(TxnType.M_REVERSAL)) {
     RequestFields.Field02 = pan
     }
-        if(txnType.equals(Txntype.refund)){
+        if(txnType.equals(TxnType.REFUND)){
            RequestFields.Header="30606020153535"
           RequestFields.MTI="0200"
             RequestFields.Field03= "200000"
@@ -204,12 +201,73 @@ if(!txnType.equals(Txntype.manualReversal)) {
             } else{
                 RequestFields.primaryBitmap="703C05802EC00204"
             }
+            if(entryMode == EntryMode.CONTACTLESS.toString()){
+                Log.d(TAG, "txn type$txnType")
+                RequestFields.Field22="0070"
+            }else {
+                RequestFields.Field22="0051"
+            }
+        }
+        if(txnType.equals(TxnType.BALANCE_INQUIRY)){
+            RequestFields.Header="30606020153535"
+            RequestFields.MTI="0100"
+
+            if(isOnlinePin){
+                RequestFields.primaryBitmap="6024058020C01204"
+
+            }else{
+                RequestFields.primaryBitmap="6024058020C00204"
+            }
+            RequestFields.Field03="310000"
+            if(entryMode==EntryMode.CONTACTLESS.toString()){
+                Log.d(TAG, "txn type$txnType")
+                RequestFields.Field22="0070"
+            }else {
+                RequestFields.Field22="0051"
+             }
+            RequestFields.Field24="0001"
+            RequestFields.Field25="00"
+        }
+        if(txnType.equals(TxnType.PRE_AUTH)){
+            RequestFields.Header="30606020153535"
+            RequestFields.MTI="0100"
+            if(isOnlinePin){
+                RequestFields.primaryBitmap="7024058020C01204"
+
+            }else{
+                RequestFields.primaryBitmap="7024058020C00204"
+               }
+            RequestFields.Field03="300000"
+            if(entryMode == EntryMode.CONTACTLESS.toString()){
+                Log.d(TAG, "txn type$txnType")
+                RequestFields.Field22="0070"
+            }else {
+                RequestFields.Field22="0051"
+            }
+            RequestFields.Field24="0001"
+            RequestFields.Field25="00"
+        }
+        if(txnType.equals(TxnType.PRE_AUTH_COMPLETION)){
+            RequestFields.Header="30606020153535"
+            RequestFields.MTI="0200"
+            RequestFields.Field03= "000005"
+            if(isOnlinePin){
+                RequestFields.primaryBitmap="703C05802EC01204"
+            } else{
+                RequestFields.primaryBitmap="703C05802EC00204"
+            }
+            if(entryMode == EntryMode.CONTACTLESS.toString()){
+                Log.d(TAG, "txn type$txnType")
+                RequestFields.Field22="0070"
+            }else {
+                RequestFields.Field22="0051"
+            }
         }
         // RequestFields.FielFd07= SimpleDateFormat("MMddhhmmss", Locale.getDefault()).format(Date())
-        Log.d(TAG, "trantype:" + txnType)
+        Log.d(TAG, "trantype:$txnType")
 
         // RequestFields.Field12=SimpleDateFormat("yyMMddhhmmss", Locale.getDefault()).format( Date())
-        if(!txnType.equals(Txntype.keydownload ) && !txnType.equals(Txntype.manualPurchase )&& !txnType.equals(Txntype.manualReversal )  && !txnType.equals(Txntype.settlement) ){
+        if(!txnType.equals(TxnType.KEY_DOWNLOAD ) && !txnType.equals(TxnType.M_PURCHASE )&& !txnType.equals(TxnType.M_REVERSAL )  && !txnType.equals(TxnType.SETTLEMENT) ){
                 RequestFields.Field14 = cardExpiryDate.substring(0, 4)//+"01"
             }
         Log.d(TAG,"Field14:"+RequestFields.Field14)
@@ -948,6 +1006,9 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
         //************************************************ end field03/
         //**************************************************************
+        if(txnType==TxnType.M_BALANCE_INQUIRY){
+            RequestFields.Field04="0000000000000"
+        }
         fieldLength = RequestFields.Field04.length / 2
         Log.d("TransData", "headertry.........: ${RequestFields.Field04}")
 
@@ -1439,7 +1500,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
         var  buffer: ByteBuffer? =null
         var  bufferForManual: ByteBuffer? =null
 
-        if(txnType.equals(Txntype.manualPurchase)){
+        if(txnType.equals(TxnType.M_PURCHASE)){
             Log.d(TAG,"txnmenutype:${txnType}")
             buffer=ByteBuffer.allocate(
                 lengthOfHeader+
@@ -1505,8 +1566,70 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
             }
 
+        }else if(txnType.equals(TxnType.M_BALANCE_INQUIRY)){
+            Log.d(TAG,"txnmenutype:${txnType}")
+            buffer=ByteBuffer.allocate(
+                lengthOfHeader+
+                        lengthOfMTI+
+                        lengthOfBitmap+
+                        lengthOfFlen02+
+                        lengthOfF02+
+                        lengthOfF03+
+                        lengthOfF11+
+                        lengthOfF14+
+                        lengthOfF22+
+                        lengthOfF24+
+                        lengthOfF25+
+                        field41.size+
+                        field42.size+
+                        lengthOfF62+field11.size)
+            buffer.apply {
+                for (byteArray1 in listOfByteArraysHeader) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysMTI) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysBMP) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArrayslenF02) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF02) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArraysF03) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF11) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF14) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF22) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF24) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF25) {
+                    put(byteArray1)
+                }
+                put(field41)
+                put(field42)
+                for (byteArray1 in listOfByteArraysF62) {
+                    put(byteArray1)
+                }
+                put(field11)
+
+
+            }
+
         }
-        else if(txnType.equals(Txntype.keydownload)){
+        else if(txnType.equals(TxnType.KEY_DOWNLOAD)){
 
            buffer=ByteBuffer.allocate(lengthOfHeader+
                    lengthOfMTI+
@@ -1548,7 +1671,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
 
             }
-        }else if (txnType.equals(Txntype.settlement)){
+        }else if (txnType.equals(TxnType.SETTLEMENT)){
             buffer=ByteBuffer.allocate(
                 lengthOfHeader+
                     lengthOfMTI+
@@ -1604,7 +1727,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
 
         }
-        } else if(txnType.equals(Txntype.reversal)) {
+        } else if(txnType.equals(TxnType.REVERSAL)) {
 
             buffer = ByteBuffer.allocate(
                 lengthOfHeader +
@@ -1706,7 +1829,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
                 put(field11)
             }
 
-        }else if(txnType.equals(Txntype.manualReversal)){
+        }else if(txnType.equals(TxnType.M_REVERSAL)){
 
             buffer = ByteBuffer.allocate(
                 lengthOfHeader+
@@ -1799,7 +1922,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
                 }
                 put(field11)
             }
-        } else if(txnType.equals(Txntype.purchase)){
+        } else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.PRE_AUTH)){
              buffer = ByteBuffer.allocate(
                  lengthOfHeader+
                          lengthOfMTI+
@@ -1876,7 +1999,80 @@ if(!txnType.equals(Txntype.manualReversal)) {
                  put(field42)
 
              }
-         }else if(txnType.equals(Txntype.refund)) {
+         }else if(txnType.equals(TxnType.BALANCE_INQUIRY)){
+            buffer = ByteBuffer.allocate(
+                lengthOfHeader+
+                        lengthOfMTI+
+                        lengthOfBitmap +
+                        lengthOfFlen02+
+                        lengthOfF02+
+                        lengthOfF03 +
+                        lengthOfF11 +
+                        lengthOfF14 +
+                        lengthOfF22 +
+                        lengthOfF24 +
+                        lengthOfF25+
+                        lengthOflenF35+
+                        lengthOfF35 +
+                        field41.size +
+                        field42.size
+
+            )
+
+
+            buffer?.apply {
+                for (byteArray1 in listOfByteArraysHeader) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysMTI) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysBMP) {
+                    put(byteArray1)
+                }
+
+                //for loop to put the bit map in buffer
+
+
+                for (byteArray1 in listOfByteArrayslenF02) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF02) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArraysF03) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF11) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF14) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF22) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF24) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF25) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArrayslenF35) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF35) {
+                    put(byteArray1)
+                }
+
+
+                put(field41)
+                put(field42)
+
+            }
+        }else if(txnType.equals(TxnType.REFUND)||txnType.equals(TxnType.PRE_AUTH_COMPLETION)) {
                 buffer = ByteBuffer.allocate(
                     lengthOfHeader+
                             lengthOfMTI+
@@ -2103,14 +2299,14 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
         }*/
 
-        if(txnType.equals(Txntype.reversal)||txnType.equals(Txntype.manualReversal)){
+        if(txnType.equals(TxnType.REVERSAL)||txnType.equals(TxnType.M_REVERSAL)){
             Log.d(TAG, "reversalllllll..:" )
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
             }
            Log.d("Tag","packeddata"+combinedBuffer)
-        }else if(txnType.equals(Txntype.purchase)||txnType.equals(Txntype.refund)){
+        }else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.REFUND)||txnType.equals(TxnType.BALANCE_INQUIRY)||txnType.equals(TxnType.PRE_AUTH)||txnType.equals(TxnType.PRE_AUTH_COMPLETION)){
             if(isOnlinePin){
                 combinedBuffer = ByteBuffer.allocate(firstBuffer.size +field52.size+ bufferF55nF62.size)
                 combinedBuffer.apply {
@@ -2118,9 +2314,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
                     put(field52)
                     put(bufferF55nF62)
                 }
-
-
-                }
+                    }
             else{
 
                 combinedBuffer = ByteBuffer.allocate(firstBuffer.size + bufferF55nF62.size)
@@ -2131,17 +2325,17 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
             }
 
-        }else if(txnType.equals(Txntype.settlement)){
+        }else if(txnType.equals(TxnType.SETTLEMENT)){
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
             }
-        } else if(txnType.equals(Txntype.keydownload)){
+        } else if(txnType.equals(TxnType.KEY_DOWNLOAD)){
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
             }
-        }else if(txnType.equals(Txntype.manualPurchase)){
+        }else if(txnType.equals(TxnType.M_PURCHASE)||txnType.equals(TxnType.M_BALANCE_INQUIRY)){
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)
@@ -2173,7 +2367,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
 
         assignValue2ResponseFields(binaryBitmap1, responseBody)
     }
-    fun ClearVariables(){
+    fun clearVariables(){
         ResponseFields.Header=""
         ResponseFields.MTI=""
         ResponseFields.primaryBitmap=""
@@ -2233,7 +2427,7 @@ if(!txnType.equals(Txntype.manualReversal)) {
     fun fillGapSequence(data: String, size: Int): String {
         var result = data
         while (result.length != size) {
-            result = "0" + result
+            result = "0$result"
         }
         return result
     }
@@ -2308,10 +2502,20 @@ if(!txnType.equals(Txntype.manualReversal)) {
                         Log.d(TAG, "field49: ${ResponseFields.Field49}")
                         n += 3
                     }
+                    54 -> {
+                        val prefix1 = responseBody.substring(n, n + 3)
+                        println("prefix1: $prefix1")
+                        val num1 = prefix1.toInt()
+                        n += 3
+
+                        ResponseFields.Field54 = responseBody.substring(n, n + num1)
+                        Log.d(TAG, "field54: ${ResponseFields.Field54}")
+                        n += 3
+                    }
                     55 -> {
                         prefix = responseBody.substring(n, n + 4)
                         println("prefix: $prefix")
-                        val num = prefix
+                        val num = prefix.toInt()
                         n += 4
                         ResponseFields.Field55 = responseBody.substring(n)
                         Log.d(TAG, "field55: ${ResponseFields.Field55}")

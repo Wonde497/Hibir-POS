@@ -1,6 +1,8 @@
 
 package net.geidea.payment.users.admin
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -15,92 +17,75 @@ class AdminManageTransaction : AppCompatActivity() {
 
     // Define all the SwitchCompat elements
     private lateinit var balanceInqSwitch: SwitchCompat
-    private lateinit var depositSwitch: SwitchCompat
+    private lateinit var reversalSwitch: SwitchCompat
     private lateinit var manualCardEntrySwitch: SwitchCompat
     private lateinit var phoneAuthSwitch: SwitchCompat
     private lateinit var preAuthSwitch: SwitchCompat
+    private lateinit var preAuthCompletionSwitch: SwitchCompat
     private lateinit var saleSwitch: SwitchCompat
     private lateinit var refundSwitch: SwitchCompat
-
+    private lateinit var sharedPreferences:SharedPreferences
+      private lateinit var editor: SharedPreferences.Editor
     private lateinit var dbHelper: DBHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_manage_transaction)
+        sharedPreferences = getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
 
         dbHelper = DBHandler(this)
 
         // Initialize SwitchCompat elements
         balanceInqSwitch = findViewById(R.id.balanceinq)
-        depositSwitch = findViewById(R.id.deposit)
+        reversalSwitch = findViewById(R.id.reversal)
         manualCardEntrySwitch = findViewById(R.id.manualcardentry)
         phoneAuthSwitch = findViewById(R.id.Phone)
         preAuthSwitch = findViewById(R.id.pre_auth)
+        preAuthCompletionSwitch = findViewById(R.id.pre_auth_completion)
         saleSwitch = findViewById(R.id.sale)
         refundSwitch = findViewById(R.id.refund)
 
+        // Set initial state based on saved preferences
+        balanceInqSwitch.isChecked = sharedPreferences.getBoolean("BALANCE_INQ_ENABLED", false)
+        reversalSwitch.isChecked = sharedPreferences.getBoolean("REVERSAL_ENABLED", false)
+        manualCardEntrySwitch.isChecked = sharedPreferences.getBoolean("MANUAL_ENTRY_ENABLED", false)
+        preAuthSwitch.isChecked = sharedPreferences.getBoolean("PRE_AUTH_ENABLED", false)
+        preAuthCompletionSwitch.isChecked = sharedPreferences.getBoolean("PRE_AUTH_COMPLETION_ENABLED", false)
+        phoneAuthSwitch.isChecked = sharedPreferences.getBoolean("PHONE_AUTH_ENABLED", false)
+        saleSwitch.isChecked = sharedPreferences.getBoolean("SALE_ENABLED", false)
+        refundSwitch.isChecked = sharedPreferences.getBoolean("REFUND_ENABLED", false)
+
         // Set listeners for each switch to handle the toggle actions
         balanceInqSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Balance INQ switch toggle
-            if (isChecked) {
-                //dbHelper.addTransactionStatus("balanceINQ", "1")
-            } else {
-               // dbHelper.addTransactionStatus("balanceINQ", "0")
-            }
+            editor.putBoolean("BALANCE_INQ_ENABLED", isChecked).commit()
         }
 
-        depositSwitch.setOnCheckedChangeListener { _, isChecked ->
-
-            if (isChecked) {
-              //  dbHelper.addTransactionStatus("deposit", "1")
-            } else {
-               // dbHelper.addTransactionStatus("deposit", "0")
-            }
+        reversalSwitch.setOnCheckedChangeListener { _, isChecked ->
+            editor.putBoolean("REVERSAL_ENABLED", isChecked).commit()
         }
 
         manualCardEntrySwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Manual Card Entry switch toggle
-            if (isChecked) {
-                // Switch is ON
-            } else {
-                // Switch is OFF
-            }
-        }
-
-        phoneAuthSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Phone Authorization switch toggle
-            if (isChecked) {
-                // Switch is ON
-            } else {
-                // Switch is OFF
-            }
+            editor.putBoolean("MANUAL_ENTRY_ENABLED", isChecked).commit()
         }
 
         preAuthSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Pre-Auth switch toggle
-            if (isChecked) {
-                // Switch is ON
-            } else {
-                // Switch is OFF
-            }
+            editor.putBoolean("PRE_AUTH_ENABLED", isChecked).commit()
+        }
+        preAuthCompletionSwitch.setOnCheckedChangeListener { _, isChecked ->
+            editor.putBoolean("PRE_AUTH_COMPLETION_ENABLED", isChecked).commit()
+        }
+
+        phoneAuthSwitch.setOnCheckedChangeListener { _, isChecked ->
+            editor.putBoolean("PHONE_AUTH_ENABLED", isChecked).commit()
         }
 
         saleSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Sale switch toggle
-            if (isChecked) {
-                // Switch is ON
-            } else {
-                // Switch is OFF
-            }
+            editor.putBoolean("SALE_ENABLED", isChecked).commit()
         }
 
         refundSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Handle Refund switch toggle
-            if (isChecked) {
-                // Switch is ON
-            } else {
-                // Switch is OFF
-            }
+            editor.putBoolean("REFUND_ENABLED", isChecked).commit()
         }
     }
 }

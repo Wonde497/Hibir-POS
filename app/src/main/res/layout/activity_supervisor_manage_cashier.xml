@@ -159,19 +159,19 @@
                         android:orientation="vertical"
                         android:gravity="center">
 
-                        <ImageButton
-                            android:id="@+id/supervisor_enable_cashier_icon"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/enable_user"
-                            android:background="@color/ahadu_red1"
-                            tools:ignore="SpeakableTextPresentCheck" />
-
-                        <TextView
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/cashier_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Enable Cashier"
+                            android:layout_marginLeft="20dp"
+                            android:thumb="@drawable/custom_thumb"
+                            app:track="@drawable/custom_track" />
+
+                        <TextView
+                            android:id="@+id/cashier_enable_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cashier enabled"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>

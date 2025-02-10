@@ -5,28 +5,21 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import net.geidea.payment.AmountActivity
 import net.geidea.payment.MainMenuActivity
 import net.geidea.payment.ManualSaleReversal
 import net.geidea.payment.R
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.customdialog.DialogLogoutConfirm
-import net.geidea.payment.databinding.ActivityAdminManageSupportBinding
 import net.geidea.payment.databinding.ActivitySupervisorMainBinding
 import net.geidea.payment.databinding.NavHeaderBinding
 import net.geidea.payment.help.HelpMainActivity
 import net.geidea.payment.login.LoginMainActivity
-import net.geidea.payment.transaction.ManualCardEntry
-import net.geidea.payment.transaction.model.TransData
-import net.geidea.payment.users.admin.AddSupportActivity
-import net.geidea.payment.users.admin.AdminManageSupportActivity
 
 class SupervisorMainActivity : AppCompatActivity() {
 
@@ -50,6 +43,9 @@ class SupervisorMainActivity : AppCompatActivity() {
                 finish()
             }
         })
+        if (!sharedPreferences1.getBoolean("MANUAL_ENTRY_ENABLED",false)){
+            binding.supervisorManualCardEntery.visibility=View.GONE
+        }
 
 
         // Setup ActionBarDrawerToggle for navigation drawer
@@ -145,8 +141,8 @@ class SupervisorMainActivity : AppCompatActivity() {
             // Handle Reprint click
         }
         binding.supervisorManualCardEntery.setOnClickListener {
-            editor.putString("TXN_TYPE",Txntype.manualPurchase)
-            editor.putString("transaction",Txntype.manualPurchase)
+            editor.putString("TXN_TYPE",TxnType.M_PURCHASE)
+            editor.putString("transaction",TxnType.M_PURCHASE)
             editor.commit()
             startActivity(Intent(this, ManualSaleReversal::class.java))
             //startActivity(Intent(this, AmountActivity::class.java))

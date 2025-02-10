@@ -5,19 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.DBHandler
-import net.geidea.payment.Txntype
-import net.geidea.payment.users.admin.AdminMainActivity
-import net.geidea.payment.users.cashier.CashierMainActivity
-import net.geidea.payment.users.support.SupportMainActivity
-import net.geidea.payment.databinding.ActivityLoginBinding
+import net.geidea.payment.TxnType
 import net.geidea.payment.databinding.SupervisorLoginBinding
 import net.geidea.payment.transaction.view.CardReadActivity
-import net.geidea.payment.users.supervisor.SupervisorMainActivity
-import net.geidea.payment.utils.commonMethods
 
 class SupervisorLogin : AppCompatActivity() {
 
@@ -57,7 +50,7 @@ class SupervisorLogin : AppCompatActivity() {
             //go to input pin
            /* val showpin  = commonMethods(this)
             showpin.showPinPad()*/
-            if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.refund)){
+            if(sharedPreferences.getString("TXN_TYPE","").equals(TxnType.REFUND)){
             CardReadActivity.startTransaction(this, intent.getLongExtra("amount", 0L))
             }else {
                 val intent = Intent(this, CardReadActivity::class.java)

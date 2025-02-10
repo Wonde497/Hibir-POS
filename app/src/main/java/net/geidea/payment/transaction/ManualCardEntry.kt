@@ -1,50 +1,96 @@
 package net.geidea.payment.transaction
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import com.pos.sdk.printer.POIPrinterManager
+import com.pos.sdk.printer.models.BitmapPrintLine
+import com.pos.sdk.printer.models.PrintLine
+import com.pos.sdk.printer.models.TextPrintLine
+import net.geidea.payment.BuildConfig
+import net.geidea.payment.DBHandler
+import net.geidea.payment.R
+import net.geidea.payment.TxnType
+import net.geidea.payment.com.Comm
 import net.geidea.payment.databinding.ActivityManualCardEntryBinding
+import net.geidea.payment.print.PrintStatus
+import net.geidea.payment.print.Printer
+import net.geidea.payment.print.Printer.printList
+import net.geidea.payment.tlv.HexUtil
+import net.geidea.payment.transaction.model.EntryMode
 import net.geidea.payment.transaction.model.TransData
+import net.geidea.payment.transaction.viewmodel.CardReadViewModel
 import net.geidea.payment.users.supervisor.ExpiryDate
+import net.geidea.payment.users.supervisor.SupervisorMainActivity
+import net.geidea.payment.utils.FirebaseDatabaseSingleton
+import net.geidea.utils.BuzzerUtils
+import net.geidea.utils.CurrencyConverter
+import net.geidea.utils.DateTimeFormat
+import net.geidea.utils.convertDateTime
+import net.geidea.utils.dialog.SweetAlertDialog
+import net.geidea.utils.extension.gone
+import net.geidea.utils.extension.visible
+import net.geidea.utils.getCurrentDateTime
+import net.geidea.utils.maskPan
 
 
 class ManualCardEntry : AppCompatActivity() {
 
     private lateinit var binding: ActivityManualCardEntryBinding
-
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor:SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityManualCardEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+
+
+
+        sharedPreferences=getSharedPreferences("SHARED_DATA",Context.MODE_PRIVATE)
+        editor=sharedPreferences.edit()
+
+        val txnType=sharedPreferences.getString("TXN_TYPE","")
         val amount=intent.getStringExtra("amount")
 
         binding.buttonPANconfirm.setOnClickListener() {
-            var pan = binding.editTextPAN.text.toString()
+            val pan = binding.editTextPAN.text.toString()
             if(pan.isNotEmpty()){
 
             if (pan.length < 13 || pan.length > 19) {
-                binding.editTextPAN.setError("Not Valid Number")
+                binding.editTextPAN.error = "Not Valid Number"
             } else {
                 if (!isValidCardNumber(pan)) {
-                    binding.editTextPAN.setError("Not Valid Number")
+                    binding.editTextPAN.error = "Not Valid Number"
 
                 } else {
-                    val intent = Intent(this, ExpiryDate::class.java).apply{
+                    val intent= Intent(this, ExpiryDate::class.java).apply {
                         putExtra("amount", amount)
                         putExtra("pan", pan)
-                    }
 
-                    startActivity(intent)
-                    finish()
+                                }
+                        startActivity(intent)
+                        finish()
+
+
+
                 }
 
             }
 
 
         }else{
-            binding.editTextPAN.setError("Card number can't be empty")
+                binding.editTextPAN.error = "Card number can't be empty"
         }
 
 
@@ -97,4 +143,5 @@ class ManualCardEntry : AppCompatActivity() {
         }.sum()
         return checkSum % 10 == 0
     }
+
 }

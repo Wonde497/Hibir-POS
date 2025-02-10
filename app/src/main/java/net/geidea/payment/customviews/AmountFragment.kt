@@ -14,9 +14,8 @@ import net.geidea.payment.databinding.FragmentAmountBinding
 import net.geidea.payment.transaction.view.CardReadActivity
 import net.geidea.payment.utils.FirebaseDatabaseSingleton
 import java.text.DecimalFormat
-import net.geidea.payment.utils.FirebaseDatabaseSingleton.getCurrentTime
 import net.geidea.utils.CurrencyConverter
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.transaction.ManualCardEntry
 import net.geidea.payment.transaction.model.TransData
 import net.geidea.payment.users.supervisor.SupervisorLogin
@@ -62,14 +61,12 @@ class AmountFragment : Fragment() {
 
                 Log.d("Fragment", "transaction $txntype")
 
-                if(txntype==Txntype.purchase) {
-                     //editor.putString("transaction","")
-                     //editor.commit()
+                if((txntype==TxnType.PURCHASE)||(txntype==TxnType.PRE_AUTH)) {
                     CardReadActivity.startTransaction(requireContext(), amount)
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
 
-                }else if(txntype==Txntype.manualPurchase){
+                }else if(txntype==TxnType.M_PURCHASE){
 
                      val intent=Intent(requireContext(),ManualCardEntry::class.java)
                     val transData=TransData(requireContext())
@@ -77,7 +74,7 @@ class AmountFragment : Fragment() {
                     startActivity(intent)
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
-                }else if(txntype==Txntype.refund){
+                }else if(txntype==TxnType.REFUND){
                     val transData=TransData(requireContext())
                     val readableOldAmount=getReadableAmount(TransData.RequestFields.Field04)
                     val amt=transData.fillGapSequence(amount.toString(),12)

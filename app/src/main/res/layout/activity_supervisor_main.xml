@@ -291,7 +291,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Manual Card"
+                            android:text="Manual Card Entry"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>

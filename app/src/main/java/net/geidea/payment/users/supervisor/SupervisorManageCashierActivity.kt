@@ -1,12 +1,18 @@
 package net.geidea.payment.users.supervisor
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +31,10 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySupervisorManageCashierBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var cashierEnableSwitch: SwitchCompat
+    private lateinit var  cashierTxt:TextView
+    private lateinit var sharedPreferences:SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     companion object {
         private const val TAG = "SupervisorManageCashierActivity"
@@ -32,9 +42,14 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPreferences = getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
 
         // Initialize ViewBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_supervisor_manage_cashier)
+        cashierEnableSwitch=findViewById(R.id.cashier_switch)
+         cashierTxt=findViewById(R.id.cashier_enable_text)
+        cashierEnableSwitch.isChecked = sharedPreferences.getBoolean("CASHIER_ENABLED", false)
 
         setupDrawer()
         setupToolbar()
@@ -79,6 +94,7 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     private fun setupCardViewListeners() {
         // Handling click events for the card views
+
         binding.supervisorAddCashier.setOnClickListener {
             handleAddCashier()
         }
@@ -88,15 +104,14 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
         binding.supervisorBlockCashier.setOnClickListener {
             handleBlockCashier()
         }
-        binding.supervisorEnableCashier.setOnClickListener {
-            handleEnableCashier()
-        }
         binding.supervisorChangeCashierPin.setOnClickListener {
             handleChangeCashierPin()
         }
         binding.deleteCashier.setOnClickListener {
             handleDeleteCashier()
         }
+
+        handleEnableCashier()
     }
 
     // Navigation methods
@@ -164,8 +179,17 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     private fun handleEnableCashier() {
         Log.d(TAG, "Enable Cashier clicked")
-        Snackbar.make(binding.root, "Enabling Cashier...", Snackbar.LENGTH_SHORT).show()
-        // Add logic for enabling cashier
+        cashierEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
+            editor.putBoolean("CASHIER_ENABLED", isChecked).commit()
+            if(isChecked){
+                cashierTxt.text="Cashier Enabled"
+            }else{
+                cashierTxt.text="Cashier Disabled"
+            }
+        }
+
+
+
     }
 
     private fun handleChangeCashierPin() {
@@ -185,7 +209,7 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
         val addCashierButton: ImageButton = findViewById(R.id.supervisor_add_cashier_icon)
         val viewCashierButton: ImageButton = findViewById(R.id.supervisor_view_cashier_icon)
         val blockCashierButton: ImageButton = findViewById(R.id.supervisor_block_cashier_icon)
-        val enableCashierButton: ImageButton = findViewById(R.id.supervisor_enable_cashier_icon)
+        //val enableCashierButton: ImageButton = findViewById(R.id.supervisor_enable_cashier_icon)
         val changeCashierPinButton: ImageButton = findViewById(R.id.supervisor_change_cashier_pin_icon)
         val deleteCashierButton: ImageButton = findViewById(R.id.delete_cashier_icon)
 
@@ -206,10 +230,10 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
             // Implement your logic here
         }
 
-        enableCashierButton.setOnClickListener {
+       /* enableCashierButton.setOnClickListener {
             // Enable Cashier action
             // Implement your logic here
-        }
+        }*/
 
         changeCashierPinButton.setOnClickListener {
             // Change Cashier PIN action

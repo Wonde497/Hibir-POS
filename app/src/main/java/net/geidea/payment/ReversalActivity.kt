@@ -125,7 +125,7 @@ class ReversalActivity : AppCompatActivity() {
             .setConfirmText("Confirm")
             .setCancelText("Cancel")
             .setConfirmClickListener {dialog ->
-                if (sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.reversal)) {
+                if (sharedPreferences.getString("TXN_TYPE", "").equals(TxnType.REVERSAL)) {
                     // Code to execute when "Confirm" is clicked
                     val intent = Intent(this, SupervisorLogin::class.java)
                     //intent.putExtras(bundle.getString("field04",""))
@@ -135,10 +135,20 @@ class ReversalActivity : AppCompatActivity() {
                     // Code to execute when "Cancel" is clicked
                     dialog?.dismiss()
                     showProgressDialog.show()
-                    handler = Handler()
-                    handler.postDelayed({
-                        Thread(doManualReversal).start()
-                    }, 2000)
+                    if (dbHandler.getIPAndPortNumber()?.first==null&& dbHandler.getIPAndPortNumber()?.second==null){
+                        runOnUiThread {
+                            if (!isFinishing && !isDestroyed) {
+                                showProgressDialog.dismiss()
+                                showAlert("Please fill the IP and port!")
+                            }
+                        }
+
+                    }else {
+                        handler = Handler()
+                        handler.postDelayed({
+                            Thread(doManualReversal).start()
+                        }, 2000)
+                    }
 
                 }
             }
@@ -155,7 +165,14 @@ class ReversalActivity : AppCompatActivity() {
         val packet = transData.packRequestFields()
         Log.d("tag", "packet ")
         val com = Comm("${dbHandler.getIPAndPortNumber()?.first}", "${dbHandler.getIPAndPortNumber()?.second}".toInt())
+
         if (!com.connect()) {
+            runOnUiThread {
+                if (!isFinishing && !isDestroyed) {
+                    showProgressDialog.dismiss()
+                    showAlert("Connection failed!")
+                }
+            }
             Log.d("tag", "Connection failed")
         } else {
             com.send(packet)
@@ -200,6 +217,7 @@ class ReversalActivity : AppCompatActivity() {
         showProgressDialog2.setConfirmClickListener(
             listener = {
                 startActivity(Intent(this, SupervisorMainActivity::class.java))
+                finish()
                 //showProgressDialog2.dismiss() // Close
             }
         )

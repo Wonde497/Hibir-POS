@@ -11,7 +11,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import net.geidea.payment.transaction.model.EntryMode
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +20,8 @@ import net.geidea.payment.MainActivity
 import net.geidea.payment.MainMenuActivity
 import net.geidea.payment.customviews.PasswordDialog
 import net.geidea.payment.R
-import net.geidea.payment.Txntype
+import net.geidea.payment.TxnType
 import net.geidea.payment.customdialog.DialogLogoutConfirm
-import net.geidea.payment.customviews.AmountFragment
 import net.geidea.payment.utils.TransactionProcess
 import net.geidea.payment.utils.TransactionProcess.MultipleApplication
 import net.geidea.payment.databinding.ActivityCardReadBinding
@@ -31,8 +29,6 @@ import net.geidea.payment.listener.PinPadListener
 import net.geidea.payment.print.PrintStatus
 import net.geidea.payment.transaction.model.TransData
 import net.geidea.payment.transaction.viewmodel.CardReadViewModel
-import net.geidea.payment.users.supervisor.SupervisorLogin
-import net.geidea.payment.users.supervisor.SupervisorMainActivity
 import net.geidea.payment.utils.FirebaseDatabaseSingleton
 import net.geidea.payment.utils.SESSION_PIN_KEY_INDEX
 import net.geidea.payment.utils.commonMethods
@@ -57,6 +53,7 @@ class CardReadActivity : AppCompatActivity() {
     private lateinit var showProgressDialog3: DialogLogoutConfirm
 
     private lateinit var sharedPreferences:SharedPreferences
+    lateinit var txntype: String
     var commonMethods = commonMethods(this)
 
     companion object {
@@ -68,6 +65,7 @@ class CardReadActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
         lateinit var cardread:CardReadActivity;
+
     }
 
 
@@ -79,17 +77,22 @@ class CardReadActivity : AppCompatActivity() {
         binding.viewModel = cardReadViewModel
         binding.lifecycleOwner = this
         sharedPreferences= getSharedPreferences("SHARED_DATA",Context.MODE_PRIVATE)
+        txntype= sharedPreferences.getString("TXN_TYPE","").toString()
+
         cardread = this
         binding.currency.text=sharedPreferences.getString("Currency","")
         val amount = intent.getLongExtra("amount", 0)
-        if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.reversal)){
+        if(txntype == TxnType.REVERSAL){
             binding.toolbarView.toolbarTitle.text="Reversal"
             binding.amountInEnglish.text= commonMethods.getReadableAmount(TransData.RequestFields.Field04)
-        }else if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.purchase)){
+        }else if(txntype == TxnType.PURCHASE){
             binding.toolbarView.toolbarTitle.text="Purchase"
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
-        }else if(sharedPreferences.getString("TXN_TYPE","").equals(Txntype.refund)){
+        }else if(txntype == TxnType.REFUND){
             binding.toolbarView.toolbarTitle.text="Refund"
+            binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
+        }else if(txntype == TxnType.PRE_AUTH){
+            binding.toolbarView.toolbarTitle.text="Pre Authorisation"
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
         }
         cardReadViewModel.setAmountEnglish(CurrencyConverter.convertWithoutSAR(amount))
@@ -267,8 +270,9 @@ class CardReadActivity : AppCompatActivity() {
 
     private fun showPinPadDuKpt() {
         FirebaseDatabaseSingleton.setLog("showPinPad")
-        var dialog: PasswordDialog
-        if (sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.reversal)) {
+        val dialog: PasswordDialog
+        when (txntype){
+            TxnType.REVERSAL->{
             dialog = PasswordDialog(
                 this@CardReadActivity,
                 "Reversal",
@@ -328,20 +332,13 @@ class CardReadActivity : AppCompatActivity() {
             )
             dialog.showDialog()
         }
-    }
-
-
-        private fun showPinPadMkSk() {
-            FirebaseDatabaseSingleton.setLog("showPinPadMkSk")
-            var dialog:PasswordDialog
-            if (sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.reversal))
-            {
-                dialog = PasswordDialog(
+        TxnType.PURCHASE->{
+            dialog = PasswordDialog(
                 this@CardReadActivity,
-                "Reversal",
+                "Purchase",
                 cardReadViewModel.isIcSlot,
                 cardReadViewModel.pinBundle!!,
-                SESSION_PIN_KEY_INDEX,// tpk Index
+                1,// DUKPT Key Index
                 TransData.RequestFields.Field04.toLong(),
                 cardReadViewModel.pinEntryCount,
                 object : PinPadListener {
@@ -367,35 +364,41 @@ class CardReadActivity : AppCompatActivity() {
                     }
 
                     override fun offlinePinVerified() {
-                        Log.d("tag", "offlinePinVerified")
-                        showProgressDialog.show()
+                        Log.d("tag","offline Verified")
                         FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                        showProgressDialog.show()
+                        Log.d("tag", "offlinePinVerified")
+                        //commonMethods.showloading()
                     }
 
                     override fun on117Or196PinBlockSuccess(pinBlock: String) {
-                       //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                        Log.d("tag", "hostWrongPinOrForcePin")
+
+                        showProgressDialog.show()
+                        FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
                         cardReadViewModel.transData.pinBlock = pinBlock
                         Log.d("tag", "online pin")
+
+                        //commonMethods.showloading()
+
                     }
 
                     override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
                         FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
                         FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
                         FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                        Log.d("tag", "pin retry")
                     }
                 },
             )
-                dialog.showDialog()
-
-            }else if (sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.refund))
-            {
+            dialog.showDialog()
+        }
+            TxnType.REFUND->{
                 dialog = PasswordDialog(
                     this@CardReadActivity,
                     "Refund",
                     cardReadViewModel.isIcSlot,
                     cardReadViewModel.pinBundle!!,
-                    SESSION_PIN_KEY_INDEX,// tpk Index
+                    1,// DUKPT Key Index
                     TransData.RequestFields.Field04.toLong(),
                     cardReadViewModel.pinEntryCount,
                     object : PinPadListener {
@@ -421,36 +424,42 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun offlinePinVerified() {
-                            Log.d("tag", "offlinePinVerified")
-                            showProgressDialog.show()
+                            Log.d("tag","offline Verified")
                             FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            showProgressDialog.show()
+                            Log.d("tag", "offlinePinVerified")
+                            //commonMethods.showloading()
                         }
 
                         override fun on117Or196PinBlockSuccess(pinBlock: String) {
-                            //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                            Log.d("tag", "hostWrongPinOrForcePin")
+
+                            showProgressDialog.show()
+                            FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
                             cardReadViewModel.transData.pinBlock = pinBlock
                             Log.d("tag", "online pin")
+
+                            //commonMethods.showloading()
+
                         }
 
                         override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
                             FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
                             FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                            Log.d("tag", "pin retry")
                         }
                     },
                 )
                 dialog.showDialog()
-
-            }else if(sharedPreferences.getString("TXN_TYPE", "").equals(Txntype.purchase))
-            {
+            }
+            TxnType.BALANCE_INQUIRY->{
                 dialog = PasswordDialog(
                     this@CardReadActivity,
-                    "Purchase",
+                    "Balance Inquiry",
                     cardReadViewModel.isIcSlot,
                     cardReadViewModel.pinBundle!!,
-                    SESSION_PIN_KEY_INDEX,// tpk Index
-                    cardReadViewModel.transData.amount,
+                    1,// DUKPT Key Index
+                    TransData.RequestFields.Field04.toLong(),
                     cardReadViewModel.pinEntryCount,
                     object : PinPadListener {
                         override fun pinPadDisplayed() {
@@ -470,33 +479,494 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun pinType(pinType: Int) {
-                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                             Log.d("tag","Pin type Verified"+ pinType)
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                         }
 
                         override fun offlinePinVerified() {
+                            Log.d("tag","offline Verified")
+                            FirebaseDatabaseSingleton.setLog("offlinePinVerified")
                             showProgressDialog.show()
                             Log.d("tag", "offlinePinVerified")
-                            FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            //commonMethods.showloading()
                         }
 
                         override fun on117Or196PinBlockSuccess(pinBlock: String) {
-                            //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
-                            Log.d("tag", "online pin")
+                            Log.d("tag", "hostWrongPinOrForcePin")
+
+                            showProgressDialog.show()
+                            FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
                             cardReadViewModel.transData.pinBlock = pinBlock
-                            Log.d("tag","pin block"+ pinBlock)
+                            Log.d("tag", "online pin")
+
+                            //commonMethods.showloading()
+
                         }
 
                         override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
                             FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
                             FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                            Log.d("tag","Pin type Verified"+ pinType)
                         }
                     },
                 )
                 dialog.showDialog()
+            }
+            TxnType.PRE_AUTH->{
+                dialog = PasswordDialog(
+                    this@CardReadActivity,
+                    "Pre-Authorisation",
+                    cardReadViewModel.isIcSlot,
+                    cardReadViewModel.pinBundle!!,
+                    1,// DUKPT Key Index
+                    TransData.RequestFields.Field04.toLong(),
+                    cardReadViewModel.pinEntryCount,
+                    object : PinPadListener {
+                        override fun pinPadDisplayed() {
 
+                        }
+
+                        override fun onPinTimeout() {
+                            FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                            cardReadViewModel.isPinTimeout = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun onPinQuit() {
+                            FirebaseDatabaseSingleton.setLog("onPinQuit")
+                            cardReadViewModel.isPinQuit = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun pinType(pinType: Int) {
+                            Log.d("tag","Pin type Verified"+ pinType)
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                        }
+
+                        override fun offlinePinVerified() {
+                            Log.d("tag","offline Verified")
+                            FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            showProgressDialog.show()
+                            Log.d("tag", "offlinePinVerified")
+                            //commonMethods.showloading()
+                        }
+
+                        override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                            Log.d("tag", "hostWrongPinOrForcePin")
+
+                            showProgressDialog.show()
+                            FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                            cardReadViewModel.transData.pinBlock = pinBlock
+                            Log.d("tag", "online pin")
+
+                            //commonMethods.showloading()
+
+                        }
+
+                        override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                            FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                            FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                        }
+                    },
+                )
+                dialog.showDialog()
+            }
+            TxnType.PRE_AUTH_COMPLETION->{
+                dialog = PasswordDialog(
+                    this@CardReadActivity,
+                    "Pre-Auth-Completion",
+                    cardReadViewModel.isIcSlot,
+                    cardReadViewModel.pinBundle!!,
+                    1,// DUKPT Key Index
+                    TransData.RequestFields.Field04.toLong(),
+                    cardReadViewModel.pinEntryCount,
+                    object : PinPadListener {
+                        override fun pinPadDisplayed() {
+
+                        }
+
+                        override fun onPinTimeout() {
+                            FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                            cardReadViewModel.isPinTimeout = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun onPinQuit() {
+                            FirebaseDatabaseSingleton.setLog("onPinQuit")
+                            cardReadViewModel.isPinQuit = true
+                            cardReadViewModel.stopTransaction()
+                        }
+
+                        override fun pinType(pinType: Int) {
+                            Log.d("tag","Pin type Verified"+ pinType)
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                        }
+
+                        override fun offlinePinVerified() {
+                            Log.d("tag","offline Verified")
+                            FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            showProgressDialog.show()
+                            Log.d("tag", "offlinePinVerified")
+                            //commonMethods.showloading()
+                        }
+
+                        override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                            Log.d("tag", "hostWrongPinOrForcePin")
+
+                            showProgressDialog.show()
+                            FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                            cardReadViewModel.transData.pinBlock = pinBlock
+                            Log.d("tag", "online pin")
+
+                            //commonMethods.showloading()
+
+                        }
+
+                        override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                            FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                            FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                            FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                        }
+                    },
+                )
+                dialog.showDialog()
+            }
+        }
+    }
+
+
+        private fun showPinPadMkSk() {
+            FirebaseDatabaseSingleton.setLog("showPinPadMkSk")
+            val dialog:PasswordDialog
+            when (txntype) {
+                TxnType.REVERSAL -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Reversal",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        TransData.RequestFields.Field04.toLong(),
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                Log.d("tag","Pin type Verified"+ pinType)
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                            }
+
+                            override fun offlinePinVerified() {
+                                Log.d("tag", "offlinePinVerified")
+                                showProgressDialog.show()
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag", "online pin")
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag", "pin retry")
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.BALANCE_INQUIRY -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Balance Inquiry",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        0L,
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                Log.d("tag","Pin type Verified"+ pinType)
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                            }
+
+                            override fun offlinePinVerified() {
+                                Log.d("tag", "offlinePinVerified")
+                                showProgressDialog.show()
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag", "online pin")
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag", "pin retry")
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.REFUND -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Refund",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        TransData.RequestFields.Field04.toLong(),
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                Log.d("tag","Pin type Verified"+ pinType)
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                            }
+
+                            override fun offlinePinVerified() {
+                                Log.d("tag", "offlinePinVerified")
+                                showProgressDialog.show()
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag", "online pin")
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag", "pin retry")
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.PURCHASE -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Pre Authorisation",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        cardReadViewModel.transData.amount,
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+
+                            override fun offlinePinVerified() {
+                                showProgressDialog.show()
+                                Log.d("tag", "offlinePinVerified")
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                Log.d("tag", "online pin")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag","pin block"+ pinBlock)
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.PRE_AUTH -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Pre Authorisation",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        cardReadViewModel.transData.amount,
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+
+                            override fun offlinePinVerified() {
+                                showProgressDialog.show()
+                                Log.d("tag", "offlinePinVerified")
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                Log.d("tag", "online pin")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag","pin block"+ pinBlock)
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.PRE_AUTH_COMPLETION -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        "Pre Auth completion",
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        cardReadViewModel.transData.amount,
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+
+                            override fun offlinePinVerified() {
+                                showProgressDialog.show()
+                                Log.d("tag", "offlinePinVerified")
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                Log.d("tag", "online pin")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag","pin block"+ pinBlock)
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
             }
             //dialog.showDialog()
         }
@@ -637,10 +1107,19 @@ class CardReadActivity : AppCompatActivity() {
 
                 if (status == "Null"){
                     showAlert("Failure Timeout!")
+
+            }
+        }
+        cardReadViewModel.connectionStatus.observe(this){
+            if (it == "Connection failed"){
+                showAlert(it)
+
+            }else if(it=="Please fill the IP and port"){
+                showAlert(it)
             }
         }
     }
-     fun showAlert(message:String){
+     private fun showAlert(message:String){
 
         showProgressDialog2 = SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
         showProgressDialog2.setTitleText(message)
@@ -648,7 +1127,7 @@ class CardReadActivity : AppCompatActivity() {
         showProgressDialog2.show()
         showProgressDialog2.setConfirmClickListener(
             listener = SweetAlertDialog.OnSweetClickListener {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this@CardReadActivity, MainMenuActivity::class.java))
                 finish() // Close
             }
         )

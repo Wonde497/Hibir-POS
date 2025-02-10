@@ -40,11 +40,11 @@ class Comm {
     }
 
     fun connect(): Boolean {
-        Log.d(TAG, "SERVER CONNECTED ")
         Log.e(TAG, "COM host address:172.16.17.27   Port:6022")
 
         if (status > 0) {
             if (this.ip == ip && this.port == port) {
+                Log.d(TAG, "SERVER CONNECTED ")
                 return true
             } else {
                 disconnect()
