@@ -26,19 +26,33 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <!-- Title: Enable User -->
+            <TextView
+                android:id="@+id/titleEnableUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/anable_user_title_txt"
+                android:textColor="@color/nib_brown1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
             <!-- Username Input -->
             <EditText
                 android:id="@+id/usernameInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Enter Username"
+                android:hint="@string/enable_user_enter_username_hitn_txt"
                 android:inputType="text"
                 android:padding="12dp"
                 android:backgroundTint="@color/gray_btn_bg_color"
-                android:drawableLeft="@drawable/nib_account_24"
+                android:drawableStart="@drawable/nib_account_24"
                 android:drawablePadding="12dp"
                 android:textSize="16sp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleEnableUser"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp" />
@@ -48,7 +62,7 @@
                 android:id="@+id/enableUserButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Enable User"
+                android:text="@string/enable_user_btn"
                 android:background="@drawable/btn_rounded_bg"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="24dp"

@@ -7,28 +7,13 @@
     android:background="@drawable/nib_bg2"
     tools:context=".users.support.UpdateTID">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LoggedIn User : Support"
-        android:textColor="@color/nib_brown1"
-        android:textStyle="bold"
-        android:textSize="@dimen/card_screen_text_size"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-
+    <!-- Centered CardView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:cardCornerRadius="15dp"
-
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,35 +22,39 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="451dp">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
+            <!-- Update Terminal ID Title -->
             <TextView
                 android:id="@+id/tvUpdateTID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update Terminal ID"
+                android:text="@string/update_terminal_id_txt"
                 android:textColor="@color/nib_brown1"
-                android:textSize="@dimen/card_screen_text_size"
-                app:layout_constraintBottom_toTopOf="@id/tvCurrentTID"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="25sp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="bold"
 
+                android:layout_marginTop="16dp" />
+
+            <!-- Current TID Label -->
             <TextView
                 android:id="@+id/tvCurrentTID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/current_tid"
-                android:textStyle="bold"
                 android:textColor="@color/nib_brown1"
-                app:layout_constraintBottom_toTopOf="@id/etTID"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textStyle="bold"
+                android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@id/tvUpdateTID"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
 
+            <!-- TID Input Field -->
             <EditText
                 android:id="@+id/etTID"
                 android:layout_width="0dp"
@@ -77,54 +66,47 @@
                 android:maxLength="8"
                 android:hint="Enter TID"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@id/linear"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvCurrentTID"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-
-
-
-
-
+            <!-- Buttons Layout -->
             <LinearLayout
                 android:id="@+id/linear"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/etTID"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etTID">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp">
 
+                <!-- Skip Button -->
                 <Button
                     android:id="@+id/btnSkip"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/ahadu_red1"
-                    android:text="Skip"
-                    android:textSize="20sp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="@string/skip_btn_txt"
+                    android:textSize="20sp" />
 
-                    app:layout_constraintVertical_chainStyle="packed" />
-
+                <!-- Update Button -->
                 <Button
                     android:id="@+id/btnUpdate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
                     android:backgroundTint="@color/ahadu_red1"
-                    android:text="Update"
-                    android:textSize="20sp"
-                    app:layout_constraintVertical_chainStyle="packed" />
-
+                    android:background="@drawable/rounded_button_background"
+                    android:text="@string/update_btn_txt"
+                    android:textSize="20sp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

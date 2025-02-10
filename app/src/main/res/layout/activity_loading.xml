@@ -9,7 +9,7 @@
         android:id="@+id/loadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loading, please wait..."
+        android:text="@string/loading_please_wait_txt"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"

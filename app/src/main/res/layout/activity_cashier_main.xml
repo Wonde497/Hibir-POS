@@ -64,7 +64,7 @@
                             android:id="@+id/tv_key_download"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Key Download"
+                            android:text="@string/cashier_key_download_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -103,7 +103,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Terminal Info"
+                            android:text="@string/cashier_terminal_info_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -142,7 +142,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Summary Report"
+                            android:text="@string/cashier_summary_report_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -181,7 +181,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reprint"
+                            android:text="@string/cashier_reprint_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -221,7 +221,7 @@
                             android:id="@+id/tvSettlement"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Settlement"
+                            android:text="@string/cashier_settlement_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -260,7 +260,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Change Password"
+                            android:text="@string/cashier_change_password_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>

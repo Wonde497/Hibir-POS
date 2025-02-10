@@ -94,7 +94,7 @@
                     android:text="New\nTransaction"
                     android:textAlignment="center"
                     android:textAllCaps="false"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:backgroundTint="@color/nib_brown1"
                     android:textColor="@android:color/white"

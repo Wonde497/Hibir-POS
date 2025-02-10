@@ -60,7 +60,7 @@ class ReceiptView @JvmOverloads constructor(
 
         var yPos = 50
         // Draw Logo
-        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.nib_logo)
+        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.hb_logo1)
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, 400, 150, false)
 
         // Center the bitmap on the canvas
@@ -72,7 +72,7 @@ class ReceiptView @JvmOverloads constructor(
         yPos = (logoYPos + scaledBitmap.height + 20).toInt() // Update yPos based on the height of the logo
 
         // Draw Header Text
-        canvas.drawText("NIB BANK POS", 100f, yPos.toFloat(), boldPaint)
+        canvas.drawText("HIBRET BANK POS", 100f, yPos.toFloat(), boldPaint)
         yPos += 40
 
         // Draw TID and MID from DBHandler
@@ -153,8 +153,6 @@ class ReceiptView @JvmOverloads constructor(
             canvas.drawBitmap(it, 100f, yPos.toFloat(), null)  // Draw QR code below the receipt details
             yPos += it.height + 20  // Adjust yPos based on the height of the QR code
         }
-
-
 
 
         // Draw Footer

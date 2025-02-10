@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transactions_text">ግብይቶች</string>
+    <string name="login_text">መግቢያ</string>
+    <string name="sale_text">ሽያጭ</string>
+    <string name="cashier_text">ካሽየር</string>
+    <string name="help_text">እርዳታ</string>
+    <string name="transactions_dialog_title_txt">ግብይቶች</string>
+    <string name="sale_dialog_txt">ሽያጭ</string>
+    <string name="reversal_dialog_txt">መለስ</string>
+    <string name="balance_inq_dialog_txt">ደብዳቤ ታክስ</string>
+    <string name="purchase_cash_back_dialog_txt">ግዢ ተመልሶ ገንዘብ</string>
+    <string name="pre_auth_dialog_txt">ፕሪ ማረጋገጫ</string>
+    <string name="pre_auth_completion_dialog_txt">ፕሪ ማረጋገጫ ማቆም</string>
+    <string name="refund_dialog_txt">መልስ</string>
+    <string name="hibret_pos_txt">ሕብር ፖስ</string>
+    <string name="login_txt">ግባ</string>
+    <string name="hint_username_txt">የተጠቃሚ ስም</string>
+    <string name="hint_password_txt">የይለፍ ቃል</string>
+    <string name="login_btn_txt">ግባ</string>
+    <string name="forgot_password_txt">የይለፍ ቃልን አስታውስ?</string>
+    <string name="help_and_support_txt">እርዳታ እና ድጋፍ</string>
+    <string name="nav_home_txt">መነሻ</string>
+    <string name="nav_settings_txt">ቅንብሮች</string>
+    <string name="nav_load_kernel_config_txt">ከርነል ቅኝቱን ጭን</string>
+    <string name="nav_help_txt">እርዳታ</string>
+    <string name="nav_about_us_txt">ስለ እኛ</string>
+    <string name="nav_rate_us_txt">እኛን አስቀምጥ</string>
+    <string name="nav_exit_txt">ውጣ</string>
+
+    <!-- Admin Strings -->
+    <string name="admin_manage_transaction_txt">ግብይት አስተዳድር</string>
+    <string name="admin_manage_support_txt">ድጋፍ አስተዳድር</string>
+    <string name="admin_receive_key_txt">ቁልፍ ተቀበል</string>
+    <string name="admin_config_terminal_txt">ተርሚናል አስተካክል</string>
+    <string name="admin_terminal_info_txt">ተርሚናል መረጃ</string>
+    <string name="admin_settings_txt">ቅንብሮች</string>
+    <string name="admin_menu_txt">አስተዳዳሪ ምንዛሬ</string>
+    <string name="admin_add_support_txt">ድጋፍ አክል</string>
+    <string name="admin_view_support_txt">ድጋፍ እንቅስቃሴ አሳይ</string>
+    <string name="admin_block_support_txt">ድጋፍ አቆም</string>
+    <string name="admin_enable_support_txt">ድጋፍ እንቅስቃሴ አንደበት</string>
+    <string name="admin_change_support_pin_txt">ድጋፍ PIN ቀይር</string>
+    <string name="admin_delete_support_txt">ድጋፍ አጥፋ</string>
+    <string name="admin_manage_transactions_txt">ስራዎችን አስተዳድር</string>
+    <string name="admin_deposit_txt">ገቢ</string>
+    <string name="admin_balance_inq_txt">ቀሪ ሂሳብ</string>
+    <string name="admin_manual_card_entry_txt">እጅ ባለሞያ ካርድ መግቢያ</string>
+    <string name="admin_phone_authorization_txt">ስልክ ፈቃድ</string>
+    <string name="admin_pre_auth_txt">ቀዳሚ ፈቃድ</string>
+    <string name="admin_sale_txt">ሽያጭ</string>
+    <string name="admin_refund_txt">መመለሻ</string>
+    <string name="admin_nav_home">ቤት</string>
+    <string name="admin_nav_manage_supports">ድጋፎችን ማስተዳደር</string>
+    <string name="admin_nav_manage_transaction">ግብይት ማስተዳደር</string>
+    <string name="admin_nav_settings">ማስተካከያዎች</string>
+    <string name="admin_nav_help">እርዳታ</string>
+    <string name="admin_nav_about_us">ስለ እኛ</string>
+    <string name="admin_nav_rate_us">ደረጃ ይስጡን</string>
+
+    <!-- Cashier Strings -->
+    <string name="cashier_key_download_txt">ቁልፍ እንቅስቃሴ</string>
+    <string name="cashier_terminal_info_txt">ቴርሚናል መረጋጋት</string>
+    <string name="cashier_summary_report_txt">ማጠቃለያ ሪፖርት</string>
+    <string name="cashier_reprint_txt">ተመሳሳይ ማስታተም</string>
+    <string name="cashier_settlement_txt">እቅድ አምሳል</string>
+    <string name="cashier_change_password_txt">ፓስወርድ ለውጥ</string>
+    <string name="cashier_menu_txt">ካሽዬር ምንባር</string>
+    <string name="cashier_nav_home">ቤት</string>
+    <string name="cashier_nav_terminal_info">ቴርሚናል መረጃ</string>
+    <string name="cashier_nav_settings">ማስተካከያ</string>
+    <string name="cashier_nav_help">እርዳታ</string>
+    <string name="cashier_nav_about_us">ስለ እኛ</string>
+    <string name="cashier_nav_rate_us">እኛን ይመረጡ</string>
+    <string name="cashier_nav_logout">መውጣት</string>
+
+    <!-- Supervisor  Strings -->
+    <string name="super_manage_cashier_txt">ካሺየር ማስተዳደር</string>
+    <string name="super_config_terminal_txt">ተርሚናል ማዋቀር</string>
+    <string name="super_terminal_info_txt">ተርሚናል መረጃ</string>
+    <string name="super_settings_txt">ማስተካከያዎች</string>
+    <string name="super_summary_report_txt">የማጠቃለያ ሪፖርት</string>
+    <string name="super_manual_card_txt">እጅ ካርድ</string>
+    <string name="super_help_txt">እርዳታ</string>
+    <string name="super_reprint_txt">እንደገና ማተም</string>
+    <string name="super_add_cashier_txt">ካሺየር ጨምር</string>
+    <string name="super_view_cashier_txt">ካሺየር አሳይ</string>
+    <string name="super_block_cashier_txt">ካሺየር አግድ</string>
+    <string name="super_enable_cashier_txt">ካሺየር አንቃ</string>
+    <string name="super_change_cashier_pin_txt">የካሺየር PIN ቀይር</string>
+    <string name="super_delete_cashier_txt">ካሺየር ሰርዝ</string>
+    <string name="supervisor_menu_txt">የቁጥጥር ምናሌ</string>
+    <string name="supervisor_login_txt">የአስተዳዳሪ መግቢያ</string>
+    <string name="super_hint_username">የተጠቃሚ ስም</string>
+    <string name="super_hint_password">የይለፍ ቃል</string>
+    <string name="super_login_txt">ግባ</string>
+    <string name="super_nav_home">ቤት</string>
+    <string name="super_nav_manage_cashier">ካሺየር ማስተዳደር</string>
+    <string name="super_nav_terminal_info">የተርሚናል መረጃ</string>
+    <string name="super_nav_settings">ማስተካከያዎች</string>
+    <string name="super_nav_help">እርዳታ</string>
+    <string name="super_nav_about_us">ስለ እኛ</string>
+    <string name="super_nav_rate_us">ደረጃ ይስጡን</string>
+    <string name="super_nav_logout">ውጣ</string>
+
+    <!-- Suppport Strings -->
+    <string name="support_menu_txt">ድጋፍ ምናሌ</string>
+    <string name="support_manage_supervisors_txt">አስተዳዳሪዎችን ማስተዳደር</string>
+    <string name="support_config_terminal_txt">ተርሚናል ማዋቀር</string>
+    <string name="support_terminal_info_txt">ተርሚናል መረጃ</string>
+    <string name="support_settings_txt">ማስተካከያዎች</string>
+    <string name="support_summary_report_txt">የማጠቃለያ ሪፖርት</string>
+    <string name="support_reprint_txt">እንደገና ማተም</string>
+    <string name="support_settlement_txt">ሰላምታ</string>
+    <string name="support_help_txt">እርዳታ</string>
+    <string name="support_add_supervisors_txt">አስተዳዳሪዎችን ጨምር</string>
+    <string name="support_view_supervisors_txt">አስተዳዳሪዎችን ይመልከቱ</string>
+    <string name="support_block_supervisors_txt">አስተዳዳሪዎችን አግድ</string>
+    <string name="support_enable_supervisors_txt">አስተዳዳሪዎችን እንዲሰሩ አድርግ</string>
+    <string name="support_change_supervisor_pin_txt">የአስተዳዳሪ PIN ቀይር</string>
+    <string name="support_delete_supervisor_txt">አስተዳዳሪ ሰርዝ</string>
+    <string name="support_nav_home">ቤት</string>
+    <string name="support_nav_manage_supervisor">አስተዳዳሪ ማስተዳደር</string>
+    <string name="support_nav_configure_terminal">ተርሚናል ማዋቀር</string>
+    <string name="support_nav_settings">ማስተካከያዎች</string>
+    <string name="support_nav_help">እርዳታ</string>
+    <string name="support_nav_about_us">ስለ እኛ</string>
+    <string name="support_nav_rate_us">ደረጃ ይስጡን</string>
+    <string name="support_nav_logout">ውጣ</string>
+
+    <!-- Help Strings -->
+    <string name="how_to_login">እንተዴት መግባት እንቻለን?</string>
+    <string name="how_to_login_answer">መግባት ለማድረግ፣ ከመነሻ ምንዛሬ ላይ መግቢያ የሚልዉን ከተጭኑ በኋላ የተጠቃሚውን ስም እና የተጠቃሚ ሚስጥር ቁጥር  ከዚያም ተጠቃሚውን አይነት ይምረጡ</string>
+    <string name="how_to_login_guide">መመሪያ፡ የተጠቃሚ ሚስጥር ቁጥር ከጥፋብዎት እባክዎን አስተዳደር ማእከል ያናግሩ</string>
+    <string name="how_to_logout">እንተዴት መውጣት እንቻለን?</string>
+    <string name="how_to_logout_answer">መውጣት ለማድረግ፣ ፕሮፋይልዎን መክፈት ከዚያም ከታች ላይ የሚገኝ ውጣ የሚለዉን  መጫን በመቀጠል መውጣትዎን ማረጋገጥ።</string>
+    <string name="how_to_logout_guide">መመሪያ፡ እባኮትን ሁሌም ስራዎን ከጨረሱ በሗላ ዘግተው ይውጡ፡፡።</string>
+    <string name="how_to_do_transaction">ግብይት እንዴት ማከናወን ይቻላል?</string>
+    <string name="how_to_do_transaction_answer">በዋናው መዝገብ እንቅስቃሴ ላይ ወደ ግብይቶች ክፍል ይሂዱ እና ማከናወን የፈለጉትን የግብይት አይነት ይምረጡ</string>
+    <string name="how_to_do_transaction_guide">መመሪያ: ከማረጋገጥዎ በፊት ዝርዝሮችን በጥብቅ ያረጋግጡ።</string>
+    <string name="how_to_reverse_transaction">ግብይትን እንዴት መመለስ ይቻላል?</string>
+    <string name="how_to_reverse_transaction_answer">በዋናው መዝገብ እንቅስቃሴ ላይ ወደ ግብይቶች ይሂዱ እና ከግብይት አይነቶች መካከል መመለሻን ይምረጡ፣ ከዚያ የማረጋገጫ ኮድዎን ያስገቡ እና ግብይቱን ለመመለስ ያረጋግጡ</string>
+    <string name="how_to_reverse_transaction_guide">መመሪያ: መመለሻ የሚደረገው በ24 ሰዓት ውስጥ ከተቀመጠ በኋላ ብቻ ነው።</string>
+    <string name="how_to_do_settlement">ሰትልመንት እንዴት ማከናወን ይቻላል?</string>
+    <string name="how_to_do_settlement_answer">ወደ ሰትልመንት ይሂዱ እና መመሪያዎችን ይከተሉ</string>
+    <string name="how_to_do_settlement_guide">መመሪያ: ከተቆጣጣሪ ፈቃድ በኋላ ብቻ የሚደረግ ነው።</string>
+
+
+    <string name="manual_card_enter_expiry_date_month_year_txt">የማብቂያ ቀን/ወር/ዓመት ያስገቡ</string>
+    <string name="manual_card_enter_expiry_date_txt">የማብቂያ ቀን ያስገቡ</string>
+    <string name="add_sign_txt">እባኮትን ፊርማዎን ያክሉ።\n ለመቀጠል ፊርማዎ አስፈላጊ ነው።</string>
+    <string name="add_sign_transaction_amount">የግብይት መጠን:</string>
+    <string name="add_sign_amount">ETB 0.00</string>
+    <string name="add_sign_btn_txt">ፊርማ አክል</string>
+    <string name="clear_sign_txt">አጥፋ</string>
+
+
+    <string name="exit_app_title">መተግበሪያ ዝጋ</string>
+    <string name="exit_app_message">መተግበሪያውን ለመዝጋት እርግጠኛ ነህ/ነሽ?</string>
+    <string name="exit_app_cancel">ሰረዝ</string>
+    <string name="exit_app_exit">ዝጋ</string>
+
+    <string name="logout_dialog_title">ውጣ</string>
+    <string name="logout_dialog_message">እርግጠኛ ነህ/ነሽ ውጣ ማለት ትፈልጋለህ/ሽ?</string>
+    <string name="logout_dialog_cancel">ሰርዝ</string>
+    <string name="logout_dialog_close">ውጣ</string>
+
+
+    <!-- Navigation Header Strings -->
+    <string name="nav_header_title">ህብረት ባንክ POS</string>
+    <string name="nav_header_min">በSSC የተሰራ</string>
+
+    <string name="back_to_login_txt">ወደ መግቢያ ተመለስ</string>
+    <string name="reset_password_btn_txt">የይለፍ ቃል ዳግም አስጀምር</string>
+    <string name="hint_reset_password_username_txt">የተጠቃሚ ስም አስገባ</string>
+
+    <string name="dialog_no_internet_title">የበይነመረብ ግንኙነት የለም</string>
+    <string name="dialog_no_internet_message">እባክዎ ለመቀጠል ወደ የሞባይል ዳታ ይገናኙ።</string>
+    <string name="dialog_connection_settings_button">ማስተካከያዎች</string>
+    <string name="dialog_connection_exit_button">ውጣ</string>
+
+    <string name="loading_please_wait_txt">በቅጽበት ይጠብቁ…</string>
+    <string name="initial_register_administrator_txt">አስተዳዳሪ ይመዝገቡ</string>
+    <string name="register_admin_hint_enter_username_txt">የተጠቃሚ ስም ያስገቡ</string>
+    <string name="initial_admin_register_hint_enter_password_txt">የይለፍ ቃል ያስገቡ</string>
+    <string name="initial_admin_register_confirm_password_txt">የይለፍ ቃል ያረጋግጡ</string>
+    <string name="register_admin_btn">ይመዝገቡ</string>
+    <string name="select_communication_mode_txt">የግንኙነት ሁነታ ይምረጡ</string>
+    <string name="select_currency_type_txt">የምንዛሪ አይነት ይምረጡ</string>
+    <string name="enter_merchant_address_txt">የነጋዴ አድራሻ ያስገቡ</string>
+    <string name="register_merchant_address_btn">ይመዝገቡ</string>
+    <string name="register_merchant_address_txt">የነጋዴ አድራሻ ይመዝገቡ</string>
+    <string name="register_merchant_name_txt">የነጋዴ ስም ይመዝገቡ</string>
+    <string name="enter_merchant_name_hint_txt">የነጋዴ ስም ያስገቡ</string>
+    <string name="register_merchant_btn">ይመዝገቡ</string>
+    <string name="enter_merchant_id_hint_txt">የነጋዴ መለያ ያስገቡ</string>
+    <string name="register_merchant_id_txt">የነጋዴ መለያ ይመዝገቡ</string>
+    <string name="register_mid_btn">ይመዝገቡ</string>
+    <string name="select_terminal_mode_txt">የተርሚናል ሁነታ ይምረጡ</string>
+    <string name="merchant_mode_txt">የነጋዴ ሁነታ</string>
+    <string name="branch_mode_txt">የቅርንጫፍ ሁነታ</string>
+    <string name="register_terminal_id_txt">የተርሚናል መለያ ይመዝገቡ</string>
+    <string name="enter_terminal_id_hint_txt">የተርሚናል መለያ ያስገቡ</string>
+    <string name="register_tid_btn">ይመዝገቡ</string>
+
+    <string name="update_terminal_id_txt">የተርሚናል መለያ ያዘምኑ</string>
+    <string name="skip_btn_txt">ዝለል</string>
+    <string name="update_btn_txt">ያዘምኑ</string>
+    <string name="update_merchant_id_txt">የነጋዴ መለያ ያዘምኑ</string>
+    <string name="skip_mid_update_btn">ዝለል</string>
+    <string name="update_mid_btn">ያዘምኑ</string>
+
+    <string name="delete_user_btn">ተጠቃሚ ሰርዝ</string>
+    <string name="delete_user_dialog_message_txt">ይህን ተጠቃሚ ለማስወገድ እርግጠኛ ነዎት?\n\n\tይህ እርምጃ ሊመለስ አይችልም!</string>
+    <string name="delete_user_cancel_btn">ሰርዝ</string>
+    <string name="delete_user_delete_btn">አስወግድ</string>
+    <string name="add_user_fragment_txt">ተጠቃሚ ያክሉ</string>
+    <string name="add_user_username_hint_txt">የተጠቃሚ ስም</string>
+    <string name="add_user_password_hint_txt">የይለፍ ቃል</string>
+    <string name="add_user_confirm_password_txt">የይለፍ ቃል ያረጋግጡ</string>
+    <string name="add_user_btn">ተጠቃሚ ያክሉ</string>
+    <string name="block_user_btn">ተጠቃሚ አግድ</string>
+    <string name="block_user_enter_username_hint_txt">የተጠቃሚ ስም ያስገቡ</string>
+    <string name="enter_username_to_delete_hint_txt">ለማስወገድ የተጠቃሚ ስም ያስገቡ</string>
+    <string name="delete_user__btn">ተጠቃሚ ሰርዝ</string>
+    <string name="enable_user_enter_username_hitn_txt">የተጠቃሚ ስም ያስገቡ</string>
+    <string name="enable_user_btn">ተጠቃሚ አንቃ</string>
+    <string name="block_user_title_txt">ተጠቃሚ አግድ</string>
+    <string name="delete_user_title_txt">ተጠቃሚ ሰርዝ</string>
+    <string name="anable_user_title_txt">ተጠቃሚ አንቃ</string>
+
+    <string name="change_password_title_txt">የይለፍ ቃል ይቀይሩ</string>
+    <string name="change_pswd_username_hint_txt">የተጠቃሚ ስም</string>
+    <string name="change_pswd_current_password_hint_txt">አሁን ያለው የይለፍ ቃል</string>
+    <string name="change_pswd_new_password_hint_txt">አዲስ የይለፍ ቃል</string>
+    <string name="change_pswd_confirm_new_password_hint_txt">አዲስ የይለፍ ቃል ያረጋግጡ</string>
+    <string name="change_password_btn">የይለፍ ቃል ይቀይሩ</string>
+
+    <string name="search_approval_code_title_txt">በማረጋገጫ ኮድ ፈልግ</string>
+    <string name="reversal_enter_approval_code_txt">ማረጋገጫ ኮድ ያስገቡ</string>
+    <string name="reversal_approval_code_search_btn">ፈልግ</string>
+    <string name="view_user_search_by_user_name_txt">በተጠቃሚ ስም ፈልግ</string>
+
+</resources>

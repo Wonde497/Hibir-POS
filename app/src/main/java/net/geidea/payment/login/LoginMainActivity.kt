@@ -96,13 +96,12 @@ class LoginMainActivity : AppCompatActivity() {
             else -> return
         }
         startActivity(intent)
-        finish() // Optional: finish the LoginActivity if you don't want to return to it
+        finish()
     }
 
     private fun handleForgotPassword() {
-        // Handle forgot password action
-        showToast("Forgot Password")
-        // You can navigate to a Forgot Password activity here
+        val intent = Intent(this@LoginMainActivity, ForgotPassword::class.java)
+        startActivity(intent)
     }
 
     private fun showToast(message: String) {

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transactions_text">Gurgurtoota</string>
+    <string name="login_text">Seenaa Galaa</string>
+    <string name="sale_text">Gurgurtaa</string>
+    <string name="cashier_text">Kaashiyeer</string>
+    <string name="help_text">Gargaarsa</string>
+    <string name="transactions_dialog_title_txt">Gurgurtoota</string>
+    <string name="sale_dialog_txt">Gurgurtaa</string>
+    <string name="reversal_dialog_txt">Deebisuu</string>
+    <string name="balance_inq_dialog_txt">Gaaffii Baalansee</string>
+    <string name="purchase_cash_back_dialog_txt">Gurgurtaa Deebii Maallaqaa</string>
+    <string name="pre_auth_dialog_txt">Dura Ijoo Deebii</string>
+    <string name="pre_auth_completion_dialog_txt">Dura Ijoo Deebii Xumuruu</string>
+    <string name="refund_dialog_txt">Deebisuu</string>
+    <string name="hibret_pos_txt">Hibir POS</string>
+    <string name="login_txt">SEENUU</string>
+    <string name="hint_username_txt">Maqaa Tajaajilaa</string>
+    <string name="hint_password_txt">Jecha Darbii</string>
+    <string name="login_btn_txt">SEENUU</string>
+    <string name="forgot_password_txt">Jecha Darbii Dagattee?</string>
+    <string name="help_and_support_txt">Gargaarsa fi Deggersa</string>
+    <string name="nav_home_txt">Mana</string>
+    <string name="nav_settings_txt">Haaromsa</string>
+    <string name="nav_load_kernel_config_txt">Kenfegii Kernel Fe’i</string>
+    <string name="nav_help_txt">Gargaarsa</string>
+    <string name="nav_about_us_txt">Nu Waliin</string>
+    <string name="nav_rate_us_txt">Nu Madaali</string>
+    <string name="nav_exit_txt">Ba’i</string>
+
+    <string name="admin_manage_transaction_txt">Hojii Galii Hojjechuu</string>
+    <string name="admin_manage_support_txt">Deggarsa Hojjechuu</string>
+    <string name="admin_receive_key_txt">Furgaa Argachuu</string>
+    <string name="admin_config_terminal_txt">Teeknooloojii Terminaliif Qindaa\'ina</string>
+    <string name="admin_terminal_info_txt">Odeeffannoo Terminalii</string>
+    <string name="admin_settings_txt">Settings</string>
+    <string name="admin_menu_txt">Mennu Aadmini</string>
+    <string name="admin_add_support_txt">Deggarsa Dabaluu</string>
+    <string name="admin_view_support_txt">Deggarsa Ilaaluu</string>
+    <string name="admin_block_support_txt">Deggarsa Cufuu</string>
+    <string name="admin_enable_support_txt">Deggarsa Hojjechuu Qabu</string>
+    <string name="admin_change_support_pin_txt">PIN Deggarsa Jijjiiruu</string>
+    <string name="admin_delete_support_txt">Deggarsa Haquu</string>
+    <string name="admin_manage_transactions_txt">Hojii Galii Hojjechuu</string>
+    <string name="admin_deposit_txt">Karaa Bittaa</string>
+    <string name="admin_balance_inq_txt">Hisaabni Gaaffii</string>
+    <string name="admin_manual_card_entry_txt">Galmee Kaardii Harka Irratti</string>
+    <string name="admin_phone_authorization_txt">Hayyama Bilbila</string>
+    <string name="admin_pre_auth_txt">Hayyama Duraa</string>
+    <string name="admin_sale_txt">Gurgurtaa</string>
+    <string name="admin_nav_home">Home</string>
+    <string name="admin_nav_manage_supports">Manage Supports</string>
+    <string name="admin_nav_manage_transaction">Manage Transaction</string>
+    <string name="admin_nav_settings">Settings</string>
+    <string name="admin_nav_help">Help</string>
+    <string name="admin_nav_about_us">About Us</string>
+    <string name="admin_nav_rate_us">Rate Us</string>
+
+    <string name="admin_refund_txt">Galii Deebii</string>
+    <string name="cashier_key_download_txt">Ibsaa Key</string>
+    <string name="cashier_terminal_info_txt">Odeeffannoo Terminal</string>
+    <string name="cashier_summary_report_txt">Ibsa Waliigalaa</string>
+    <string name="cashier_reprint_txt">Irra-deebi’ee Baasuu</string>
+    <string name="cashier_settlement_txt">Waliigaltee</string>
+    <string name="cashier_change_password_txt">Jecha Iddoo Jijjiiruu</string>
+    <string name="cashier_menu_txt">Menyu Kasshiyer</string>
+    <string name="cashier_nav_home">Mana</string>
+    <string name="cashier_nav_terminal_info">Odeeffannoo Terminal</string>
+    <string name="cashier_nav_settings">Filannoo</string>
+    <string name="cashier_nav_help">Gargaarsa</string>
+    <string name="cashier_nav_about_us">Nu Hordofaa</string>
+    <string name="cashier_nav_rate_us">Nu Qoradhaa</string>
+    <string name="cashier_nav_logout">Ba’uu</string>
+
+    <string name="how_to_login">Akkaataa itti seenu?</string>
+    <string name="how_to_login_answer">Seenuuf, cuqaasa Seenuu irraa cuqaasa Main Menu Activity irratti cuqaasi, ergaa maqaa kee galchuu fi ergaa gosa fayyadamaa kee filadhu</string>
+    <string name="how_to_login_guide">Qajeelcha: Yoo jecha darbii kee dagatte, admin kee waliin qunnamtii qabaadhu</string>
+
+    <string name="how_to_logout">Akkaataa itti baatu?</string>
+    <string name="how_to_logout_answer">Baatuuf, profile irraa gara cuqaasa Baatuutti deemi, ergaa cuqaasi irraa baatuuf mirkaneeffadhu</string>
+    <string name="how_to_logout_guide">Qajeelcha: Fayyadamuu kee booda baatuu yaadadhu.</string>
+
+    <string name="how_to_do_transaction">Akkaataa itti geggeessu?</string>
+    <string name="how_to_do_transaction_answer">Gara qaama Geggeessuu irratti deemi, ergaa gosa geggeessuu kee filadhu</string>
+    <string name="how_to_do_transaction_guide">Qajeelcha: Mirkaneeffachuu keessaa dura ogeeyyii kee irraa hordofuun mirkaneeffadhu.</string>
+
+    <string name="how_to_reverse_transaction">Akkaataa itti deebisu?</string>
+    <string name="how_to_reverse_transaction_answer">Gara qaama Geggeessuu irratti deemi, ergaa gosa Deebisuu filadhu, ergaa koodii mirkaneeffachaa kee galchuu fi geggeessicha deebisuuf mirkaneeffadhu</string>
+    <string name="how_to_reverse_transaction_guide">Qajeelcha: Deebisuu guyyaa 24 keessaa qofa geggeeffama.</string>
+
+    <string name="how_to_do_settlement">Akkaataa itti xumuru?</string>
+    <string name="how_to_do_settlement_answer">Gara Xumurii irratti deemi, ergaa qajeelfamoota hordofu</string>
+    <string name="how_to_do_settlement_guide">Qajeelcha: Kanaafuu mirkaneeffachaa supervisor irraa argachuu qofa.</string>
+
+    <string name="manual_card_enter_expiry_date_month_year_txt">Guyyaa/Muddee/Waggaa Xumuraa Galchaa</string>
+    <string name="manual_card_enter_expiry_date_txt">Guyyaa Xumuraa Galchaa</string>
+    <string name="add_sign_txt">Maaloo mallattoo kee dabali.\n Mallattoon kee itti fufuu irratti barbaachisaa dha.</string>
+    <string name="add_sign_transaction_amount">Maallaqa Geggeessaa:</string>
+    <string name="add_sign_amount">ETB 0.00</string>
+    <string name="add_sign_btn_txt">MALLATTOO</string>
+    <string name="clear_sign_txt">MIJJUU</string>
+
+    <string name="exit_app_title">Ba’i App</string>
+    <string name="exit_app_message">App kana cufuuf mirkaneessita?</string>
+    <string name="exit_app_cancel">Haquu</string>
+    <string name="exit_app_exit">Ba’i</string>
+
+    <string name="logout_dialog_title">BAA’UU</string>
+    <string name="logout_dialog_message">Ba’uu feetuu? Raggaasitaa?</string>
+    <string name="logout_dialog_cancel">Haqi</string>
+    <string name="logout_dialog_close">Ba’i</string>
+
+    <string name="super_manage_cashier_txt">Kaashii Sirreessuu</string>
+    <string name="super_config_terminal_txt">Terminal Sirreessuu</string>
+    <string name="super_terminal_info_txt">Odeeffannoo Terminalii</string>
+    <string name="super_settings_txt">Sirreewwan</string>
+    <string name="super_summary_report_txt">Ripoortii Walxaxaa</string>
+    <string name="super_manual_card_txt">Kaardii Harkaa</string>
+    <string name="super_help_txt">Gargaarsa</string>
+    <string name="super_reprint_txt">Irra Deebiin Maxxansuu</string>
+    <string name="super_add_cashier_txt">Kaashii Dabalachuu</string>
+    <string name="super_view_cashier_txt">Kaashii Agarsisuu</string>
+    <string name="super_block_cashier_txt">Kaashii Cufuu</string>
+    <string name="super_enable_cashier_txt">Kaashii Tumsuu</string>
+    <string name="super_change_cashier_pin_txt">PIN Kaashii Jijjiruu</string>
+    <string name="super_delete_cashier_txt">Kaashii Haquu</string>
+    <string name="supervisor_menu_txt">Menyuu Ijooressaa</string>
+    <string name="super_nav_home">Mana</string>
+    <string name="super_nav_manage_cashier">Kaashii Bulchuu</string>
+    <string name="super_nav_terminal_info">Oduu Terminalii</string>
+    <string name="super_nav_settings">Sirreewwan</string>
+    <string name="super_nav_help">Gargaarsa</string>
+    <string name="super_nav_about_us">Waa’ee Keenya</string>
+    <string name="super_nav_rate_us">Nu Madaali</string>
+    <string name="super_nav_logout">Ba’i</string>
+    <string name="supervisor_login_txt">Seensa Piroomaa</string>
+    <string name="super_hint_username">Maqaa Fayyadamaa</string>
+    <string name="super_hint_password">Jecha Darbii</string>
+    <string name="super_login_txt">Seensa</string>
+
+    <string name="support_menu_txt">Meeshaa Gargaarsa</string>
+    <string name="support_manage_supervisors_txt">Piroomoota Bulchuu</string>
+    <string name="support_config_terminal_txt">Terminalii Sirreessuu</string>
+    <string name="support_terminal_info_txt">Oduu Terminalii</string>
+    <string name="support_settings_txt">Sirreewwan</string>
+    <string name="support_summary_report_txt">Ripoortii Walxaxaa</string>
+    <string name="support_reprint_txt">Maxxansuu Irra Deebi’i</string>
+    <string name="support_settlement_txt">Settelma</string>
+    <string name="support_help_txt">Gargaarsa</string>
+    <string name="support_add_supervisors_txt">Piroomoota Dabalachuu</string>
+    <string name="support_view_supervisors_txt">Piroomoota Ilaaluu</string>
+    <string name="support_block_supervisors_txt">Piroomoota Cufuu</string>
+    <string name="support_enable_supervisors_txt">Piroomoota Tumsuu</string>
+    <string name="support_change_supervisor_pin_txt">PIN Piroomaa Jijjiiraachuu</string>
+    <string name="support_delete_supervisor_txt">Pirooma Haquu</string>
+    <string name="support_nav_home">Mana</string>
+    <string name="support_nav_manage_supervisor">Pirooma Bulchuu</string>
+    <string name="support_nav_configure_terminal">Terminalii Sirreessuu</string>
+    <string name="support_nav_settings">Sirreewwan</string>
+    <string name="support_nav_help">Gargaarsa</string>
+    <string name="support_nav_about_us">Waa’ee Keenya</string>
+    <string name="support_nav_rate_us">Nu Madaali</string>
+    <string name="support_nav_logout">Ba’i</string>
+
+
+
+
+    <!-- Navigation Header Strings -->
+    <string name="nav_header_title">Hibret Bank POS</string>
+    <string name="nav_header_min">SSC irraa Kan Ka’e</string>
+
+    <string name="back_to_login_txt">Seensa Galutti Deebi’i</string>
+    <string name="reset_password_btn_txt">Jecha Darbii Sirreessuu</string>
+    <string name="hint_reset_password_username_txt">Maqaa Fayyadamtaa Galchaa</string>
+
+    <string name="dialog_no_internet_title">Internet Hin Jiru</string>
+    <string name="dialog_no_internet_message">Maaloo itti fufuu fiixee Mobile Data taphadhaa.</string>
+    <string name="dialog_connection_settings_button">Sirreeffama</string>
+    <string name="dialog_connection_exit_button">Ba’i</string>
+
+    <string name="loading_please_wait_txt">Mee eegaa…</string>
+    <string name="initial_register_administrator_txt">Administrator Galmeessi</string>
+    <string name="register_admin_hint_enter_username_txt">Maqaa Fayyadamaa Galchaa</string>
+    <string name="initial_admin_register_hint_enter_password_txt">Jecha Darbii Galchaa</string>
+    <string name="initial_admin_register_confirm_password_txt">Jecha Darbii Mirkaneessi</string>
+    <string name="register_admin_btn">Galmeessi</string>
+    <string name="select_communication_mode_txt">Moodii Walqunnamtii Filadhu</string>
+    <string name="select_currency_type_txt">Gosa Qarshii Filadhu</string>
+    <string name="enter_merchant_address_txt">Teessoo Maccaa Galchaa</string>
+    <string name="register_merchant_address_btn">Galmeessi</string>
+    <string name="register_merchant_address_txt">Teessoo Maccaa Galmeessi</string>
+    <string name="register_merchant_name_txt">Maqaa Maccaa Galmeessi</string>
+    <string name="enter_merchant_name_hint_txt">Maqaa Maccaa Galchaa</string>
+    <string name="register_merchant_btn">Galmeessi</string>
+    <string name="enter_merchant_id_hint_txt">ID Maccaa Galchaa</string>
+    <string name="register_merchant_id_txt">ID Maccaa Galmeessi</string>
+    <string name="register_mid_btn">Galmeessi</string>
+    <string name="select_terminal_mode_txt">Moodii Terminalii Filadhu</string>
+    <string name="merchant_mode_txt">Moodii Maccaa</string>
+    <string name="branch_mode_txt">Moodii Tarmii</string>
+    <string name="register_terminal_id_txt">ID Terminalii Galmeessi</string>
+    <string name="enter_terminal_id_hint_txt">ID Terminalii Galchaa</string>
+    <string name="register_tid_btn">Galmeessi</string>
+    <string name="update_terminal_id_txt">ID Terminalii Sirreessi</string>
+    <string name="skip_btn_txt">Dabali</string>
+    <string name="update_btn_txt">Sirreessi</string>
+    <string name="update_merchant_id_txt">ID Maccaa Sirreessi</string>
+    <string name="skip_mid_update_btn">Dabali</string>
+    <string name="update_mid_btn">Sirreessi</string>
+    <string name="delete_user_btn">Fayyadamaa Haquu</string>
+    <string name="delete_user_dialog_message_txt">Fayyadamaa kana haquu ni barbaaddaa?\n\n\tTarkaanfii kana deebisuun hin danda’amu!</string>
+    <string name="delete_user_cancel_btn">Haquu</string>
+    <string name="delete_user_delete_btn">Haquu</string>
+    <string name="add_user_fragment_txt">Fayyadamaa Dabalii</string>
+    <string name="add_user_username_hint_txt">Maqaa Fayyadamaa</string>
+    <string name="add_user_password_hint_txt">Jecha Darbii</string>
+    <string name="add_user_confirm_password_txt">Jecha Darbii Mirkaneessi</string>
+    <string name="add_user_btn">Fayyadamaa Dabalii</string>
+    <string name="block_user_btn">Fayyadamaa Cufi</string>
+    <string name="block_user_enter_username_hint_txt">Maqaa Fayyadamaa Galchaa</string>
+    <string name="enter_username_to_delete_hint_txt">Maqaa Fayyadamaa Haquuf Galchaa</string>
+    <string name="delete_user__btn">Fayyadamaa Haquu</string>
+    <string name="enable_user_enter_username_hitn_txt">Maqaa Fayyadamaa Galchaa</string>
+    <string name="enable_user_btn">Fayyadamaa Furi</string>
+    <string name="block_user_title_txt">Fayyadamaa Cufi</string>
+    <string name="delete_user_title_txt">Fayyadamaa Haquu</string>
+    <string name="anable_user_title_txt">Fayyadamaa Furi</string>
+    <string name="change_password_title_txt">Jecha Darbii Jijjiiraa</string>
+    <string name="change_pswd_username_hint_txt">Maqaa Fayyadamaa</string>
+    <string name="change_pswd_current_password_hint_txt">Jecha Darbii Ammaa</string>
+    <string name="change_pswd_new_password_hint_txt">Jecha Darbii Haaraa</string>
+    <string name="change_pswd_confirm_new_password_hint_txt">Jecha Darbii Haaraa Mirkaneessi</string>
+    <string name="change_password_btn">Jecha Darbii Jijjiiraa</string>
+    <string name="search_approval_code_title_txt">Koodii Mirkaneessaa Keessan Barbaadi</string>
+    <string name="reversal_enter_approval_code_txt">Koodii Mirkaneessaa Galchaa</string>
+    <string name="reversal_approval_code_search_btn">Barbaadi</string>
+    <string name="view_user_search_by_user_name_txt">Maqaa Fayyadamaa Keessan Barbaadi</string>
+
+</resources>

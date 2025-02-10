@@ -18,6 +18,8 @@
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar_main" />
 
+            <!-- Language User Type (Spinner) -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -32,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_percent="0.28" />
+                    app:layout_constraintHeight_percent="0.29" />
 
                 <!-- Top CardView spanning across both CardView1 and CardView2 -->
                 <androidx.cardview.widget.CardView
@@ -64,10 +66,11 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/transactionTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Transactions"
-                            android:textSize="20dp"
+                            android:text="@string/transactions_text"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/nib_brown1"
@@ -81,7 +84,7 @@
                     android:id="@+id/cardView1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:cardElevation="20dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/white"
@@ -107,10 +110,11 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/LoginTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Login"
-                            android:textSize="18dp"
+                            android:text="@string/login_text"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/nib_brown1" />
@@ -121,7 +125,7 @@
                     android:id="@+id/cardView2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:cardElevation="20dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/white"
@@ -147,10 +151,11 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/saleTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sale"
-                            android:textSize="18dp"
+                            android:text="@string/sale_text"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/nib_brown1" />
@@ -161,7 +166,7 @@
                     android:id="@+id/cardView3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:cardElevation="20dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/white"
@@ -187,10 +192,11 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/cashierTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cashier"
-                            android:textSize="18dp"
+                            android:text="@string/cashier_text"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/nib_brown1" />
@@ -202,7 +208,7 @@
                     android:id="@+id/cardView4"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     app:cardElevation="20dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/white"
@@ -227,10 +233,11 @@
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
+                            android:id="@+id/helpTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Help"
-                            android:textSize="18dp"
+                            android:text="@string/help_text"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textAlignment="center"
                             android:textColor="@color/nib_brown1" />

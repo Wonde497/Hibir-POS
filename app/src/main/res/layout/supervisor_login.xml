@@ -36,7 +36,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="8dp"
-                android:text=" Supervisor Login"
+                android:text="@string/supervisor_login_txt"
                 android:textColor="@color/ahadu_red1"
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -48,9 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/gray_btn_bg_color"
-                android:drawableLeft="@drawable/nib_account_24"
+                android:drawableStart="@drawable/nib_account_24"
                 android:drawablePadding="12dp"
-                android:hint="Username"
+                android:hint="@string/super_hint_username"
                 android:inputType="text"
                 android:padding="12dp"
                 android:textSize="16sp" />
@@ -62,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/gray_btn_bg_color"
-                android:drawableLeft="@drawable/nib_password_24"
+                android:drawableStart="@drawable/nib_password_24"
                 android:drawablePadding="12dp"
-                android:hint="Password"
+                android:hint="@string/super_hint_password"
                 android:inputType="textPassword"
                 android:padding="12dp"
                 android:textSize="16sp" />
@@ -82,7 +82,7 @@
                 android:background="@drawable/btn_rounded_bg"
                 android:elevation="4dp"
                 android:padding="12dp"
-                android:text="Login"
+                android:text="@string/super_login_txt"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 

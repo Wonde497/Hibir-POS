@@ -13,26 +13,26 @@
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Search by User name"
+        android:hint="@string/view_user_search_by_user_name_txt"
         android:inputType="text"
         android:padding="12dp"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
+        android:background="@color/white"
+        android:textColorHint="@color/hibret_bank3"
         android:drawablePadding="12dp"
-        android:drawableRight="@drawable/ahadu_baseline_search_24"
+        android:drawableEnd="@drawable/ahadu_baseline_search_24"
         android:textSize="16sp"
         android:textColor="@color/nib_brown1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="17dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- CardView for Title (connected directly under search bar) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/titleCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="0dp"
+        android:layout_marginTop="16dp"
         android:elevation="8dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp"
@@ -44,30 +44,34 @@
             android:id="@+id/headertabletitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/nib_brown1">
+            android:background="@color/nib_brown1"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:padding="8dp"
                 android:text="Username"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:padding="8dp"
                 android:text="User Type"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:padding="8dp"
-                android:layout_gravity="right"
-                android:text="                    Password"
+                android:text="Password"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -77,7 +81,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="1dp"
         app:layout_constraintTop_toBottomOf="@id/titleCardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,11 +91,10 @@
             android:id="@+id/tableCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
             android:backgroundTint="@color/white"
             android:elevation="8dp"
-            app:cardElevation="20dp"
             app:cardCornerRadius="12dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,38 +105,41 @@
                     android:id="@+id/userTable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="1"
+                    android:stretchColumns="*"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <!-- Table Row for Headers -->
+                    <!-- Example Data Row -->
                     <TableRow
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/ahadu_red1"
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="Username"
                             android:textColor="@android:color/white"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="User Type"
                             android:textColor="@android:color/white"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="Password"
                             android:textColor="@android:color/white"
@@ -142,25 +148,28 @@
 
                     <!-- Example Data Row -->
                     <TableRow
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="SSC" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="Admin" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:padding="8dp"
                             android:text="password123" />
                     </TableRow>
@@ -170,7 +179,6 @@
                 </TableLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
     </ScrollView>
 

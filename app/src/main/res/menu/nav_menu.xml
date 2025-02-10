@@ -8,28 +8,28 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
-            android:title="Home"
+            android:title="@string/nav_home_txt"
             />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/baseline_settings_applications_24"
-            android:title="Settings"/>
+            android:title="@string/nav_settings_txt"/>
         <item
             android:id="@+id/nav_kernel_config"
             android:icon="@drawable/baseline_settings_backup_restore_24"
-            android:title="Load Kernel Config"/>
+            android:title="@string/nav_load_kernel_config_txt"/>
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/baseline_help_center_24"
-            android:title="Help"/>
+            android:title="@string/nav_help_txt"/>
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/baseline_info_24"
-            android:title="About Us"/>
+            android:title="@string/nav_about_us_txt"/>
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/baseline_star_rate_24"
-            android:title="Rate Us"/>
+            android:title="@string/nav_rate_us_txt"/>
     </group>
     <item
         android:title="">
@@ -37,7 +37,7 @@
             <item
                 android:id="@+id/nav_exit"
                 android:icon="@drawable/baseline_close_24"
-                android:title="Exit"/>
+                android:title="@string/nav_exit_txt"/>
         </menu>
     </item>
 </menu>
