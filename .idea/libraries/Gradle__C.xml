@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: C" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-4/80dfe9fe1f882b109ccfcabef616a185/transformed/utils/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/80dfe9fe1f882b109ccfcabef616a185/transformed/utils/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-4/80dfe9fe1f882b109ccfcabef616a185/transformed/utils/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
