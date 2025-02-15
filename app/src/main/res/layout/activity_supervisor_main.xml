@@ -174,7 +174,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Settings"
+                            android:text="@string/super_settings_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -206,8 +206,8 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/report2_32px"
                             android:background="@color/ahadu_red1"
+                            android:src="@drawable/report2_32px"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
@@ -252,7 +252,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Reprint"
+                            android:text="@string/super_reprint_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -291,7 +291,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Manual Card Entry"
+                            android:text="@string/admin_manual_card_entry_txt"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
@@ -330,7 +330,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Help"
+                            android:text="@string/help_text"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>

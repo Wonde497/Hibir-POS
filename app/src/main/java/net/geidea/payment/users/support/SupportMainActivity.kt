@@ -2,11 +2,15 @@ package net.geidea.payment.users.support
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +21,19 @@ import net.geidea.payment.databinding.ActivitySupportMainBinding
 import net.geidea.payment.databinding.NavHeaderBinding
 import net.geidea.payment.help.HelpMainActivity
 import net.geidea.payment.users.admin.AdminManageSupportActivity
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class SupportMainActivity : AppCompatActivity() {
     private val TAG = "SupportMainActivity" // For logging purposes
     private lateinit var binding: ActivitySupportMainBinding // Binding object for layout
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle // For managing the drawer layout
+    private lateinit var cashierEnableSwitch: SwitchCompat
+    private lateinit var sharedPreferences1: SharedPreferences
+    private lateinit var editor1:SharedPreferences.Editor
+    private var greenColor by Delegates.notNull<Int>()
+    private var redColor by Delegates.notNull<Int>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +48,22 @@ class SupportMainActivity : AppCompatActivity() {
         )
         binding.supportDrawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
+        cashierEnableSwitch=findViewById(R.id.cashier_switch)
+        sharedPreferences1 = getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+        editor1=sharedPreferences1.edit()
+        greenColor= ContextCompat.getColor(this,R.color.green)
+        redColor= ContextCompat.getColor(this,R.color.red)
+
+        cashierEnableSwitch.isChecked = sharedPreferences1.getBoolean("CASHIER_ENABLED", false)
+        if(cashierEnableSwitch.isChecked){
+            binding.cashierText.text=getString(R.string.cashier_enabled)
+            binding.cashierText.setTextColor(greenColor)
+        }else {
+            binding.cashierText.text = getString(R.string.cashier_disabled)
+            binding.cashierText.setTextColor(redColor)
+        }
+
+
 
         // Set up toolbar navigation icon click listener
         binding.toolbar.navIcon?.setOnClickListener {
@@ -104,13 +131,13 @@ class SupportMainActivity : AppCompatActivity() {
     }
 
     private fun setUpCardViewListeners() {
-        binding.supportManageSupervisors.setOnClickListener {
+        binding.supportManageSupervisorsIcon.setOnClickListener {
             Toast.makeText(this, "Manage Supervisors", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@SupportMainActivity, SupportManageSupervisorActivity::class.java)
             startActivity(intent)
         }
 
-        binding.supportConfigTerminal.setOnClickListener {
+        binding.supportConfigTerminalIcon.setOnClickListener {
             Toast.makeText(this, "Config Terminal", Toast.LENGTH_SHORT).show()
            val intent = Intent(this, CommunicationConfig::class.java)
             startActivity(intent)
@@ -144,6 +171,17 @@ class SupportMainActivity : AppCompatActivity() {
             Toast.makeText(this, "Settings ", Toast.LENGTH_SHORT).show()
             //val intent = Intent(this, SettingsActivity::class.java)
             //startActivity(intent)
+        }
+        cashierEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
+            editor1.putBoolean("CASHIER_ENABLED", isChecked).commit()
+
+            if(isChecked){
+                binding.cashierText.text=getString(R.string.cashier_enabled)
+                binding.cashierText.setTextColor(greenColor)
+            }else{
+                binding.cashierText.text=getString(R.string.cashier_disabled)
+                binding.cashierText.setTextColor(redColor)
+            }
         }
     }
     // Method to update the Navigation Header Texts

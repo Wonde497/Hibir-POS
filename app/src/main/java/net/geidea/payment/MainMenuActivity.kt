@@ -21,7 +21,9 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -37,8 +39,10 @@ import net.geidea.payment.help.HelpMainActivity
 import net.geidea.payment.kernelconfig.view.KernelConfigActivity2
 import net.geidea.payment.login.LoginMainActivity
 import net.geidea.payment.sign.SignatureActivity
+import net.geidea.payment.transaction.view.CardReadActivity
 import net.geidea.payment.users.cashier.CashierMainActivity
 import java.util.Locale
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class MainMenuActivity : AppCompatActivity() {
@@ -47,6 +51,7 @@ class MainMenuActivity : AppCompatActivity() {
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle // For managing the drawer layout
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: Editor
+    private var isMerchantMode by Delegates.notNull<Boolean>()
     private val imageResIds = listOf(
         R.drawable.hibret_main,
         R.drawable.hibret_card,
@@ -56,7 +61,6 @@ class MainMenuActivity : AppCompatActivity() {
         R.drawable.hibret_main,
         R.drawable.hibret_mobile_bank
     )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("TAG", TAG)
@@ -65,6 +69,15 @@ class MainMenuActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_menu)
         sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
         editor=sharedPreferences.edit()
+        isMerchantMode=sharedPreferences.getBoolean("MERCHANT MODE",false)
+        if(!isMerchantMode){
+           binding.saleTxt.text=getString(net.geidea.utils.R.string.cash_advance)
+            binding.mainMenuSale.setImageResource(R.drawable.cash_advance_red)
+        }
+
+
+
+
 
         // Setup ActionBarDrawerToggle for navigation drawer
         actionBarDrawerToggle = ActionBarDrawerToggle(
@@ -124,6 +137,7 @@ class MainMenuActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedLanguage = when (position) {
+
                     1 -> "am" // Amharic
                     2 -> "om" // Afaan Oromo
                     3 -> "ti" // Tigrinya
@@ -180,6 +194,7 @@ class MainMenuActivity : AppCompatActivity() {
 
     private fun getLanguageDisplayName(languageCode: String): String {
         return when (languageCode) {
+
             "am" -> "አማረኛ"
             "om" -> "Afaan Oromo"
             "ti" -> "ትግረኛ"
@@ -240,7 +255,11 @@ class MainMenuActivity : AppCompatActivity() {
     }
     private fun setUpCardViewListeners() {
         binding.topCardView.setOnClickListener {
-            showTransactionBottomSheet()
+            if(isMerchantMode) {
+                showTransactionBottomSheet()
+            }else{
+                showTransactionBottomSheetForBranchMode()
+             }
         }
         binding.cardView1.setOnClickListener {
             sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
@@ -249,8 +268,11 @@ class MainMenuActivity : AppCompatActivity() {
         }
 
         binding.cardView2.setOnClickListener {
-            editor.putString("TXN_TYPE",Txntype.purchase)
-            editor.putString("transaction",Txntype.purchase)
+            if(isMerchantMode){
+                editor.putString("TXN_TYPE",TxnType.PURCHASE)
+            }else{
+                editor.putString("TXN_TYPE",TxnType.CASH_ADVANCE)
+            }
             editor.commit()
             // Toast.makeText(this, "CardView 2 clicked", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainMenuActivity, MainActivity::class.java)
@@ -260,8 +282,14 @@ class MainMenuActivity : AppCompatActivity() {
         binding.cardView3.setOnClickListener {
             // Toast.makeText(this, "CardView 3 clicked", Toast.LENGTH_SHORT).show()
             sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+            val intent1 = Intent(this@MainMenuActivity, LoginMainActivity::class.java)
             val intent = Intent(this@MainMenuActivity, CashierMainActivity::class.java)
-            startActivity(intent)
+            if (sharedPreferences.getBoolean("CASHIER_ENABLED",false)){
+                startActivity(intent1)
+
+            }else {
+                startActivity(intent)
+            }
         }
 
         binding.cardView4.setOnClickListener {
@@ -274,7 +302,11 @@ class MainMenuActivity : AppCompatActivity() {
     // Set onClickListeners for ImageButtons
     private fun setUpImageButtonListeners() {
         binding.transactionsImagebtn.setOnClickListener {
-            showTransactionBottomSheet()
+            if(isMerchantMode) {
+                showTransactionBottomSheet()
+            }else{
+                showTransactionBottomSheetForBranchMode()
+            }
         }
 
         binding.mainMenuLogin.setOnClickListener {
@@ -284,7 +316,11 @@ class MainMenuActivity : AppCompatActivity() {
         }
 
         binding.mainMenuSale.setOnClickListener {
-            editor.putString("TXN_TYPE",Txntype.purchase)
+            if(isMerchantMode){
+            editor.putString("TXN_TYPE",TxnType.PURCHASE)
+            }else{
+                editor.putString("TXN_TYPE",TxnType.CASH_ADVANCE)
+            }
             editor.commit()
             //Toast.makeText(this, "CardView 2 clicked", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainMenuActivity, MainActivity::class.java)
@@ -293,8 +329,16 @@ class MainMenuActivity : AppCompatActivity() {
 
         binding.mainMenuCashier.setOnClickListener {
             sharedPreferences=getSharedPreferences("SHARED_DATA", Context.MODE_PRIVATE)
+            val intent1 = Intent(this@MainMenuActivity, LoginMainActivity::class.java)
+
             val intent = Intent(this@MainMenuActivity, CashierMainActivity::class.java)
-            startActivity(intent)
+            if (sharedPreferences.getBoolean("CASHIER_ENABLED",false)){
+                startActivity(intent1)
+
+            }else {
+                startActivity(intent)
+              }
+
         }
 
         binding.mainMenuHelp.setOnClickListener {
@@ -320,31 +364,140 @@ class MainMenuActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 3000)
     }
 
+    private fun showTransactionBottomSheetForBranchMode(){
+        val dialog = Dialog(this)
+        try {
 
+
+
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+            dialog.setContentView(R.layout.dialog_txn_type_for_branch_mode)
+
+            val cashAdvanceBtn=dialog.findViewById <ImageView>(R.id.imgPurchase)
+            val reversalBtn=dialog.findViewById<ImageView>(R.id.imgReversal)
+            val balanceBtn=dialog.findViewById<ImageView>(R.id.imgBalance)
+
+            cashAdvanceBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.CASH_ADVANCE)
+                editor.commit()
+                startActivity(Intent(this,MainActivity::class.java))
+                }
+            reversalBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.REVERSAL)
+                editor.commit()
+                startActivity(Intent(this,ReversalActivity::class.java))
+
+                   }
+
+            balanceBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.BALANCE_INQUIRY)
+                editor.commit()
+                CardReadActivity.startTransaction(this,0L)
+
+            }
+
+            val window = dialog.window
+            window?.let {
+                val layoutParams = WindowManager.LayoutParams()
+                layoutParams.copyFrom(it.attributes)
+                layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+                layoutParams.height = (resources.displayMetrics.heightPixels * 0.7).toInt()
+                layoutParams.gravity = Gravity.BOTTOM
+                it.attributes = layoutParams
+            }
+
+            dialog.show()
+        }catch (e: Exception) {
+            Log.e("DialogError", "Failed to create or show dialog", e)
+        }
+
+    }
     private fun showTransactionBottomSheet() {
+        val isManualEntryEnabled=sharedPreferences.getBoolean("MANUAL_ENTRY_ENABLED", false)
+        val isBalanceInquiryEnabled=sharedPreferences.getBoolean("BALANCE_INQ_ENABLED", false)
+        val isReversalEnabled=sharedPreferences.getBoolean("REVERSAL_ENABLED", false)
+        val isPreAuthEnabled=sharedPreferences.getBoolean("PRE_AUTH_ENABLED", false)
+        val isRefundEnabled=sharedPreferences.getBoolean("REFUND_ENABLED", false)
+        val isSaleEnabled=sharedPreferences.getBoolean("SALE_ENABLED", false)
+        val isPreAuthCompletionEnabled=sharedPreferences.getBoolean("PRE_AUTH_COMPLETION_ENABLED", false)
         val dialog = Dialog(this)
         try {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
-            dialog.setContentView(R.layout.dialog_transactions)
-            val saleBtn=dialog.findViewById <ImageButton>(R.id.transaction_sale_icon)
-            val reversalBtn=dialog.findViewById<ImageButton>(R.id.transaction_reversal_icon)
-            val refundBtn=dialog.findViewById<ImageButton>(R.id.transaction_refund_icon)
+            dialog.setContentView(R.layout.dialog_txn_type)
+            val saleBtn=dialog.findViewById <ImageView>(R.id.imgPurchase)
+            val reversalBtn=dialog.findViewById<ImageView>(R.id.imgReversal)
+            val refundBtn=dialog.findViewById<ImageView>(R.id.imgRefund)
+            val balanceBtn=dialog.findViewById<ImageView>(R.id.imgBalance)
+            val preAuthBtn=dialog.findViewById<ImageView>(R.id.imgPreAuth)
+            val preAuthCompBtn=dialog.findViewById<ImageView>(R.id.imgPreAuthComp)
+            //initialize textViews
 
-            val closeDialogBtn=dialog.findViewById <ImageButton>(R.id.closeDialog)
+            val txtSale=dialog.findViewById<TextView>(R.id.txtPurchase)
+            val txtReversal=dialog.findViewById<TextView>(R.id.txtReversal)
+            val txtRefund=dialog.findViewById<TextView>(R.id.txtRefund)
+            val txtPreAuth=dialog.findViewById<TextView>(R.id.txtPreAuth)
+            val txtBalance=dialog.findViewById<TextView>(R.id.txtBalance)
+            val txtPreAuthCompletion=dialog.findViewById<TextView>(R.id.txtPreAuthComp)
+            if(isSaleEnabled){
+            //make visible
+                txtSale.visibility = View.VISIBLE
+                saleBtn.visibility = View.VISIBLE
+            }else {
+                txtSale.visibility = View.GONE
+                saleBtn.visibility = View.GONE
+            }
+            if(isRefundEnabled){
+                txtRefund.visibility = View.VISIBLE
+                refundBtn.visibility = View.VISIBLE
+            }else {
+                txtRefund.visibility = View.GONE
+                refundBtn.visibility = View.GONE
+            }
+            if(isReversalEnabled){
+                txtReversal.visibility = View.VISIBLE
+                reversalBtn.visibility = View.VISIBLE
+            }else {
+                txtReversal.visibility = View.GONE
+                reversalBtn.visibility = View.GONE
+            }
+            if(isBalanceInquiryEnabled){
+                txtBalance.visibility = View.VISIBLE
+                balanceBtn.visibility = View.VISIBLE
+            }else {
+                txtBalance.visibility = View.GONE
+                balanceBtn.visibility = View.GONE
+            }
+            if(isPreAuthEnabled){
+                txtPreAuth.visibility = View.VISIBLE
+                preAuthBtn.visibility = View.VISIBLE
+            }else {
+                txtPreAuth.visibility = View.GONE
+                preAuthBtn.visibility = View.GONE
+            }
+            if(isPreAuthCompletionEnabled){
+                txtPreAuthCompletion.visibility = View.VISIBLE
+                preAuthCompBtn.visibility = View.VISIBLE
+            }else {
+                txtPreAuthCompletion.visibility = View.GONE
+                preAuthCompBtn.visibility = View.GONE
+            }
+
+
+
+                //val closeDialogBtn=dialog.findViewById <ImageView>(R.id.closeDialog)
             saleBtn.setOnClickListener {
-                editor.putString("TXN_TYPE",Txntype.purchase)
-                editor.putString("transaction",Txntype.purchase)
+                editor.putString("TXN_TYPE",TxnType.PURCHASE)
                 editor.commit()
                 startActivity(Intent(this,MainActivity::class.java))
-            }
+              }
             reversalBtn.setOnClickListener {
-                editor.putString("TXN_TYPE",Txntype.reversal)
+                editor.putString("TXN_TYPE",TxnType.REVERSAL)
                 editor.commit()
                 startActivity(Intent(this,ReversalActivity::class.java))
 
-
-            }
+                        }
             refundBtn.setOnClickListener{
 
                 val dbHandler=DBHandler(this)
@@ -353,16 +506,36 @@ class MainMenuActivity : AppCompatActivity() {
                 if(txnDataList.isNotEmpty()){
                     Toast.makeText(this,"Settle first",Toast.LENGTH_SHORT).show()
                 }else {
-                    editor.putString("TXN_TYPE",Txntype.refund)
+                    editor.putString("TXN_TYPE",TxnType.REFUND)
                     editor.commit()
 
                     startActivity(Intent(this, RefundActivity::class.java))
                 }
 
             }
-            closeDialogBtn.setOnClickListener{
-                dialog.dismiss()
+            balanceBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.BALANCE_INQUIRY)
+                editor.commit()
+                CardReadActivity.startTransaction(this,0L)
+
             }
+            preAuthBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.PRE_AUTH)
+                editor.commit()
+                startActivity(Intent(this,AmountActivity::class.java))
+
+
+            }
+            preAuthCompBtn.setOnClickListener {
+                editor.putString("TXN_TYPE",TxnType.PRE_AUTH_COMPLETION)
+                editor.commit()
+                startActivity(Intent(this,RefundActivity::class.java))
+
+
+            }
+            /*closeDialogBtn.setOnClickListener{
+                dialog.dismiss()
+            }*/
 
             val window = dialog.window
             window?.let {
@@ -379,6 +552,7 @@ class MainMenuActivity : AppCompatActivity() {
             Log.e("DialogError", "Failed to create or show dialog", e)
         }
     }
+
 
     private fun isNetworkConnected(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

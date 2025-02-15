@@ -19,7 +19,6 @@ class AdminManageTransaction : AppCompatActivity() {
     private lateinit var balanceInqSwitch: SwitchCompat
     private lateinit var reversalSwitch: SwitchCompat
     private lateinit var manualCardEntrySwitch: SwitchCompat
-    private lateinit var phoneAuthSwitch: SwitchCompat
     private lateinit var preAuthSwitch: SwitchCompat
     private lateinit var preAuthCompletionSwitch: SwitchCompat
     private lateinit var saleSwitch: SwitchCompat
@@ -40,11 +39,11 @@ class AdminManageTransaction : AppCompatActivity() {
         balanceInqSwitch = findViewById(R.id.balanceinq)
         reversalSwitch = findViewById(R.id.reversal)
         manualCardEntrySwitch = findViewById(R.id.manualcardentry)
-        phoneAuthSwitch = findViewById(R.id.Phone)
         preAuthSwitch = findViewById(R.id.pre_auth)
         preAuthCompletionSwitch = findViewById(R.id.pre_auth_completion)
         saleSwitch = findViewById(R.id.sale)
         refundSwitch = findViewById(R.id.refund)
+
 
         // Set initial state based on saved preferences
         balanceInqSwitch.isChecked = sharedPreferences.getBoolean("BALANCE_INQ_ENABLED", false)
@@ -52,7 +51,6 @@ class AdminManageTransaction : AppCompatActivity() {
         manualCardEntrySwitch.isChecked = sharedPreferences.getBoolean("MANUAL_ENTRY_ENABLED", false)
         preAuthSwitch.isChecked = sharedPreferences.getBoolean("PRE_AUTH_ENABLED", false)
         preAuthCompletionSwitch.isChecked = sharedPreferences.getBoolean("PRE_AUTH_COMPLETION_ENABLED", false)
-        phoneAuthSwitch.isChecked = sharedPreferences.getBoolean("PHONE_AUTH_ENABLED", false)
         saleSwitch.isChecked = sharedPreferences.getBoolean("SALE_ENABLED", false)
         refundSwitch.isChecked = sharedPreferences.getBoolean("REFUND_ENABLED", false)
 
@@ -76,9 +74,7 @@ class AdminManageTransaction : AppCompatActivity() {
             editor.putBoolean("PRE_AUTH_COMPLETION_ENABLED", isChecked).commit()
         }
 
-        phoneAuthSwitch.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean("PHONE_AUTH_ENABLED", isChecked).commit()
-        }
+
 
         saleSwitch.setOnCheckedChangeListener { _, isChecked ->
             editor.putBoolean("SALE_ENABLED", isChecked).commit()

@@ -46,12 +46,12 @@
                         android:gravity="center">
 
                         <ImageButton
-                            android:id="@+id/support_manage_cashier_icon"
+                            android:id="@+id/support_manage_supervisors_icon"
                             android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_height="73dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/manage_user"
                             android:background="@color/ahadu_red1"
+                            android:src="@drawable/manage_user"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
@@ -203,7 +203,7 @@
 
                         <ImageButton
                             android:id="@+id/support_summary_report_icon"
-                            android:layout_width="64dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
                             android:src="@drawable/report2_32px"
@@ -242,11 +242,11 @@
 
                         <ImageButton
                             android:id="@+id/support_reprint_icon"
-                            android:layout_width="64dp"
+                            android:layout_width="59dp"
                             android:layout_height="64dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/pos_print"
                             android:background="@color/ahadu_red1"
+                            android:src="@drawable/pos_print"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                         <TextView
@@ -281,8 +281,8 @@
 
                         <ImageButton
                             android:id="@+id/support_settlement_icon"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@drawable/settlement_32px"
                             android:background="@color/ahadu_red1"
@@ -320,8 +320,8 @@
 
                         <ImageButton
                             android:id="@+id/support_help_icon"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
                            android:src="@drawable/baseline_help_center_32"
                             android:background="@color/ahadu_red1"
@@ -335,6 +335,48 @@
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/supervisor_bottom_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="100dp"
+
+
+                    app:cardElevation="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardBackgroundColor="@color/ahadu_red1"
+                    app:layout_constraintTop_toBottomOf="@+id/support_settlement"
+                    app:layout_constraintEnd_toStartOf="@+id/support_help">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/cashier_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:thumb="@drawable/custom_thumb"
+                            app:track="@drawable/custom_track"
+                            android:layout_marginStart="8dp" />
+                        <TextView
+                            android:id="@+id/cashier_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="2dp"
+                            android:text="@string/cashier_disabled"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

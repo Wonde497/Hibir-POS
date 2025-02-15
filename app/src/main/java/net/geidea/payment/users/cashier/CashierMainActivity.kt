@@ -599,7 +599,7 @@ class CashierMainActivity : AppCompatActivity() {
                 val responseHex=HexUtil.toHexString(response)
                 val field62Hex=responseHex.substring(responseHex.length-32)
 
-                val field62="AB3AF79EB105C5EE"//HexUtil.hexToAscii(field62Hex)
+                val field62=HexUtil.hexToAscii(field62Hex)//session key :"AB3AF79EB105C5EE"
                 Log.d("tag", "fld62:$field62")
                 Log.d("tag","POIHsmManage.PED_TMK:"+POIHsmManage.PED_TMK)
 

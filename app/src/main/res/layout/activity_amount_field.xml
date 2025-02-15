@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Refund Amount"
+        android:text="@string/enter_refund_amount"
         android:textSize="25sp"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"

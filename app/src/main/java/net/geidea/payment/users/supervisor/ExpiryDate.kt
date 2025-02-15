@@ -102,7 +102,6 @@ class ExpiryDate : AppCompatActivity() {
                 finish()
             }
         })
-        //403246
         binding.edtExDate.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -137,7 +136,7 @@ class ExpiryDate : AppCompatActivity() {
             val transData = TransData(this)
             transData.clearVariables()
             val dbHandler = DBHandler(this)
-            TransData.RequestFields.Header = "30606020153535"
+              TransData.RequestFields.Header = "30606020153535"
               if(txnType==TxnType.M_BALANCE_INQUIRY){
                   TransData.RequestFields.MTI = "0100"
                   TransData.RequestFields.primaryBitmap = "6024058000C00004"
@@ -275,7 +274,7 @@ class ExpiryDate : AppCompatActivity() {
                     } else {
                         editor.putInt("TimeoutFlagM", 0)
                         editor.commit()
-                        response?.let { HexUtil.toHexString(it) }
+                        response.let { HexUtil.toHexString(it) }
                             ?.let { transData.unpackResponseFields(it) }
                         runOnUiThread {
                             if (!isFinishing && !isDestroyed) {
@@ -284,8 +283,34 @@ class ExpiryDate : AppCompatActivity() {
                             if (TransData.ResponseFields.Field39 == "00") {
 
                                 transData.transactionStatus = true
-                                txnType?.let {
+                                txnType.let {
                                     dbHandler.registerTxnData(
+                                        it,
+                                        "",
+                                        "",
+                                        TransData.RequestFields.Field02,
+                                        "",
+                                        TransData.ResponseFields.Field04,
+                                        TransData.ResponseFields.Field11,
+                                        TransData.ResponseFields.Field12,
+                                        TransData.ResponseFields.Field13,
+                                        TransData.RequestFields.Field14,
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        TransData.ResponseFields.Field37,
+                                        TransData.ResponseFields.Field38,
+                                        TransData.ResponseFields.Field39,
+                                        "",
+                                        "",
+                                        "",
+                                        "",
+                                        TransData.RequestFields.Field60
+                                    )
+                                }
+                                txnType.let{
+                                    dbHandler.registerTxnData2(
                                         it,
                                         "",
                                         "",
@@ -363,7 +388,7 @@ class ExpiryDate : AppCompatActivity() {
                     if (TransData.ResponseFields.Field39 == "00") {
                         transData.transactionStatus = true
 
-                        txnType?.let {
+                        txnType.let {
                             dbHandler.registerTxnData(
                                 it,
                                 "",
@@ -388,8 +413,8 @@ class ExpiryDate : AppCompatActivity() {
                                 "",
                                 TransData.RequestFields.Field60
                             )
-                            }
-                        txnType?.let{
+                        }
+                        txnType.let{
                             dbHandler.registerTxnData2(
                                 it,
                                 "",
@@ -583,7 +608,7 @@ class ExpiryDate : AppCompatActivity() {
         binding.layoutTransactionStatus.root.visible()
         BuzzerUtils.playForTransactionDeclined()
         binding.layoutTransactionStatus.transactionStatus.text = getString(R.string.declined)
-        binding.layoutTransactionStatus.tvApprovalCode.text="Response Code :${TransData.ResponseFields.Field38}"
+        binding.layoutTransactionStatus.tvApprovalCode.text="Response Code :${TransData.ResponseFields.Field39}"
         binding.layoutTransactionStatus.transactionStatusImage.setImageResource(R.drawable.ic_tranx_declined)
 
 

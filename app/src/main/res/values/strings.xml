@@ -330,6 +330,15 @@
     <string name="reversal_enter_approval_code_txt">Enter Approval Code</string>
     <string name="reversal_approval_code_search_btn">Search</string>
     <string name="view_user_search_by_user_name_txt">Search by username</string>
+    <string name="choose_transaction_type">Choose transaction type</string>
+    <string name="sale">Sale</string>
+    <string name="reversal">Reversal</string>
+    <string name="pre_auth">Pre Auth</string>
+    <string name="phone_auth">Phone Auth</string>
+    <string name="balance_inq">Balance INQ.</string>
+    <string name="pre_auth_completion">Pre-Auth Completion</string>
+    <string name="cashier_disabled">Cashier Disabled</string>
+    <string name="cashier_enabled">Cashier Enabled</string>
 
 
 </resources>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.DBHandler
+import net.geidea.payment.RegisterTerminalMode
 import net.geidea.payment.databinding.ActivityUpdateMerchantIdBinding
 class UpdateMerchantID : AppCompatActivity() {
     private lateinit var binding: ActivityUpdateMerchantIdBinding
@@ -22,13 +23,13 @@ class UpdateMerchantID : AppCompatActivity() {
                 }else{
                     dbHandler.updateMID(binding.etMID.text.toString())
                     Toast.makeText(this,"MID updated", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this,SupportMainActivity::class.java))
+                    startActivity(Intent(this,RegisterTerminalMode::class.java))
                     finish()
                 }
             }else binding.etMID.error = "Please fill the MID !"
         }
         binding.btnSkip.setOnClickListener {
-            startActivity(Intent(this,SupportMainActivity::class.java))
+            startActivity(Intent(this,RegisterTerminalMode::class.java))
         }
 
     }

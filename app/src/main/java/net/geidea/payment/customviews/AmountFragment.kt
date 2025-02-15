@@ -18,6 +18,7 @@ import net.geidea.utils.CurrencyConverter
 import net.geidea.payment.TxnType
 import net.geidea.payment.transaction.ManualCardEntry
 import net.geidea.payment.transaction.model.TransData
+import net.geidea.payment.users.supervisor.ManualRefundActivity
 import net.geidea.payment.users.supervisor.SupervisorLogin
 
 class AmountFragment : Fragment() {
@@ -61,7 +62,7 @@ class AmountFragment : Fragment() {
 
                 Log.d("Fragment", "transaction $txntype")
 
-                if((txntype==TxnType.PURCHASE)||(txntype==TxnType.PRE_AUTH)) {
+                if((txntype==TxnType.PURCHASE)||(txntype==TxnType.CASH_ADVANCE)||(txntype==TxnType.PRE_AUTH)) {
                     CardReadActivity.startTransaction(requireContext(), amount)
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
@@ -74,7 +75,7 @@ class AmountFragment : Fragment() {
                     startActivity(intent)
                     fragmentManager?.beginTransaction()?.remove(this)?.commit()
 
-                }else if(txntype==TxnType.REFUND){
+                }else if(txntype==TxnType.REFUND||txntype==TxnType.PRE_AUTH_COMPLETION){
                     val transData=TransData(requireContext())
                     val readableOldAmount=getReadableAmount(TransData.RequestFields.Field04)
                     val amt=transData.fillGapSequence(amount.toString(),12)
@@ -83,16 +84,42 @@ class AmountFragment : Fragment() {
                     Log.d("MyTag", "readableOldAmount$readableOldAmount")
 
                     if(amount1.toDouble() < readableOldAmount.toDouble()){
-                       val intent =Intent(requireContext(), SupervisorLogin::class.java)
+                        val intent =Intent(requireContext(), SupervisorLogin::class.java)
+
                         intent.putExtra("amount",amount)
 
-                        TransData.RequestFields.Field04=transData.fillGapSequence(amount.toString(),12)
-                        startActivity(intent)
+                         TransData.RequestFields.Field04=transData.fillGapSequence(amount.toString(),12)
+
+                            startActivity(intent)
+
                     }else{
                         Toast.makeText(requireContext(),"Refund amount must be less than $readableOldAmount ",Toast.LENGTH_SHORT).show()
                     }
 
-                }
+                }else if(txntype==TxnType.M_REFUND){
+
+                    val transData=TransData(requireContext())
+                    val readableOldAmount=getReadableAmount(TransData.RequestFields.Field04)
+                    val amt=transData.fillGapSequence(amount.toString(),12)
+                    val amount1=getReadableAmount(amt)
+                    Log.d("MyTag", "amount1$amount1")
+                    Log.d("MyTag", "readableOldAmount$readableOldAmount")
+
+                    if(amount1.toDouble() < readableOldAmount.toDouble()){
+                        val intent =Intent(requireContext(), ManualRefundActivity::class.java)
+
+                        //intent.putExtra("amount",amount)
+
+                        TransData.RequestFields.Field04=transData.fillGapSequence(amount.toString(),12)
+                        startActivity(intent)
+                        fragmentManager?.beginTransaction()?.remove(this)?.commit()
+
+
+                    }else{
+                        Toast.makeText(requireContext(),"Refund amount must be less than $readableOldAmount ",Toast.LENGTH_SHORT).show()
+                    }
+
+                    }
             }
         })
     }

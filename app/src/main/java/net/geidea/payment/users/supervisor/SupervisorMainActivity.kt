@@ -141,9 +141,11 @@ class SupervisorMainActivity : AppCompatActivity() {
             // Handle Reprint click
         }
         binding.supervisorManualCardEntery.setOnClickListener {
-            editor.putString("TXN_TYPE",TxnType.M_PURCHASE)
-            editor.putString("transaction",TxnType.M_PURCHASE)
-            editor.commit()
+            startActivity(Intent(this, ManualSaleReversal::class.java))
+            //startActivity(Intent(this, AmountActivity::class.java))
+            finish()
+        }
+        binding.supervisorManualCardEnteryIcon.setOnClickListener {
             startActivity(Intent(this, ManualSaleReversal::class.java))
             //startActivity(Intent(this, AmountActivity::class.java))
             finish()

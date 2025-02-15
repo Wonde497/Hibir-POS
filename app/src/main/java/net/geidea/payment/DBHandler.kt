@@ -29,7 +29,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
 
         private const val TABLE_COM_CONFIG ="comConfigTable"
         private const val TABLE_TIMEOUT_REVERSAL ="timeoutReversal"
-         const val  TXN_TYPE ="txntype"
+         public const val TXN_TYPE ="txntype"
         private const val COLUMN_TIMEOUT="timeout"
         private const val COLUMN_ID ="id"
         private const val COLUMN_USERNAME ="username"
@@ -577,6 +577,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val txnDataList = mutableListOf<Map<String, String>>()
         while (cursor.moveToNext()) {
             val txnData = mutableMapOf<String, String>()
+            txnData[TXN_TYPE] = cursor.getString(cursor.getColumnIndex(TXN_TYPE))
             txnData[COLUMN_MTI] = cursor.getString(cursor.getColumnIndex(COLUMN_MTI))
             txnData[COLUMN_BITMAP] = cursor.getString(cursor.getColumnIndex(COLUMN_BITMAP))
             txnData[COLUMN_FIELD02] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD02))
@@ -626,6 +627,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val txnDataList = mutableListOf<Map<String, String>>()
         while (cursor.moveToNext()) {
             val txnData = mutableMapOf<String, String>()
+            txnData[TXN_TYPE] = cursor.getString(cursor.getColumnIndex(TXN_TYPE))
             txnData[COLUMN_MTI] = cursor.getString(cursor.getColumnIndex(COLUMN_MTI))
             txnData[COLUMN_BITMAP] = cursor.getString(cursor.getColumnIndex(COLUMN_BITMAP))
             txnData[COLUMN_FIELD02] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD02))
@@ -674,6 +676,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, nul
         val txnDataList = mutableListOf<Map<String, String>>()
         while (cursor.moveToNext()) {
             val txnData = mutableMapOf<String, String>()
+            txnData[TXN_TYPE] = cursor.getString(cursor.getColumnIndex(TXN_TYPE))
             txnData[COLUMN_MTI] = cursor.getString(cursor.getColumnIndex(COLUMN_MTI))
             txnData[COLUMN_BITMAP] = cursor.getString(cursor.getColumnIndex(COLUMN_BITMAP))
             txnData[COLUMN_FIELD02] = cursor.getString(cursor.getColumnIndex(COLUMN_FIELD02))

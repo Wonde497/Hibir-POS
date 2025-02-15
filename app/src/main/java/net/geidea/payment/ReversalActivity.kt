@@ -76,8 +76,13 @@ class ReversalActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                startActivity(Intent(this@ReversalActivity, SupervisorMainActivity::class.java))
-                finish()
+                if(sharedPreferences.getString("TXN_TYPE", "").equals(TxnType.REVERSAL)){
+                    startActivity(Intent(this@ReversalActivity, MainMenuActivity::class.java))
+                        finish()
+                }else if(sharedPreferences.getString("TXN_TYPE", "").equals(TxnType.M_REVERSAL)){
+                    startActivity(Intent(this@ReversalActivity, SupervisorMainActivity::class.java))
+                    finish()
+                    }
             }
         })
         transData=TransData(this)

@@ -36,6 +36,14 @@ class ManualSaleReversal : AppCompatActivity() {
             startActivity(Intent(this,ManualCardEntry::class.java))
             finish()
         }
+        binding.refundIcon.setOnClickListener{
+            editor.putString("TXN_TYPE",TxnType.M_REFUND)
+            editor.commit()
+            startActivity(Intent(this,RefundActivity::class.java))
+            finish()
+
+
+        }
 
     }
 }

@@ -31,8 +31,6 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySupervisorManageCashierBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    private lateinit var cashierEnableSwitch: SwitchCompat
-    private lateinit var  cashierTxt:TextView
     private lateinit var sharedPreferences:SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
@@ -47,9 +45,8 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
         // Initialize ViewBinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_supervisor_manage_cashier)
-        cashierEnableSwitch=findViewById(R.id.cashier_switch)
-         cashierTxt=findViewById(R.id.cashier_enable_text)
-        cashierEnableSwitch.isChecked = sharedPreferences.getBoolean("CASHIER_ENABLED", false)
+
+
 
         setupDrawer()
         setupToolbar()
@@ -179,14 +176,6 @@ class SupervisorManageCashierActivity : AppCompatActivity() {
 
     private fun handleEnableCashier() {
         Log.d(TAG, "Enable Cashier clicked")
-        cashierEnableSwitch.setOnCheckedChangeListener { _, isChecked ->
-            editor.putBoolean("CASHIER_ENABLED", isChecked).commit()
-            if(isChecked){
-                cashierTxt.text="Cashier Enabled"
-            }else{
-                cashierTxt.text="Cashier Disabled"
-            }
-        }
 
 
 

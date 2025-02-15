@@ -83,18 +83,26 @@ class CardReadActivity : AppCompatActivity() {
         binding.currency.text=sharedPreferences.getString("Currency","")
         val amount = intent.getLongExtra("amount", 0)
         if(txntype == TxnType.REVERSAL){
-            binding.toolbarView.toolbarTitle.text="Reversal"
+            binding.toolbarView.toolbarTitle.text=getString(R.string.reversal)
             binding.amountInEnglish.text= commonMethods.getReadableAmount(TransData.RequestFields.Field04)
         }else if(txntype == TxnType.PURCHASE){
-            binding.toolbarView.toolbarTitle.text="Purchase"
+            binding.toolbarView.toolbarTitle.text=getString(R.string.purchase)
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
         }else if(txntype == TxnType.REFUND){
-            binding.toolbarView.toolbarTitle.text="Refund"
+            binding.toolbarView.toolbarTitle.text=getString(R.string.refund)
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
         }else if(txntype == TxnType.PRE_AUTH){
-            binding.toolbarView.toolbarTitle.text="Pre Authorisation"
+            binding.toolbarView.toolbarTitle.text=getString(R.string.pre_auth)
+            binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
+        } else if(txntype == TxnType.PRE_AUTH_COMPLETION){
+            binding.toolbarView.toolbarTitle.text=getString(R.string.pre_auth_completion)
             binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
         }
+        else if(txntype == TxnType.CASH_ADVANCE){
+            binding.toolbarView.toolbarTitle.text=getString(net.geidea.utils.R.string.cash_advance)
+            binding.amountInEnglish.text=commonMethods.getReadableAmount(amount.toString())
+        }
+
         cardReadViewModel.setAmountEnglish(CurrencyConverter.convertWithoutSAR(amount))
         cardReadViewModel.setAmount(amount)
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -141,7 +149,7 @@ class CardReadActivity : AppCompatActivity() {
             showProgressDialog.setTitleText("Please wait...")
 
             }
-        showProgressDialog.setCancelable(false)
+          showProgressDialog.setCancelable(false)
 
 
 
@@ -643,7 +651,7 @@ class CardReadActivity : AppCompatActivity() {
                 TxnType.REVERSAL -> {
                     dialog = PasswordDialog(
                         this@CardReadActivity,
-                        "Reversal",
+                        getString(R.string.reversal),
                         cardReadViewModel.isIcSlot,
                         cardReadViewModel.pinBundle!!,
                         SESSION_PIN_KEY_INDEX,// tpk Index
@@ -697,7 +705,7 @@ class CardReadActivity : AppCompatActivity() {
                 TxnType.BALANCE_INQUIRY -> {
                     dialog = PasswordDialog(
                         this@CardReadActivity,
-                        "Balance Inquiry",
+                        getString(R.string.balance_inq),
                         cardReadViewModel.isIcSlot,
                         cardReadViewModel.pinBundle!!,
                         SESSION_PIN_KEY_INDEX,// tpk Index
@@ -805,7 +813,7 @@ class CardReadActivity : AppCompatActivity() {
                 TxnType.PURCHASE -> {
                     dialog = PasswordDialog(
                         this@CardReadActivity,
-                        "Pre Authorisation",
+                        getString(R.string.purchase),
                         cardReadViewModel.isIcSlot,
                         cardReadViewModel.pinBundle!!,
                         SESSION_PIN_KEY_INDEX,// tpk Index
@@ -860,7 +868,7 @@ class CardReadActivity : AppCompatActivity() {
                 TxnType.PRE_AUTH -> {
                     dialog = PasswordDialog(
                         this@CardReadActivity,
-                        "Pre Authorisation",
+                        getString(R.string.pre_auth),
                         cardReadViewModel.isIcSlot,
                         cardReadViewModel.pinBundle!!,
                         SESSION_PIN_KEY_INDEX,// tpk Index
@@ -915,7 +923,62 @@ class CardReadActivity : AppCompatActivity() {
                 TxnType.PRE_AUTH_COMPLETION -> {
                     dialog = PasswordDialog(
                         this@CardReadActivity,
-                        "Pre Auth completion",
+                        getString(R.string.pre_auth_completion),
+                        cardReadViewModel.isIcSlot,
+                        cardReadViewModel.pinBundle!!,
+                        SESSION_PIN_KEY_INDEX,// tpk Index
+                        cardReadViewModel.transData.amount,
+                        cardReadViewModel.pinEntryCount,
+                        object : PinPadListener {
+                            override fun pinPadDisplayed() {
+
+                            }
+
+                            override fun onPinTimeout() {
+                                FirebaseDatabaseSingleton.setLog("onPinTimeout")
+                                cardReadViewModel.isPinTimeout = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun onPinQuit() {
+                                FirebaseDatabaseSingleton.setLog("onPinQuit")
+                                cardReadViewModel.isPinQuit = true
+                                cardReadViewModel.stopTransaction()
+                            }
+
+                            override fun pinType(pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+
+                            override fun offlinePinVerified() {
+                                showProgressDialog.show()
+                                Log.d("tag", "offlinePinVerified")
+                                FirebaseDatabaseSingleton.setLog("offlinePinVerified")
+                            }
+
+                            override fun on117Or196PinBlockSuccess(pinBlock: String) {
+                                //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
+                                Log.d("tag", "online pin")
+                                cardReadViewModel.transData.pinBlock = pinBlock
+                                Log.d("tag","pin block"+ pinBlock)
+                            }
+
+                            override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
+                                FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
+                                FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
+                                FirebaseDatabaseSingleton.setLog("pinType - $pinType")
+                                Log.d("tag","Pin type Verified"+ pinType)
+                            }
+                        },
+                    )
+                    dialog.showDialog()
+
+                }
+                TxnType.CASH_ADVANCE -> {
+                    dialog = PasswordDialog(
+                        this@CardReadActivity,
+                        getString(net.geidea.utils.R.string.cash_advance),
                         cardReadViewModel.isIcSlot,
                         cardReadViewModel.pinBundle!!,
                         SESSION_PIN_KEY_INDEX,// tpk Index

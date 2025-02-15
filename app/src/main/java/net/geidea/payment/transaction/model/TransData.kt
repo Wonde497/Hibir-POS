@@ -142,7 +142,7 @@ class TransData(private val context:Context) {
 
         Log.d(TAG, "txn type$txnType")
         Log.d(TAG, "entry mode$entryMode")
-        if(txnType.equals(TxnType.PURCHASE)){
+        if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.CASH_ADVANCE)){
             if(entryMode == EntryMode.CONTACTLESS.toString()){
                 Log.d(TAG, "txn type$txnType")
                 RequestFields.Field22="0070"
@@ -153,7 +153,11 @@ class TransData(private val context:Context) {
 
             RequestFields. Header="30606020153535"
             RequestFields.MTI="0200"
+            if(txnType==TxnType.PURCHASE){
             RequestFields.Field03="000000"
+            }else if(txnType==TxnType.CASH_ADVANCE){
+                RequestFields.Field03="010000"
+            }
             RequestFields.Field25="00"
             RequestFields.Field62="0006"
 
@@ -1566,8 +1570,88 @@ if(!txnType.equals(TxnType.M_REVERSAL)) {
 
             }
 
-        }else if(txnType.equals(TxnType.M_BALANCE_INQUIRY)){
+        }else if(txnType.equals(TxnType.M_REFUND)){
             Log.d(TAG,"txnmenutype:${txnType}")
+            buffer=ByteBuffer.allocate(
+                lengthOfHeader+
+                        lengthOfMTI+
+                        lengthOfBitmap+
+                        lengthOfFlen02+
+                        lengthOfF02+
+                        lengthOfF03+
+                        lengthOfF04+
+                        lengthOfF11+
+                        lengthOfF12+
+                        lengthOfF13+
+                        lengthOfF14+
+                        lengthOfF22+
+                        lengthOfF24+
+                        lengthOfF25+
+                        field37.size+
+                        field38.size+
+                        field39.size+
+                        field41.size+
+                        field42.size+
+                        lengthOfF62+field11.size)
+            buffer.apply {
+                for (byteArray1 in listOfByteArraysHeader) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysMTI) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysBMP) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArrayslenF02) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF02) {
+                    put(byteArray1)
+                }
+
+                for (byteArray1 in listOfByteArraysF03) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF04) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF11) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF12) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF13) {
+                    put(byteArray1)
+                }
+                for (byteArray1 in listOfByteArraysF14) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF22) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF24) {
+                    put(byteArray1)
+                }
+                for(byteArray1 in listOfByteArraysF25) {
+                    put(byteArray1)
+                }
+                put(field37)
+                put(field38)
+                put(field39)
+                put(field41)
+                put(field42)
+                for (byteArray1 in listOfByteArraysF62) {
+                    put(byteArray1)
+                }
+                put(field11)
+
+
+            }
+
+        }else if(txnType.equals(TxnType.M_BALANCE_INQUIRY)){
+            Log.d(TAG,"txn_menu_type:${txnType}")
             buffer=ByteBuffer.allocate(
                 lengthOfHeader+
                         lengthOfMTI+
@@ -1922,7 +2006,7 @@ if(!txnType.equals(TxnType.M_REVERSAL)) {
                 }
                 put(field11)
             }
-        } else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.PRE_AUTH)){
+        } else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.PRE_AUTH)||txnType.equals(TxnType.CASH_ADVANCE)){
              buffer = ByteBuffer.allocate(
                  lengthOfHeader+
                          lengthOfMTI+
@@ -2306,7 +2390,7 @@ if(!txnType.equals(TxnType.M_REVERSAL)) {
                 put(firstBuffer)
             }
            Log.d("Tag","packeddata"+combinedBuffer)
-        }else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.REFUND)||txnType.equals(TxnType.BALANCE_INQUIRY)||txnType.equals(TxnType.PRE_AUTH)||txnType.equals(TxnType.PRE_AUTH_COMPLETION)){
+        }else if(txnType.equals(TxnType.PURCHASE)||txnType.equals(TxnType.CASH_ADVANCE)||txnType.equals(TxnType.REFUND)||txnType.equals(TxnType.BALANCE_INQUIRY)||txnType.equals(TxnType.PRE_AUTH)||txnType.equals(TxnType.PRE_AUTH_COMPLETION)){
             if(isOnlinePin){
                 combinedBuffer = ByteBuffer.allocate(firstBuffer.size +field52.size+ bufferF55nF62.size)
                 combinedBuffer.apply {
@@ -2335,7 +2419,7 @@ if(!txnType.equals(TxnType.M_REVERSAL)) {
             combinedBuffer.apply {
                 put(firstBuffer)
             }
-        }else if(txnType.equals(TxnType.M_PURCHASE)||txnType.equals(TxnType.M_BALANCE_INQUIRY)){
+        }else if(txnType.equals(TxnType.M_PURCHASE)||txnType.equals(TxnType.M_BALANCE_INQUIRY)||txnType.equals(TxnType.M_REFUND)){
             combinedBuffer = ByteBuffer.allocate(firstBuffer.size )
             combinedBuffer.apply {
                 put(firstBuffer)

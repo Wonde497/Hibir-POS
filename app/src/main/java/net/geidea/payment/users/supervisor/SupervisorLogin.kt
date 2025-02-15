@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import net.geidea.payment.DBHandler
 import net.geidea.payment.TxnType
 import net.geidea.payment.databinding.SupervisorLoginBinding
+import net.geidea.payment.transaction.model.TransData
 import net.geidea.payment.transaction.view.CardReadActivity
 
 class SupervisorLogin : AppCompatActivity() {

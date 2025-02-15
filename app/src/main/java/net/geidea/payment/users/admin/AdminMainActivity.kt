@@ -110,7 +110,7 @@ class AdminMainActivity : AppCompatActivity() {
     }
 
     private fun setUpCardViewListeners() {
-        binding.adminManageTransaction.setOnClickListener {
+        binding.adminManageTransactionIcon.setOnClickListener {
             Toast.makeText(this, "Manage Transaction ", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@AdminMainActivity, AdminManageTransaction::class.java)
             startActivity(intent)
@@ -118,6 +118,10 @@ class AdminMainActivity : AppCompatActivity() {
 
         binding.adminManageSupport.setOnClickListener {
            // Toast.makeText(this, "Manage Support clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@AdminMainActivity, AdminManageSupportActivity::class.java)
+            startActivity(intent)
+        }
+        binding.adminManageSupportIcon.setOnClickListener {
             val intent = Intent(this@AdminMainActivity, AdminManageSupportActivity::class.java)
             startActivity(intent)
         }
