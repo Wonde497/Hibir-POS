@@ -79,6 +79,7 @@ class ManualRefundActivity : AppCompatActivity() {
                 finish()
             }
         })
+        //comment
         showProgressDialog2 = SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
 
         showProgressDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
