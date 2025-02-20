@@ -13,6 +13,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import com.pos.sdk.printer.POIPrinterManager
+import com.pos.sdk.printer.models.PrintLine
+import com.pos.sdk.printer.models.TextPrintLine
 import com.pos.sdk.security.POIHsmManage
 import dagger.hilt.android.AndroidEntryPoint
 import net.geidea.payment.DBHandler
@@ -24,6 +27,8 @@ import net.geidea.payment.users.UserLogoutConfirmDialog
 import net.geidea.payment.databinding.ActivityCashierMainBinding
 import net.geidea.payment.databinding.NavHeaderBinding
 import net.geidea.payment.help.HelpMainActivity
+import net.geidea.payment.print.PrintStatus
+import net.geidea.payment.print.Printer.printList
 import net.geidea.payment.report.Report
 import net.geidea.payment.tlv.HexUtil
 import net.geidea.payment.transaction.model.TransData
@@ -32,7 +37,10 @@ import net.geidea.payment.transaction.viewmodel.CardReadViewModel
 import net.geidea.payment.utils.MASTER_KEY_INDEX
 import net.geidea.payment.utils.SESSION_PIN_KEY_INDEX
 import net.geidea.payment.utils.commonMethods
+import net.geidea.utils.DateTimeFormat
+import net.geidea.utils.convertDateTime
 import net.geidea.utils.dialog.SweetAlertDialog
+import net.geidea.utils.getCurrentDateTime
 
 @AndroidEntryPoint
 class CashierMainActivity : AppCompatActivity() {
@@ -732,6 +740,64 @@ class CashierMainActivity : AppCompatActivity() {
         showProgressDialog2.show()
         showProgressDialog2.setConfirmClickListener(
             listener = SweetAlertDialog.OnSweetClickListener {
+                cardReadViewModel.printerManager.open()
+                cardReadViewModel.printerManager.cleanCache()
+                val state = cardReadViewModel.printerManager.printerState
+
+                if (state == POIPrinterManager.STATUS_IDLE) {
+                    cardReadViewModel.printerManager.addBlankView(1)
+                    cardReadViewModel.printerManager.addPrintLine(
+                        printList(
+                            "DATE : ${
+                                convertDateTime(
+                                    getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                                    DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                                    DateTimeFormat.DATE_PATTERN_DISPLAY_ONE
+                                )
+                            }", "", "TIME : ${
+                                convertDateTime(
+                                    getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                                    DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                                    DateTimeFormat.TIME_PATTERN_DISPLAY
+                                )
+                            }", 16, false
+                        )
+                    )
+                    cardReadViewModel.printerManager.addBlankView(2)
+
+                    cardReadViewModel.printerManager.addPrintLine(
+                        TextPrintLine(
+                            "Communication failure", PrintLine.CENTER, 30, true
+                        )
+                    )
+                    cardReadViewModel.printerManager.addBlankView(5)
+
+                    val listener: POIPrinterManager.IPrinterListener =
+                        object : POIPrinterManager.IPrinterListener {
+                            override fun onStart() {
+                                //Print started
+                                cardReadViewModel.printStatus.postValue(PrintStatus.PrintStarted)
+                            }
+
+                            override fun onFinish() {
+                                cardReadViewModel.printerManager.cleanCache();
+                                cardReadViewModel.printerManager.close()
+                                cardReadViewModel.printStatus.postValue(PrintStatus.PrintCompleted)
+                            }
+
+                            override fun onError(code: Int, msg: String) {
+                                Log.e("POIPrinterManager", "code: " + code + "msg: " + msg)
+                                cardReadViewModel.printerManager.close()
+                                cardReadViewModel.printStatus.postValue(PrintStatus.PrintError(msg))
+                            }
+                        }
+                    if (state == 4) {
+                        cardReadViewModel.printerManager.close()
+                        return@OnSweetClickListener
+                    }
+                    cardReadViewModel.printerManager.beginPrint(listener)
+                }
+
                 startActivity(Intent(this@CashierMainActivity,MainMenuActivity::class.java))
                 finish()
 

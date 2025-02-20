@@ -126,7 +126,7 @@ class ManualRefundActivity : AppCompatActivity() {
             runOnUiThread {
                 if (!isFinishing && !isDestroyed) {
                     showProgressDialog.dismiss()
-                    showAlert("Connection failed!")
+                    showAlert("Connection failed")
                 }
             }
             Log.d("tag", "Connection failed")
@@ -189,9 +189,71 @@ class ManualRefundActivity : AppCompatActivity() {
         showProgressDialog2.show()
         showProgressDialog2.setConfirmClickListener(
             listener = {
-                startActivity(Intent(this, SupervisorMainActivity::class.java))
-                finish()
-                //showProgressDialog2.dismiss() // Close
+                if(message=="Connection failed"){
+                    printerManager.open()
+                    printerManager.cleanCache()
+                    val state = printerManager.printerState
+
+                    if (state == POIPrinterManager.STATUS_IDLE) {
+                        printerManager.addBlankView(1)
+                        printerManager.addPrintLine(
+                            printList(
+                                "DATE : ${
+                                    convertDateTime(
+                                        getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                                        DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                                        DateTimeFormat.DATE_PATTERN_DISPLAY_ONE
+                                    )
+                                }", "", "TIME : ${
+                                    convertDateTime(
+                                        getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                                        DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                                        DateTimeFormat.TIME_PATTERN_DISPLAY
+                                    )
+                                }", 16, false
+                            )
+                        )
+                        printerManager.addBlankView(2)
+                        printerManager.addPrintLine(
+                            TextPrintLine(
+                                "Communication failure", PrintLine.CENTER, 30, true
+                            )
+                        )
+                        printerManager.addBlankView(5)
+
+                        val listener: POIPrinterManager.IPrinterListener =
+                            object : POIPrinterManager.IPrinterListener {
+                                override fun onStart() {
+                                    //Print started
+                                    printStatus.postValue(PrintStatus.PrintStarted)
+                                }
+
+                                override fun onFinish() {
+                                    printerManager.cleanCache();
+                                    printerManager.close()
+                                    printStatus.postValue(PrintStatus.PrintCompleted)
+                                }
+
+                                override fun onError(code: Int, msg: String) {
+                                    Log.e("POIPrinterManager", "code: " + code + "msg: " + msg)
+                                    printerManager.close()
+                                    printStatus.postValue(PrintStatus.PrintError(msg))
+                                }
+                            }
+                        if (state == 4) {
+                            printerManager.close()
+                            return@setConfirmClickListener
+                        }
+                        printerManager.beginPrint(listener)
+                    }
+
+                    startActivity(Intent(this, SupervisorMainActivity::class.java))
+                    finish()
+                }else {
+                    startActivity(Intent(this, SupervisorMainActivity::class.java))
+                    finish()
+                    //showProgressDialog2.dismiss() // Close
+                }
             }
         )
 

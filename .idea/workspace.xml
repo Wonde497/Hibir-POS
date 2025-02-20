@@ -248,45 +248,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/DBHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/DBHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/MainMenuActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/MainMenuActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ManualSaleReversal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ManualSaleReversal.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/RefundActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/RefundActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ReversalActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ReversalActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/customviews/AmountFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/customviews/AmountFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/model/TransData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/model/TransData.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/admin/AdminMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/admin/AdminMainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/admin/AdminManageTransaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/admin/AdminManageTransaction.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/viewmodel/CardReadViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/viewmodel/CardReadViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ExpiryDate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ExpiryDate.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ManualRefundActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ManualRefundActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorLogin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorLogin.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorMainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorManageCashierActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/SupervisorManageCashierActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/SupportMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/SupportMainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateMerchantID.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateMerchantID.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/loan (1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_manage_transaction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_admin_manage_transaction.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_amount_field.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_amount_field.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_communication_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_communication_config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_manual_refund.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_manual_refund.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_manual_sale_reversal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_manual_sale_reversal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_manage_cashier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_supervisor_manage_cashier.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_support_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_txn_type.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_txn_type.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_txn_type_for_branch_mode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_txn_type_for_branch_mode.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateTID.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateTID.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -705,7 +676,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739436213189</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="test commit">
+      <option name="closed" value="true" />
+      <created>1739607590408</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1739607590408</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Print service during connection failure added">
+      <option name="closed" value="true" />
+      <created>1740041712884</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1740041712884</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -758,21 +745,13 @@
     <MESSAGE value="test..." />
     <MESSAGE value="pre-auth added..." />
     <MESSAGE value="Cash advance added..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cash advance added..." />
+    <MESSAGE value="test commit" />
+    <MESSAGE value="Print service during connection failure added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Print service during connection failure added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt</url>
-          <line>522</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt</url>
-          <line>650</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ExpiryDate.kt</url>
           <line>242</line>

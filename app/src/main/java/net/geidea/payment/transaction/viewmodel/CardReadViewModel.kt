@@ -78,7 +78,7 @@ class CardReadViewModel @Inject constructor(@ApplicationContext val context: Con
     private lateinit var showProgressDialog: DialogLogoutConfirm
    private lateinit var showProgressDialog2:SweetAlertDialog
     private lateinit var entryMode: EntryMode
-    private val printerManager: POIPrinterManager by lazy { POIPrinterManager(context) }
+    val printerManager: POIPrinterManager by lazy { POIPrinterManager(context) }
     var transactionStatus: MutableLiveData<TransactionProcess> = MutableLiveData()
     var responcestatus: MutableLiveData<String> = MutableLiveData()
     var connectionStatus: MutableLiveData<String> = MutableLiveData()

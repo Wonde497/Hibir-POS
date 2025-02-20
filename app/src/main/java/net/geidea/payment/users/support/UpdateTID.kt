@@ -23,14 +23,14 @@ class UpdateTID : AppCompatActivity() {
         binding.btnUpdate.setOnClickListener {
           if(binding.etTID.text.isNotEmpty()){
               if(binding.etTID.text.toString().length<8){
-                  binding.etTID.setError(" TID must be length 8 !")
+                  binding.etTID.error = " TID must be length 8 !"
               }else{
                   dbHandler.updateTID(binding.etTID.text.toString())
                   Toast.makeText(this,"TID updated", Toast.LENGTH_SHORT).show()
                   startActivity(Intent(this,UpdateMerchantID::class.java))
               }
 
-          }else binding.etTID.setError("Please Enter TID !")
+          }else binding.etTID.error = "Please Enter TID !"
         }
         binding.btnSkip.setOnClickListener {
             startActivity(Intent(this,UpdateMerchantID::class.java))

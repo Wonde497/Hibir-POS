@@ -12,6 +12,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.pos.sdk.printer.POIPrinterManager
+import com.pos.sdk.printer.models.PrintLine
+import com.pos.sdk.printer.models.TextPrintLine
 import net.geidea.payment.transaction.model.EntryMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,7 @@ import net.geidea.payment.utils.TransactionProcess.MultipleApplication
 import net.geidea.payment.databinding.ActivityCardReadBinding
 import net.geidea.payment.listener.PinPadListener
 import net.geidea.payment.print.PrintStatus
+import net.geidea.payment.print.Printer.printList
 import net.geidea.payment.transaction.model.TransData
 import net.geidea.payment.transaction.viewmodel.CardReadViewModel
 import net.geidea.payment.utils.FirebaseDatabaseSingleton
@@ -34,11 +38,14 @@ import net.geidea.payment.utils.SESSION_PIN_KEY_INDEX
 import net.geidea.payment.utils.commonMethods
 import net.geidea.utils.BuzzerUtils
 import net.geidea.utils.CurrencyConverter
+import net.geidea.utils.DateTimeFormat
+import net.geidea.utils.convertDateTime
 import net.geidea.utils.dialog.DialogActionListener
 import net.geidea.utils.dialog.SweetAlertDialog
 import net.geidea.utils.extension.gone
 import net.geidea.utils.extension.visible
 import net.geidea.utils.extension.withCoroutineDelay
+import net.geidea.utils.getCurrentDateTime
 
 @AndroidEntryPoint
 class CardReadActivity : AppCompatActivity() {
@@ -47,6 +54,7 @@ class CardReadActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardReadBinding
     private val cardReadViewModel by viewModels<CardReadViewModel>()
+    //private val printerManager: POIPrinterManager by lazy { POIPrinterManager(this) }
     private var isTransactionCompleted = false
     public lateinit var showProgressDialog: SweetAlertDialog
     lateinit var showProgressDialog2: SweetAlertDialog
@@ -307,7 +315,7 @@ class CardReadActivity : AppCompatActivity() {
                     }
 
                     override fun pinType(pinType: Int) {
-                        Log.d("tag","Pin type Verified"+ pinType)
+                        Log.d("tag", "Pin type Verified$pinType")
                         FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                     }
 
@@ -367,7 +375,7 @@ class CardReadActivity : AppCompatActivity() {
                     }
 
                     override fun pinType(pinType: Int) {
-                        Log.d("tag","Pin type Verified"+ pinType)
+                        Log.d("tag", "Pin type Verified$pinType")
                         FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                     }
 
@@ -427,7 +435,7 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun pinType(pinType: Int) {
-                            Log.d("tag","Pin type Verified"+ pinType)
+                            Log.d("tag", "Pin type Verified$pinType")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                         }
 
@@ -487,7 +495,7 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun pinType(pinType: Int) {
-                            Log.d("tag","Pin type Verified"+ pinType)
+                            Log.d("tag", "Pin type Verified$pinType")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                         }
 
@@ -547,7 +555,7 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun pinType(pinType: Int) {
-                            Log.d("tag","Pin type Verified"+ pinType)
+                            Log.d("tag", "Pin type Verified$pinType")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                         }
 
@@ -607,7 +615,7 @@ class CardReadActivity : AppCompatActivity() {
                         }
 
                         override fun pinType(pinType: Int) {
-                            Log.d("tag","Pin type Verified"+ pinType)
+                            Log.d("tag", "Pin type Verified$pinType")
                             FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                         }
 
@@ -675,7 +683,7 @@ class CardReadActivity : AppCompatActivity() {
                             }
 
                             override fun pinType(pinType: Int) {
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                             }
 
@@ -729,7 +737,7 @@ class CardReadActivity : AppCompatActivity() {
                             }
 
                             override fun pinType(pinType: Int) {
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                             }
 
@@ -783,7 +791,7 @@ class CardReadActivity : AppCompatActivity() {
                             }
 
                             override fun pinType(pinType: Int) {
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
                             }
 
@@ -838,7 +846,7 @@ class CardReadActivity : AppCompatActivity() {
 
                             override fun pinType(pinType: Int) {
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                             }
 
                             override fun offlinePinVerified() {
@@ -851,14 +859,14 @@ class CardReadActivity : AppCompatActivity() {
                                 //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
                                 Log.d("tag", "online pin")
                                 cardReadViewModel.transData.pinBlock = pinBlock
-                                Log.d("tag","pin block"+ pinBlock)
+                                Log.d("tag", "pin block$pinBlock")
                             }
 
                             override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
                                 FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
                                 FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                             }
                         },
                     )
@@ -893,7 +901,7 @@ class CardReadActivity : AppCompatActivity() {
 
                             override fun pinType(pinType: Int) {
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                             }
 
                             override fun offlinePinVerified() {
@@ -906,14 +914,14 @@ class CardReadActivity : AppCompatActivity() {
                                 //FirebaseDatabaseSingleton.setLog("hostWrongPinOrForcePin - $pinBlock")
                                 Log.d("tag", "online pin")
                                 cardReadViewModel.transData.pinBlock = pinBlock
-                                Log.d("tag","pin block"+ pinBlock)
+                                Log.d("tag", "pin block$pinBlock")
                             }
 
                             override fun pinRetry(pendingCount: Int, retryCount: Int, pinType: Int) {
                                 FirebaseDatabaseSingleton.setLog("pendingCount - $pendingCount")
                                 FirebaseDatabaseSingleton.setLog("retryCount - $retryCount")
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                             }
                         },
                     )
@@ -1003,7 +1011,7 @@ class CardReadActivity : AppCompatActivity() {
 
                             override fun pinType(pinType: Int) {
                                 FirebaseDatabaseSingleton.setLog("pinType - $pinType")
-                                Log.d("tag","Pin type Verified"+ pinType)
+                                Log.d("tag", "Pin type Verified$pinType")
                             }
 
                             override fun offlinePinVerified() {
@@ -1190,10 +1198,77 @@ class CardReadActivity : AppCompatActivity() {
         showProgressDialog2.show()
         showProgressDialog2.setConfirmClickListener(
             listener = SweetAlertDialog.OnSweetClickListener {
-                startActivity(Intent(this@CardReadActivity, MainMenuActivity::class.java))
-                finish() // Close
+                if(message=="Connection failed"){
+                    printCommunicationFailure()
+                    startActivity(Intent(this@CardReadActivity, MainMenuActivity::class.java))
+                    finish()
+                }else {
+                    startActivity(Intent(this@CardReadActivity, MainMenuActivity::class.java))
+                    finish() // Close
+                }
             }
         )
+
+    }
+    private fun printCommunicationFailure(){
+        //observePrintStatus()
+
+        cardReadViewModel.printerManager.open()
+        cardReadViewModel.printerManager.cleanCache()
+        val state = cardReadViewModel.printerManager.printerState
+
+        if (state == POIPrinterManager.STATUS_IDLE) {
+            cardReadViewModel.printerManager.addBlankView(1)
+            cardReadViewModel.printerManager.addPrintLine(
+                printList(
+                    "DATE : ${
+                        convertDateTime(
+                            getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                            DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                            DateTimeFormat.DATE_PATTERN_DISPLAY_ONE
+                        )
+                    }", "", "TIME : ${
+                        convertDateTime(
+                            getCurrentDateTime(DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE),
+                            DateTimeFormat.DATE_TIME_PATTERN_TRANS_ONE,
+                            DateTimeFormat.TIME_PATTERN_DISPLAY
+                        )
+                    }", 16, false
+                )
+            )
+            cardReadViewModel.printerManager.addBlankView(2)
+            cardReadViewModel.printerManager.addPrintLine(
+                TextPrintLine(
+                    "Communication failure", PrintLine.CENTER, 30, true
+                )
+            )
+            cardReadViewModel.printerManager.addBlankView(5)
+
+            val listener: POIPrinterManager.IPrinterListener =
+                object : POIPrinterManager.IPrinterListener {
+                    override fun onStart() {
+                        //Print started
+                        cardReadViewModel.printStatus.postValue(PrintStatus.PrintStarted)
+                    }
+
+                    override fun onFinish() {
+                        cardReadViewModel.printerManager.cleanCache();
+                        cardReadViewModel.printerManager.close()
+                        cardReadViewModel.printStatus.postValue(PrintStatus.PrintCompleted)
+                    }
+
+                    override fun onError(code: Int, msg: String) {
+                        Log.e("POIPrinterManager", "code: " + code + "msg: " + msg)
+                        cardReadViewModel.printerManager.close()
+                        cardReadViewModel.printStatus.postValue(PrintStatus.PrintError(msg))
+                    }
+                }
+            if (state == 4) {
+                cardReadViewModel.printerManager.close()
+                return
+            }
+            cardReadViewModel.printerManager.beginPrint(listener)
+        }
 
     }
 
