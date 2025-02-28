@@ -242,22 +242,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d5854ba-836b-4755-bd41-40d324b92220" name="Changes" comment="pre-auth added...">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ReversalActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/ReversalActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/view/CardReadActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/viewmodel/CardReadViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/transaction/viewmodel/CardReadViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/cashier/CashierMainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ExpiryDate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ExpiryDate.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ManualRefundActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/supervisor/ManualRefundActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateTID.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/net/geidea/payment/users/support/UpdateTID.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +253,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=P01A624071700014)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\HP\.android\avd\Nexus_5_API_29.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -692,7 +678,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740041712884</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Space adjustment on print layout">
+      <option name="closed" value="true" />
+      <created>1740054801383</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1740054801384</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -747,7 +741,8 @@
     <MESSAGE value="Cash advance added..." />
     <MESSAGE value="test commit" />
     <MESSAGE value="Print service during connection failure added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Print service during connection failure added" />
+    <MESSAGE value="Space adjustment on print layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="Space adjustment on print layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
