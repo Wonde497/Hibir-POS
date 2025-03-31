@@ -36,7 +36,7 @@ _Java | EMV L2 | PCI P2PE_
 • Transaction batching & automatic settlement
 • Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
 
-### 🏪 [TODO App](https://github.com/Wonde497/TODO-app)  
+### 🏪 TODO App (https://github.com/Wonde497/TODO-app)  
 _Java | Firebase |   
 • Supports user authentication
 • Retrieves the user informations
