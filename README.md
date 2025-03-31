@@ -3,6 +3,7 @@
 
 💻 **Building secure, transaction-ready mobile applications**  
 🏦 **Expert in financial-grade Android development**  
+🏦 **Support well known banks in Ethiopia like Commercial Bank of Ethiopia regarding card payment**  
 📱 **3+ published apps processing 1M+ transactions monthly**  
 
 ## 🔧 Core Stack  
@@ -15,29 +16,26 @@
 ## 🏆 Highlight Projects  
 
 ### 💳 GBE POS (https://github.com/yourrepo/pos-pro)  
-_Kotlin | EMV L2 | PCI P2PE_  
+_Java | EMV L2 | PCI P2PE_  
 • Full-featured payment terminal app supporting contactless/swipe/insert  
 • Integrated with Verifone SDKs  
 • Transaction batching & automatic settlement
 • Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
 
 
-### 🏪 [RetailOS Mobile](https://github.com/yourrepo/retailos)  
-_Java | Firebase | Bluetooth ESC/POS_  
-• Offline-first POS with inventory management  
-• Custom receipt printer driver for Star/TSP100  
-• Supports 50+ barcode scanners via HID  
+### 🏪 [TODO App](https://github.com/yourrepo/retailos)  
+_Java | Firebase |   
+• Supports user authentication
+• Retrieves the user informations
+• Enables users to add tasks to be done. 
+• Supports four languages such as English,Italic,Oromifa and Amharic
+• Enables the user to change the the theme from light to dark and vice versa. 
 
-### 💸 [CBE POS](https://github.com/yourrepo/payment-sdk)  
-_Kotlin | TLS 1.3 | OAuth2_  
-• White-label SDK for card-not-present transactions  
-• Certified with Stripe/Adyen/Bambora  
-• 99.99% uptime in production deployments  
 
 ## 📜 Certifications  
-• **PCI Mobile Payment Acceptance Security** 
 • **Fundamentals of Programming** (Udacity)
 • **Android programming** (Udacity)
+• **PCI Mobile Payment Acceptance Security** 
 • **Android Security Certification** (Google)  
 • **EMV Level 2 Kernel Development**  
 
