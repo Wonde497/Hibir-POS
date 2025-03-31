@@ -21,9 +21,22 @@ _Java | EMV L2 | PCI P2PE_
 • Integrated with Verifone SDKs  
 • Transaction batching & automatic settlement
 • Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
+• Full-featured payment terminal app supporting contactless/swipe/insert  
+• Integrated with Verifone SDKs  
+• Transaction batching & automatic settlement
+• Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
+### 💳 CBE POS (https://github.com/yourrepo/pos-pro)  
+_Java | EMV L2 | PCI P2PE_  
+• Full-featured payment terminal app supporting contactless/swipe/insert  
+• Integrated with Verifone SDKs  
+• Transaction batching & automatic settlement
+• Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
+• Full-featured payment terminal app supporting contactless/swipe/insert  
+• Integrated with Verifone SDKs  
+• Transaction batching & automatic settlement
+• Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
 
-
-### 🏪 [TODO App](https://github.com/yourrepo/retailos](https://github.com/Wonde497/TODO-app)  
+### 🏪 [TODO App](https://github.com/Wonde497/TODO-app)  
 _Java | Firebase |   
 • Supports user authentication
 • Retrieves the user informations
