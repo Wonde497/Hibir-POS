@@ -23,7 +23,7 @@ _Java | EMV L2 | PCI P2PE_
 • Purchase,Reversal,refund,balance inquiry,printing reciept and other operations
 
 
-### 🏪 [TODO App](https://github.com/yourrepo/retailos)  
+### 🏪 [TODO App](https://github.com/yourrepo/retailos](https://github.com/Wonde497/TODO-app)  
 _Java | Firebase |   
 • Supports user authentication
 • Retrieves the user informations
